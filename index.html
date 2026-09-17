@@ -389,6 +389,61 @@ h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.07;letter-spac
 .z-fuel{font-size:11.5px;color:var(--text2)}
 .logistic-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
 
+
+/* ── GLOBAL PRICE BAR ── */
+#price-bar{
+  position:sticky;top:62px;z-index:900;
+  background:var(--navy);
+  border-bottom:2px solid var(--blue);
+  transition:background .35s;
+}
+[data-theme="light"] #price-bar{background:#EAF3FF}
+.pb-inner{
+  max-width:1200px;margin:0 auto;
+  padding:10px clamp(16px,5vw,48px);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.pb-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue);white-space:nowrap;
+}
+.pb-controls{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.pb-input-wrap{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(27,110,243,.12);border:1.5px solid var(--blue);
+  border-radius:10px;padding:6px 12px;
+}
+.pb-curr{font-size:15px;font-weight:800;color:var(--blue)}
+#g-price-usd{
+  width:64px;background:transparent;border:none;outline:none;
+  font-size:18px;font-weight:900;color:var(--text);
+  font-family:'Manrope',sans-serif;text-align:center;
+  -moz-appearance:textfield;
+}
+#g-price-usd::-webkit-outer-spin-button,
+#g-price-usd::-webkit-inner-spin-button{-webkit-appearance:none}
+.pb-unit{font-size:11px;font-weight:600;color:var(--text2)}
+.pb-eq{font-size:16px;color:var(--text2);font-weight:700}
+.pb-fdj-wrap{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+#g-price-fdj{font-size:16px;font-weight:800;color:var(--green)}
+.pb-sub{font-size:11px;color:var(--text2)}
+.pb-results{
+  display:flex;gap:20px;margin-left:auto;flex-wrap:wrap;
+}
+.pb-result-item{display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+.pb-r-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2)}
+.pb-r-val{font-size:14px;font-weight:800;color:var(--text)}
+@media(max-width:768px){
+  .pb-inner{gap:12px}
+  .pb-results{gap:14px;margin-left:0}
+  .pb-sub{display:none}
+}
+@media(max-width:480px){
+  .pb-results{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:10px}
+}
+
 /* ── COSTS ── */
 #costs{background:var(--bg2);transition:background .35s}
 .cost-wrap{display:grid;grid-template-columns:3fr 2fr;gap:36px;margin-top:36px;align-items:start}
@@ -651,6 +706,45 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
   <a href="#risks" data-t="Risques|Risks" onclick="closeMenu()">Risques</a>
   <a href="#simulator" data-t="Simulateur|Simulator" onclick="closeMenu()">Simulateur</a>
 </div>
+
+<!-- ══════════ GLOBAL PRICE WIDGET ══════════ -->
+<div id="price-bar">
+  <div class="pb-inner">
+    <span class="pb-label" data-t="Modèle 3 — Prix par dossier|Model 3 — Price per file">Modèle 3 — Prix par dossier</span>
+    <div class="pb-controls">
+      <div class="pb-input-wrap">
+        <span class="pb-curr">$</span>
+        <input type="number" id="g-price-usd" value="50" min="1" step="5" oninput="globalPriceChange()">
+        <span class="pb-unit">USD</span>
+      </div>
+      <span class="pb-eq">=</span>
+      <div class="pb-fdj-wrap">
+        <span id="g-price-fdj">445 000</span>
+        <span class="pb-unit">FDJ/mois</span>
+        <span class="pb-sub" id="g-price-sub">(188 dossiers × 8 900 FDJ)</span>
+      </div>
+    </div>
+    <div class="pb-results">
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="CA mensuel|Monthly revenue">CA/mois</span>
+        <span class="pb-r-val" id="g-ca" style="color:var(--green)">445 000 FDJ</span>
+      </div>
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="Bénéfice net|Net profit">Bénéfice net</span>
+        <span class="pb-r-val" id="g-ben">+252 833 FDJ</span>
+      </div>
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="Break-even|Break-even">Break-even</span>
+        <span class="pb-r-val" id="g-be" style="color:var(--orange)">22 dossiers</span>
+      </div>
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="Marge|Margin">Marge</span>
+        <span class="pb-r-val" id="g-margin">56,8%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
@@ -1322,6 +1416,49 @@ function sim(){
   sv('r-be',be+' dossiers');
 }
 sim();
+// ═══════════════════════════════════
+// GLOBAL PRICE WIDGET
+// ═══════════════════════════════════
+const USD_FDJ = 178;
+const CHARGES = 192167;
+const DOS_MOY = 188;
+
+function globalPriceChange(){
+  const usd = parseFloat(document.getElementById('g-price-usd').value) || 0;
+  const fdj_per_dos = Math.round(usd * USD_FDJ);
+  const ca = DOS_MOY * fdj_per_dos;
+  const ben = ca - CHARGES;
+  const be = fdj_per_dos > 0 ? Math.ceil(CHARGES / fdj_per_dos) : 0;
+  const margin = ca > 0 ? ((ben/ca)*100) : 0;
+
+  document.getElementById('g-price-fdj').textContent = fmtSpace(ca);
+  document.getElementById('g-price-sub').textContent =
+    '('+DOS_MOY+' dossiers x '+fmtSpace(fdj_per_dos)+' FDJ)';
+
+  const caEl = document.getElementById('g-ca');
+  caEl.textContent = fmtSpace(ca)+' FDJ';
+
+  const benEl = document.getElementById('g-ben');
+  benEl.textContent = (ben>=0?'+':'')+fmtSpace(Math.abs(ben))+' FDJ';
+  benEl.style.color = ben>=0?'var(--green)':'var(--red)';
+
+  document.getElementById('g-be').textContent = be+' dossiers';
+
+  const margEl = document.getElementById('g-margin');
+  margEl.textContent = margin.toFixed(1)+'%';
+  margEl.style.color = margin>=30?'var(--green)':margin>=0?'var(--orange)':'var(--red)';
+
+  // Sync simulateur
+  const simUsd = document.getElementById('s-usd');
+  if(simUsd){ simUsd.value = fdj_per_dos; sim(); }
+}
+
+function fmtSpace(n){
+  return Math.round(Math.abs(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+}
+
+globalPriceChange();
+
 </script>
 </body>
 </html>
