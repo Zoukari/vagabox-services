@@ -1038,12 +1038,20 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
       </div>
     </div>
     <div class="usd-block reveal">
-      <h3>⚡ <span data-t="Modèle 3 — L'impact de l'unité de facturation|Model 3 — The Billing Unit Impact">Modèle 3 — L'impact de l'unité de facturation</span></h3>
+      <h3>⚡ <span data-t="Modèle 3 — Simulation par dossier|Model 3 — Simulation per file">Modèle 3 — Simulation par dossier</span></h3>
       <div class="usd-cols">
-        <div class="usd-col"><div class="usd-col-lbl" data-t="SI FACTURÉ PAR DOSSIER|IF BILLED PER FILE">SI FACTURÉ PAR DOSSIER</div><div class="usd-col-n" style="color:var(--blue)">16,7M FDJ</div><div class="usd-col-s">1 881 × 8 900 FDJ</div></div>
-        <div class="usd-col"><div class="usd-col-lbl" data-t="SI FACTURÉ PAR BAGAGE (TAG)|IF BILLED PER BAG (TAG)">SI FACTURÉ PAR BAGAGE (TAG)</div><div class="usd-col-n" style="color:var(--orange)">38,9M+ FDJ</div><div class="usd-col-s">4 370+ × 8 900 FDJ</div></div>
+        <div class="usd-col">
+          <div class="usd-col-lbl" data-t="PÉRIODE HISTORIQUE (1 881 dossiers)|HISTORICAL PERIOD (1,881 files)">PÉRIODE HISTORIQUE (1 881 dossiers)</div>
+          <div class="usd-col-n" style="color:var(--blue)" id="uc-historique">16,7M FDJ</div>
+          <div class="usd-col-s" id="uc-historique-s">1 881 × 8 900 FDJ</div>
+        </div>
+        <div class="usd-col">
+          <div class="usd-col-lbl" data-t="MOYENNE MENSUELLE (188 dossiers)|MONTHLY AVERAGE (188 files)">MOYENNE MENSUELLE (188 dossiers)</div>
+          <div class="usd-col-n" style="color:var(--green)" id="uc-mensuel">1 674 200 FDJ</div>
+          <div class="usd-col-s" id="uc-mensuel-s">188 × 8 900 FDJ</div>
+        </div>
       </div>
-      <div style="margin-top:14px;font-size:13px;color:#FCD34D;font-weight:600" data-t="→ La facturation par bagage génère 2,3× plus de revenus. C'est l'une des décisions les plus importantes du projet.|→ Per-bag billing generates 2.3× more revenue. It's one of the project's most important decisions.">→ La facturation par bagage génère 2,3× plus de revenus.</div>
+      <div style="margin-top:14px;font-size:13px;color:#FCD34D;font-weight:600" id="uc-note">→ Modifie le prix $ dans la barre en haut pour voir ces chiffres changer en temps réel.</div>
     </div>
   </div>
 </section>
@@ -1088,15 +1096,15 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
       </div>
       <div class="sc on" id="sc1">
         <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--orange)">219</div><div class="sc-k-l" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div><div class="sc-k"><div class="sc-k-n">94</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">52</div><div class="sc-k-l" data-t="Tournées|Trips">Tournées</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">OK</div><div class="sc-k-l" data-t="1 Bajaj suffit|1 Bajaj ok">1 Bajaj suffit</div></div></div>
-        <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">480 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+329 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — 50 USD/bag</div><div class="sc-m-ca" style="color:var(--orange)">1 949 100 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 798 600 FDJ net</div></div></div>
+        <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">480 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+329 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — <span data-t="prix par dossier|price per file">prix / dossier</span></div><div class="sc-m-ca" style="color:var(--orange)" id="sc1-m3-ca">836 600 FDJ</div><div class="sc-m-net" id="sc1-m3-net" style="color:var(--green)">+686 100 FDJ net</div></div></div>
       </div>
       <div class="sc" id="sc2">
         <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--blue)">437</div><div class="sc-k-l" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div><div class="sc-k"><div class="sc-k-n">188</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">104</div><div class="sc-k-l" data-t="Tournées|Trips">Tournées</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">OK</div><div class="sc-k-l" data-t="1 Bajaj suffit|1 Bajaj ok">1 Bajaj suffit</div></div></div>
-        <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">800 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+649 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — 50 USD/bag</div><div class="sc-m-ca" style="color:var(--orange)">3 889 300 FDJ</div><div class="sc-m-net" style="color:var(--green)">+3 738 800 FDJ net</div></div></div>
+        <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">800 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+649 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — <span data-t="prix par dossier|price per file">prix / dossier</span></div><div class="sc-m-ca" style="color:var(--orange)" id="sc2-m3-ca">1 673 200 FDJ</div><div class="sc-m-net" id="sc2-m3-net" style="color:var(--green)">+1 522 700 FDJ net</div></div></div>
       </div>
       <div class="sc" id="sc3">
         <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">546</div><div class="sc-k-l" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div><div class="sc-k"><div class="sc-k-n">235</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">130</div><div class="sc-k-l" data-t="Tournées|Trips">Tournées</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--orange)">⚠️</div><div class="sc-k-l" data-t="Renfort ponctuel|Backup needed">Renfort ponctuel</div></div></div>
-        <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">950 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+799 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — 50 USD/bag</div><div class="sc-m-ca" style="color:var(--orange)">4 859 400 FDJ</div><div class="sc-m-net" style="color:var(--green)">+4 708 900 FDJ net</div></div></div>
+        <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">950 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+799 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — <span data-t="prix par dossier|price per file">prix / dossier</span></div><div class="sc-m-ca" style="color:var(--orange)" id="sc3-m3-ca">2 091 500 FDJ</div><div class="sc-m-net" id="sc3-m3-net" style="color:var(--green)">+1 941 000 FDJ net</div></div></div>
         <div class="cbox cb-warn" style="margin-top:14px"><p>⚠️ <span data-t="546 bagages/mois peut nécessiter un véhicule de renfort ponctuel lors des pics.|546 bags/month may require a punctual backup vehicle during peaks.">546 bagages/mois peut nécessiter un renfort véhicule ponctuel lors des pics.</span></p></div>
       </div>
     </div>
@@ -1451,6 +1459,36 @@ function globalPriceChange(){
   // Sync simulateur
   const simUsd = document.getElementById('s-usd');
   if(simUsd){ simUsd.value = fdj_per_dos; sim(); }
+
+  // Sync USD callout
+  const hist = 1881 * fdj_per_dos;
+  const moy  = 188  * fdj_per_dos;
+  const el_h = document.getElementById('uc-historique');
+  const el_hs = document.getElementById('uc-historique-s');
+  const el_m = document.getElementById('uc-mensuel');
+  const el_ms = document.getElementById('uc-mensuel-s');
+  if(el_h){
+    el_h.textContent = (hist>=1000000?(hist/1000000).toFixed(1)+'M':fmtSpace(hist))+' FDJ';
+    el_hs.textContent = '1 881 × '+fmtSpace(fdj_per_dos)+' FDJ';
+    el_m.textContent = fmtSpace(moy)+' FDJ';
+    el_ms.textContent = '188 × '+fmtSpace(fdj_per_dos)+' FDJ';
+  }
+
+  // Sync scénarios M3 (par dossier)
+  const CHRG = 192167;
+  const sc_dos = [94, 188, 235];
+  const sc_ids = [['sc1-m3-ca','sc1-m3-net'],['sc2-m3-ca','sc2-m3-net'],['sc3-m3-ca','sc3-m3-net']];
+  sc_dos.forEach((d,i)=>{
+    const ca = d * fdj_per_dos;
+    const net = ca - CHRG;
+    const caEl = document.getElementById(sc_ids[i][0]);
+    const netEl = document.getElementById(sc_ids[i][1]);
+    if(caEl) caEl.textContent = fmtSpace(ca)+' FDJ';
+    if(netEl){
+      netEl.textContent = (net>=0?'+':'')+fmtSpace(Math.abs(net))+' FDJ net';
+      netEl.style.color = net>=0?'var(--green)':'var(--red)';
+    }
+  });
 }
 
 function fmtSpace(n){
