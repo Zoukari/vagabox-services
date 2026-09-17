@@ -1044,7 +1044,7 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
         <div class="sim-ttl" data-t="⚙ Hypothèses — modifiables|⚙ Assumptions — adjustable">⚙ Hypothèses — modifiables</div>
         <div class="sf"><label data-t="Dossiers / mois|Files / month">Dossiers / mois</label><input type="number" id="s-dos" value="188" oninput="sim()"></div>
         <div class="sf"><label data-t="Ratio bagages / dossier|Bags / file ratio">Ratio bagages / dossier</label><input type="number" id="s-rat" value="2.32" step="0.1" oninput="sim()"></div>
-        <div class="sf"><label data-t="Tarif 50 USD en FDJ|50 USD rate in FDJ">Tarif 50 USD en FDJ</label><input type="number" id="s-usd" value="8900" oninput="sim()"></div>
+        <div class="sf"><label data-t="Modèle 3 — Prix par DOSSIER (FDJ)|Model 3 — Price per FILE (FDJ)">Modèle 3 — Prix par DOSSIER (FDJ)</label><input type="number" id="s-usd" value="8900" step="100" oninput="sim()"></div>
         <div class="sf"><label data-t="Forfait mensuel total (FDJ)|Total monthly flat rate (FDJ)">Forfait mensuel total (FDJ)</label><input type="number" id="s-forf" value="1430000" oninput="sim()"></div>
         <div class="sf"><label data-t="Salaire chauffeur (FDJ/mois)|Driver salary (FDJ/month)">Salaire chauffeur (FDJ/mois)</label><input type="number" id="s-sal" value="80000" oninput="sim()"></div>
         <div class="sf"><label data-t="Carburant (FDJ/mois)|Fuel (FDJ/month)">Carburant (FDJ/mois)</label><input type="number" id="s-carb" value="24000" oninput="sim()"></div>
@@ -1070,10 +1070,10 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
           <div class="sr sg"><span class="sr-l" data-t="CA M2 — Forfait|Revenue M2 — Flat rate">CA M2 — Forfait</span><span class="sr-v" id="r-m2" style="color:var(--green)">1 430 000 FDJ</span></div>
           <div class="sr sg"><span class="sr-l" data-t="Bénéfice net M2|Net profit M2">Bénéfice net M2</span><span class="sr-v" id="r-n2" style="color:var(--green)">+1 237 833 FDJ</span></div>
           <div class="sim-div"></div>
-          <div class="sr so"><span class="sr-l" data-t="CA M3 — 50 USD/bag|Revenue M3 — 50 USD/bag">CA M3 — 50 USD/bag</span><span class="sr-v" id="r-m3" style="color:var(--orange)">3 889 300 FDJ</span></div>
-          <div class="sr so"><span class="sr-l" data-t="Bénéfice net M3|Net profit M3">Bénéfice net M3</span><span class="sr-v" id="r-n3" style="color:var(--green)">+3 697 133 FDJ</span></div>
+          <div class="sr so"><span class="sr-l" data-t="CA M3 — Prix / dossier|Revenue M3 — Price / file">CA M3 — Prix / dossier</span><span class="sr-v" id="r-m3" style="color:var(--orange)">3 889 300 FDJ</span></div>
+          <div class="sr so"><span class="sr-l" data-t="Bénéfice net M3 (par dossier)|Net profit M3 (per file)">Bénéfice net M3</span><span class="sr-v" id="r-n3" style="color:var(--green)">+3 697 133 FDJ</span></div>
           <div class="sim-div"></div>
-          <div class="sr" style="border-color:rgba(18,183,106,.3);background:var(--green-d)"><span class="sr-l" data-t="Break-even (M3)|Break-even (M3)">Break-even (M3)</span><span class="sr-v" id="r-be" style="color:var(--green)">22 bags</span></div>
+          <div class="sr" style="border-color:rgba(18,183,106,.3);background:var(--green-d)"><span class="sr-l" data-t="Break-even M3 (dossiers)|Break-even M3 (files)">Break-even M3 (dossiers)</span><span class="sr-v" id="r-be" style="color:var(--green)">22 bags</span></div>
         </div>
       </div>
     </div>
@@ -1310,8 +1310,8 @@ function sim(){
   const capR=cap*(fill/100);
   const trips=capR>0?Math.ceil(bags/capR):0;
   const cost=sal+carb+ent+tel+imp+amort;
-  const m1=getTier(dos),m2=forf,m3=bags*usd;
-  const be=usd>0?Math.ceil(cost/usd):0;
+  const m1=getTier(dos),m2=forf,m3=dos*usd;
+  const be=usd>0?Math.ceil(cost/usd):0; // break-even en dossiers
   sv('r-bags',bags); sv('r-cap',capR.toFixed(1)+' bags');
   sv('r-trips',trips); sv('r-cost',fmtR(cost));
   sv('r-m1',fmtR(m1)); sv('r-m2',fmtR(m2)); sv('r-m3',fmtR(m3));
@@ -1319,7 +1319,7 @@ function sim(){
   sv('r-n1',fmtN(n1)); sc('r-n1',n1);
   sv('r-n2',fmtN(n2)); sc('r-n2',n2);
   sv('r-n3',fmtN(n3)); sc('r-n3',n3);
-  sv('r-be',be+' bags');
+  sv('r-be',be+' dossiers');
 }
 sim();
 </script>
