@@ -390,6 +390,59 @@ h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.07;letter-spac
 .logistic-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
 
 
+/* ── GLOBAL PRICE BAR ── */
+#price-bar{
+  position:sticky;top:62px;z-index:900;
+  background:var(--navy);
+  border-bottom:2px solid var(--blue);
+  transition:background .35s;
+}
+[data-theme="light"] #price-bar{background:#EAF3FF}
+.pb-inner{
+  max-width:1200px;margin:0 auto;
+  padding:10px clamp(16px,5vw,48px);
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+}
+.pb-label{
+  font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--blue);white-space:nowrap;
+}
+.pb-controls{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.pb-input-wrap{
+  display:flex;align-items:center;gap:6px;
+  background:rgba(27,110,243,.12);border:1.5px solid var(--blue);
+  border-radius:10px;padding:6px 12px;
+}
+.pb-curr{font-size:15px;font-weight:800;color:var(--blue)}
+#g-price-usd{
+  width:64px;background:transparent;border:none;outline:none;
+  font-size:18px;font-weight:900;color:var(--text);
+  font-family:'Manrope',sans-serif;text-align:center;
+  -moz-appearance:textfield;
+}
+#g-price-usd::-webkit-outer-spin-button,
+#g-price-usd::-webkit-inner-spin-button{-webkit-appearance:none}
+.pb-unit{font-size:11px;font-weight:600;color:var(--text2)}
+.pb-eq{font-size:16px;color:var(--text2);font-weight:700}
+.pb-fdj-wrap{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+#g-price-fdj{font-size:16px;font-weight:800;color:var(--green)}
+.pb-sub{font-size:11px;color:var(--text2)}
+.pb-results{
+  display:flex;gap:20px;margin-left:auto;flex-wrap:wrap;
+}
+.pb-result-item{display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+.pb-r-lbl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2)}
+.pb-r-val{font-size:14px;font-weight:800;color:var(--text)}
+@media(max-width:768px){
+  .pb-inner{gap:12px}
+  .pb-results{gap:14px;margin-left:0}
+  .pb-sub{display:none}
+}
+@media(max-width:480px){
+  .pb-results{display:grid;grid-template-columns:1fr 1fr;width:100%;gap:10px}
+}
 
 /* ── COSTS ── */
 #costs{background:var(--bg2);transition:background .35s}
@@ -647,16 +700,6 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
 .db-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:.72rem;font-weight:700}
 .db-badge-ok{background:rgba(18,183,106,.15);color:var(--green)}
 .db-badge-bad{background:rgba(239,68,68,.1);color:var(--red)}
-.db-section-label{font-size:.66rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);opacity:.7;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border2)}
-.db-row-ctrl{display:grid;grid-template-columns:130px 1fr 64px auto;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border2)}
-.db-row-ctrl:last-of-type{border-bottom:none}
-.db-rc-label{font-size:.76rem;color:var(--text);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.db-rc-range{accent-color:var(--blue);width:100%}
-.db-rc-num{width:64px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg);color:var(--text);font-size:.78rem;text-align:right}
-.db-rc-unit{font-size:.7rem;color:var(--muted);white-space:nowrap}
-.db-charges-total{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:rgba(27,110,243,.07);border-radius:8px;margin-top:8px;font-size:.82rem;color:var(--muted)}
-.db-charges-total strong{color:var(--blue);font-size:.9rem}
-@media(max-width:480px){.db-row-ctrl{grid-template-columns:100px 1fr 54px auto}.db-rc-num{width:54px}}
 </style>
 </head>
 <body>
@@ -696,6 +739,7 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
     <a href="#pricing" data-t="Tarification|Pricing">Tarification</a>
     <a href="#breakeven" data-t="Rentabilité|Profitability">Rentabilité</a>
     <a href="#risks" data-t="Risques|Risks">Risques</a>
+    <a href="#simulator" data-t="Simulateur|Simulator">Simulateur</a>
     <a href="#dashboard" data-t="Tableau de bord|Dashboard">Tableau de bord</a>
   </div>
   <div class="nav-right">
@@ -711,9 +755,47 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
   <a href="#pricing" data-t="Tarification|Pricing" onclick="closeMenu()">Tarification</a>
   <a href="#breakeven" data-t="Rentabilité|Profitability" onclick="closeMenu()">Rentabilité</a>
   <a href="#risks" data-t="Risques|Risks" onclick="closeMenu()">Risques</a>
+  <a href="#simulator" data-t="Simulateur|Simulator" onclick="closeMenu()">Simulateur</a>
   <a href="#dashboard" data-t="Tableau de bord|Dashboard" onclick="closeMenu()">Tableau de bord</a>
 </div>
 
+<!-- ══════════ GLOBAL PRICE WIDGET ══════════ -->
+<div id="price-bar">
+  <div class="pb-inner">
+    <span class="pb-label" data-t="Modèle 3 — Prix par dossier|Model 3 — Price per file">Modèle 3 — Prix par dossier</span>
+    <div class="pb-controls">
+      <div class="pb-input-wrap">
+        <span class="pb-curr">$</span>
+        <input type="number" id="g-price-usd" value="50" min="1" step="5" oninput="globalPriceChange()">
+        <span class="pb-unit">USD</span>
+      </div>
+      <span class="pb-eq">=</span>
+      <div class="pb-fdj-wrap">
+        <span id="g-price-fdj">445 000</span>
+        <span class="pb-unit">FDJ/mois</span>
+        <span class="pb-sub" id="g-price-sub">(188 dossiers × 8 900 FDJ)</span>
+      </div>
+    </div>
+    <div class="pb-results">
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="CA mensuel|Monthly revenue">CA/mois</span>
+        <span class="pb-r-val" id="g-ca" style="color:var(--green)">445 000 FDJ</span>
+      </div>
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="Bénéfice net|Net profit">Bénéfice net</span>
+        <span class="pb-r-val" id="g-ben">+252 833 FDJ</span>
+      </div>
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="Break-even|Break-even">Break-even</span>
+        <span class="pb-r-val" id="g-be" style="color:var(--orange)">22 dossiers</span>
+      </div>
+      <div class="pb-result-item">
+        <span class="pb-r-lbl" data-t="Marge|Margin">Marge</span>
+        <span class="pb-r-val" id="g-margin">56,8%</span>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <!-- ══════════ HERO ══════════ -->
@@ -734,21 +816,21 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
         <div class="hero-quote reveal d3" data-t="« Nous transformons un incident bagage en une expérience de service : la compagnie prend en charge la livraison directement au domicile du passager. »|"We turn a baggage incident into a service experience: the airline takes charge of delivery directly to the passenger's home."">« Nous transformons un incident bagage en une expérience de service. »</div>
         <div class="ctas reveal d4">
           <a href="#volumes" class="btn-p" data-t="Explorer l'étude|Explore the Study">Explorer l'étude ↓</a>
-          <a href="#dashboard" class="btn-g" data-t="Tableau de bord|Dashboard">Tableau de bord →</a>
+          <a href="#simulator" class="btn-g" data-t="Simulateur|Simulator">Simulateur →</a>
         </div>
       </div>
       <div class="hero-card rr d2">
         <div class="hc-grid">
           <div class="hc-item"><div class="hc-num" style="color:var(--blue)">1 881</div><div class="hc-lbl" data-t="Dossiers analysés|Files analyzed">Dossiers analysés</div></div>
-          <div class="hc-item"><div class="hc-num" style="color:var(--green)">4 370+</div><div class="hc-lbl" data-t="Bagages historiques|Historical bags">Bagages historiques</div></div>
-          <div class="hc-item"><div class="hc-num" style="color:#A78BFA">188</div><div class="hc-lbl" data-t="Dossiers/mois (moy.)|Files/month (avg.)">Dossiers/mois (moy.)</div></div>
-          <div class="hc-item"><div class="hc-num" style="color:var(--orange)">500K</div><div class="hc-lbl" data-t="FDJ — Investissement|FDJ — Investment">FDJ — Investissement</div></div>
+          <div class="hc-item"><div class="hc-num" style="color:var(--green)">4 370+</div><div class="hc-lbl" data-t="Bagages min.|Min. bags">Bagages min.</div></div>
+          <div class="hc-item"><div class="hc-num" style="color:#A78BFA">437</div><div class="hc-lbl" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div>
+          <div class="hc-item"><div class="hc-num" style="color:var(--orange)">188</div><div class="hc-lbl" data-t="Livraisons/mois|Deliveries/month">Livraisons/mois</div></div>
         </div>
         <div class="hc-callout">
           <span style="font-size:22px">🚲</span>
           <div>
             <strong data-t="1 Bajaj suffit au lancement|1 Bajaj is enough to launch">1 Bajaj suffit au lancement</strong>
-            <p data-t="Invest. : 500 000 FDJ · Ajustez le prix dans le tableau de bord|Invest.: 500,000 FDJ · Adjust price in the dashboard">Invest. : 500 000 FDJ · Ajustez prix et volumes dans le tableau de bord.</p>
+            <p data-t="Invest. : 500 000 FDJ · Break-even : 22 bagages/mois|Invest.: 500,000 FDJ · Break-even: 22 bags/month">Invest. : 500 000 FDJ · Break-even : 22 bagages/mois</p>
           </div>
         </div>
       </div>
@@ -764,20 +846,20 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
     <div class="eyebrow reveal" data-t="Indicateurs clés|Key Metrics">Indicateurs clés</div>
     <h2 class="reveal" data-t="Le marché en chiffres|The Market in Numbers">Le marché en chiffres</h2>
     <div class="kpi-grid">
-      <div class="kpi-c reveal d1"><div class="kpi-n" style="color:var(--blue)">1 881</div><div class="kpi-l" data-t="Dossiers historiques|Historical files">Dossiers historiques</div><div class="kpi-s" data-t="5 compagnies · 2024|5 airlines · 2024">5 compagnies · 2024</div></div>
-      <div class="kpi-c reveal d2"><div class="kpi-n" style="color:var(--green)">4 370+</div><div class="kpi-l" data-t="Bagages physiques minimum|Minimum physical bags">Bagages physiques min.</div><div class="kpi-s" data-t="Chiffre minimum — non maximum|Minimum figure — not maximum">Minimum — non maximum</div></div>
-      <div class="kpi-c reveal d3"><div class="kpi-n" style="color:#A78BFA">188</div><div class="kpi-l" data-t="Dossiers/mois (moyenne)|Files/month (average)">Dossiers/mois (moyenne)</div><div class="kpi-s">≈ 7,2 <span data-t="dossiers/jour|files/day">dossiers/jour</span></div></div>
-      <div class="kpi-c reveal d4"><div class="kpi-n" style="color:var(--orange)">5</div><div class="kpi-l" data-t="Compagnies partenaires|Partner airlines">Compagnies partenaires</div><div class="kpi-s" data-t="Ethiopian, Air France, Turkish, FlyDubai, EgyptAir|Ethiopian, Air France, Turkish, FlyDubai, EgyptAir">Ethiopian, Air France, Turkish, FlyDubai, EgyptAir</div></div>
-      <div class="kpi-c reveal d1"><div class="kpi-n" style="color:var(--blue)">500 000</div><div class="kpi-l" data-t="FDJ — Investissement Bajaj|FDJ — Bajaj Investment">FDJ — Investissement Bajaj</div><div class="kpi-s" data-t="Investissement confirmé|Confirmed investment">Investissement confirmé</div></div>
-      <div class="kpi-c reveal d2"><div class="kpi-n" style="color:var(--green)">192 167</div><div class="kpi-l" data-t="FDJ — Charges mensuelles|FDJ — Monthly costs">FDJ — Charges mensuelles</div><div class="kpi-s" data-t="Avec amortissement Bajaj|With Bajaj depreciation">Avec amortissement Bajaj</div></div>
-      <div class="kpi-c reveal d3"><div class="kpi-n" style="color:#F472B6">1</div><div class="kpi-l" data-t="Bajaj suffit au lancement|Bajaj enough at launch">Bajaj suffit au lancement</div><div class="kpi-s" data-t="1 véhicule · activité normale|1 vehicle · normal activity">1 véhicule · activité normale</div></div>
-      <div class="kpi-c reveal d4"><div class="kpi-n" style="color:var(--orange)">64,7%</div><div class="kpi-l" data-t="Volume Ethiopian Airlines|Ethiopian Airlines volume">Volume Ethiopian Airlines</div><div class="kpi-s" data-t="Risque de concentration — diversifier vite|Concentration risk — diversify fast">Risque concentration — diversifier</div></div>
+      <div class="kpi-c reveal d1"><div class="kpi-n" style="color:var(--blue)">1 886</div><div class="kpi-l" data-t="Dossiers historiques|Historical files">Dossiers historiques</div><div class="kpi-s" data-t="5 compagnies · 2024 (Jan–Oct)|5 airlines · 2024 (Jan–Oct)">5 compagnies · Jan–Oct 2024</div></div>
+      <div class="kpi-c reveal d2"><div class="kpi-n" style="color:var(--green)">197</div><div class="kpi-l" data-t="Dossiers/mois en moyenne|Avg files/month">Dossiers/mois en moyenne</div><div class="kpi-s" data-t="Toutes compagnies confondues|All airlines combined">Toutes compagnies</div></div>
+      <div class="kpi-c reveal d3"><div class="kpi-n" style="color:#A78BFA">122</div><div class="kpi-l" data-t="Ethiopian — Dossiers/mois (réel)|Ethiopian — Files/mo (actual)">Ethiopian — dos/mois réels</div><div class="kpi-s" data-t="Principale compagnie partenaire|Main partner airline">Principale compagnie</div></div>
+      <div class="kpi-c reveal d4"><div class="kpi-n" style="color:var(--orange)">190 660</div><div class="kpi-l" data-t="FDJ — Charges fixes/mois|FDJ — Fixed costs/mo">FDJ — Charges/mois</div><div class="kpi-s" data-t="Avec amortissement Bajaj 12 mois|With 12-mo Bajaj depreciation">Avec amortissement Bajaj</div></div>
+      <div class="kpi-c reveal d1"><div class="kpi-n" style="color:var(--blue)">1 453 960</div><div class="kpi-l" data-t="FDJ — Capital de départ|FDJ — Startup capital">FDJ — Capital de départ</div><div class="kpi-s" data-t="Bajaj + frais + tréso 3 mois|Bajaj + costs + 3-mo treasury">Bajaj + frais + tréso 3 mois</div></div>
+      <div class="kpi-c reveal d2"><div class="kpi-n" style="color:var(--green)">15 $</div><div class="kpi-l" data-t="Prix/dossier palier 3 (>70 dos)|Price/file tier 3 (>70 files)">Prix/dossier palier 3</div><div class="kpi-s" data-t="18 $/dos (palier 2) · 20 $/dos (palier 1)|$18/file (tier 2) · $20/file (tier 1)">18 $ (palier 2) · 20 $ (palier 1)</div></div>
+      <div class="kpi-c reveal d3"><div class="kpi-n" style="color:#F472B6">5 480 620</div><div class="kpi-l" data-t="FDJ — CA total 10 mois|FDJ — Total revenue 10 months">FDJ — CA total Jan–Oct</div><div class="kpi-s" data-t="5 compagnies, paliers appliqués|5 airlines, tiered pricing">5 compagnies, paliers appliqués</div></div>
+      <div class="kpi-c reveal d4"><div class="kpi-n" style="color:var(--orange)">2,32</div><div class="kpi-l" data-t="Bagages / dossier (ratio global)|Bags / file (global ratio)">Bagages / dossier</div><div class="kpi-s" data-t="Ratio moyen — clé de facturation|Average ratio — billing key">Ratio moyen</div></div>
     </div>
     <div class="dist-wrap reveal" style="margin-top:40px">
       <div class="dist-a">
         <div class="dist-tag" style="color:var(--blue)" data-t="DOSSIER = PASSAGER = ADRESSE|FILE = PASSENGER = ADDRESS">DOSSIER = PASSAGER = ADRESSE</div>
-        <div class="dist-big" style="color:var(--blue)">1 881</div>
-        <div class="dist-desc" data-t="Un dossier = un passager = une adresse de livraison. C'est l'unité de base pour les modèles forfait et paliers. Air France : 113 dossiers · Ethiopian : 1 217 dossiers.|One file = one passenger = one delivery address. Base unit for flat-rate and tier models. Air France: 113 files · Ethiopian: 1,217 files.">Un dossier = un passager = une adresse. Unité de base pour les modèles forfait et paliers.</div>
+        <div class="dist-big" style="color:var(--blue)">1 886</div>
+        <div class="dist-desc" data-t="Un dossier = un passager = une adresse de livraison. C'est l'unité de base pour les modèles forfait et paliers. Ethiopian : 1 219 · Turkish : 391 · Air France : 115 · FlyDubai : 109 · EgyptAir : 52.|One file = one passenger = one delivery address. Ethiopian: 1,219 · Turkish: 391 · Air France: 115 · FlyDubai: 109 · EgyptAir: 52.">Un dossier = un passager = une adresse. Ethiopian : 1 219 · Turkish : 391 · Air France : 115 · FlyDubai : 109 · EgyptAir : 52 (4 mois).</div>
       </div>
       <div class="dist-b">
         <div class="dist-tag" style="color:var(--green)" data-t="BAGAGE PHYSIQUE = TAG SCAN|PHYSICAL BAG = TAG SCAN">BAGAGE PHYSIQUE = TAG SCAN</div>
@@ -786,7 +868,7 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
       </div>
     </div>
     <div class="cbox cb-warn reveal">
-      <p>⚡ <strong data-t="Impact critique :" data-en="Critical impact:">Impact critique :</strong> <span data-t="Facturer par DOSSIER simplifie la facturation et stabilise les revenus. Testez différents prix dans le tableau de bord.|Billing per FILE simplifies invoicing and stabilizes revenue. Test different prices in the dashboard.">Facturer par DOSSIER simplifie la facturation et stabilise les revenus. Testez les prix dans le tableau de bord ↓</span></p>
+      <p>⚡ <strong data-t="Impact critique :" data-en="Critical impact:">Impact critique :</strong> <span data-t="Facturer par DOSSIER ou par BAGAGE PHYSIQUE change radicalement la rentabilité. Un dossier Ethiopian = ~3 bagages. Voir section Tarification.|Billing per FILE vs per PHYSICAL BAG radically changes profitability. One Ethiopian file = ~3 bags. See Pricing section.">Facturer par DOSSIER ou par BAGAGE PHYSIQUE change radicalement la rentabilité. Voir section Tarification.</span></p>
     </div>
   </div>
 </section>
@@ -1008,20 +1090,20 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
       </div>
     </div>
     <div class="usd-block reveal">
-      <h3>⚡ <span data-t="Modèle 3 — Exemple à 8 900 FDJ/dossier|Model 3 — Example at 8,900 FDJ/file">Modèle 3 — Exemple à 8 900 FDJ/dossier</span></h3>
+      <h3>⚡ <span data-t="Modèle 3 — Simulation par dossier|Model 3 — Simulation per file">Modèle 3 — Simulation par dossier</span></h3>
       <div class="usd-cols">
         <div class="usd-col">
           <div class="usd-col-lbl" data-t="PÉRIODE HISTORIQUE (1 881 dossiers)|HISTORICAL PERIOD (1,881 files)">PÉRIODE HISTORIQUE (1 881 dossiers)</div>
-          <div class="usd-col-n" style="color:var(--blue)">16,7M FDJ</div>
-          <div class="usd-col-s">1 881 × 8 900 FDJ</div>
+          <div class="usd-col-n" style="color:var(--blue)" id="uc-historique">16,7M FDJ</div>
+          <div class="usd-col-s" id="uc-historique-s">1 881 × 8 900 FDJ</div>
         </div>
         <div class="usd-col">
           <div class="usd-col-lbl" data-t="MOYENNE MENSUELLE (188 dossiers)|MONTHLY AVERAGE (188 files)">MOYENNE MENSUELLE (188 dossiers)</div>
-          <div class="usd-col-n" style="color:var(--green)">1 673 200 FDJ</div>
-          <div class="usd-col-s">188 × 8 900 FDJ</div>
+          <div class="usd-col-n" style="color:var(--green)" id="uc-mensuel">1 674 200 FDJ</div>
+          <div class="usd-col-s" id="uc-mensuel-s">188 × 8 900 FDJ</div>
         </div>
       </div>
-      <div style="margin-top:14px;font-size:13px;color:var(--text2);font-weight:600">→ <span data-t="Testez votre propre prix dans le Tableau de bord.|Test your own price in the Dashboard.">Testez votre propre prix dans le Tableau de bord ↓</span></div>
+      <div style="margin-top:14px;font-size:13px;color:#FCD34D;font-weight:600" id="uc-note">→ Modifie le prix $ dans la barre en haut pour voir ces chiffres changer en temps réel.</div>
     </div>
   </div>
 </section>
@@ -1035,25 +1117,25 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
     <h2 class="reveal" data-t="Seuil de rentabilité|Break-even Analysis">Seuil de rentabilité</h2>
     <div class="be-hero reveal">
       <div style="font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--text2);margin-bottom:18px">BREAK-EVEN POINT</div>
-      <div class="be-big">188</div>
-      <div class="be-sub" data-t="dossiers/mois — volume moyen historique sur 5 compagnies · amortissement Bajaj 12 mois|files/month — historical average over 5 airlines · 12-month Bajaj depreciation">dossiers/mois — volume moyen historique · amortissement Bajaj 12 mois</div>
+      <div class="be-big">22</div>
+      <div class="be-sub" data-t="bagages/mois pour couvrir tous les coûts · tarif 50 USD/bagage · amortissement Bajaj 12 mois|bags/month to cover all costs · 50 USD/bag rate · 12-month Bajaj depreciation">bagages/mois pour couvrir tous les coûts · amortissement Bajaj 12 mois</div>
       <div class="be-vs">
-        <div class="be-vs-i"><strong style="color:var(--orange)">192 167</strong><span data-t="FDJ charges/mois|FDJ costs/month">FDJ charges/mois</span></div>
-        <div class="be-sep">÷</div>
-        <div class="be-vs-i"><strong style="color:var(--green)">188</strong><span data-t="dossiers/mois|files/month">dossiers/mois</span></div>
-        <div class="be-sep">≈</div>
-        <div class="be-vs-i"><strong style="color:var(--blue)">1 022 FDJ</strong><span data-t="coût / dossier|cost / file">coût / dossier</span></div>
+        <div class="be-vs-i"><strong style="color:var(--orange)">22</strong><span data-t="Seuil de rentabilité|Break-even">Seuil de rentabilité</span></div>
+        <div class="be-sep">vs</div>
+        <div class="be-vs-i"><strong style="color:var(--green)">437</strong><span data-t="Volume moyen historique|Historical average">Volume moyen historique</span></div>
+        <div class="be-sep">→</div>
+        <div class="be-vs-i"><strong style="color:var(--blue)">20×</strong><span data-t="au-dessus du seuil|above break-even">au-dessus du seuil</span></div>
       </div>
     </div>
     <div class="gauge-wrap reveal">
       <div class="gauge-top">
-        <span style="color:var(--orange)">94 (<span data-t="scénario bas|low scenario">scénario bas</span>)</span>
-        <span style="color:var(--green)">188 (<span data-t="moyenne|average">moyenne</span>)</span>
-        <span style="color:var(--blue)">235 (<span data-t="forte croissance|high growth">forte croissance</span>)</span>
+        <span style="color:var(--orange)">22 (<span data-t="seuil|break-even">seuil</span>)</span>
+        <span style="color:var(--green)">437 (<span data-t="moyenne|average">moyenne</span>)</span>
+        <span style="color:var(--blue)">692 (<span data-t="pic mars|march peak">pic mars</span>)</span>
       </div>
       <div class="gauge-track"><div class="gauge-fill"></div><div class="gauge-pin"></div></div>
     </div>
-    <div class="cbox cb-ok reveal" style="margin-top:20px"><p>✓ <strong data-t="Les charges sont connues et fixes. Le levier de rentabilité est le prix par dossier.|Costs are fixed and known. The profitability lever is price per file.">Les charges sont connues et fixes.</strong> <span data-t="Le risque principal est commercial (obtenir les contrats) — pas logistique. Testez les prix dans le tableau de bord.|The main risk is commercial (securing contracts) — not logistical. Test prices in the dashboard.">Le risque principal est commercial — obtenir les contrats. Testez les prix dans le tableau de bord ↓</span></p></div>
+    <div class="cbox cb-ok reveal" style="margin-top:20px"><p>✓ <strong data-t="Le volume historique est 20× supérieur au seuil de rentabilité.|Historical volume is 20× above break-even.">Le volume historique est 20× supérieur au seuil.</strong> <span data-t="Le risque principal n'est pas le volume — il est commercial (obtenir les contrats) et opérationnel (gérer les pics).|The main risk is not volume — it's commercial (securing contracts) and operational (managing peaks).">Le risque n'est pas le volume — c'est d'obtenir les contrats.</span></p></div>
 
     <!-- SCENARIOS -->
     <div style="margin-top:52px">
@@ -1065,17 +1147,17 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
         <button class="tab" onclick="showTab('sc3',this)">🚀 <span data-t="Forte croissance (125%)|High growth (125%)">Forte croissance (125%)</span></button>
       </div>
       <div class="sc on" id="sc1">
-        <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--orange)">94</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">50%</div><div class="sc-k-l" data-t="du volume historique|of historical volume">du volume historique</div></div><div class="sc-k"><div class="sc-k-n">52</div><div class="sc-k-l" data-t="Tournées est.|Est. trips">Tournées est.</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">OK</div><div class="sc-k-l" data-t="1 Bajaj suffit|1 Bajaj ok">1 Bajaj suffit</div></div></div>
+        <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--orange)">219</div><div class="sc-k-l" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div><div class="sc-k"><div class="sc-k-n">94</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">52</div><div class="sc-k-l" data-t="Tournées|Trips">Tournées</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">OK</div><div class="sc-k-l" data-t="1 Bajaj suffit|1 Bajaj ok">1 Bajaj suffit</div></div></div>
         <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">480 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+329 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — <span data-t="prix par dossier|price per file">prix / dossier</span></div><div class="sc-m-ca" style="color:var(--orange)" id="sc1-m3-ca">836 600 FDJ</div><div class="sc-m-net" id="sc1-m3-net" style="color:var(--green)">+686 100 FDJ net</div></div></div>
       </div>
       <div class="sc" id="sc2">
-        <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--blue)">188</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">100%</div><div class="sc-k-l" data-t="du volume historique|of historical volume">du volume historique</div></div><div class="sc-k"><div class="sc-k-n">104</div><div class="sc-k-l" data-t="Tournées est.|Est. trips">Tournées est.</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">OK</div><div class="sc-k-l" data-t="1 Bajaj suffit|1 Bajaj ok">1 Bajaj suffit</div></div></div>
+        <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--blue)">437</div><div class="sc-k-l" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div><div class="sc-k"><div class="sc-k-n">188</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">104</div><div class="sc-k-l" data-t="Tournées|Trips">Tournées</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">OK</div><div class="sc-k-l" data-t="1 Bajaj suffit|1 Bajaj ok">1 Bajaj suffit</div></div></div>
         <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">800 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+649 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — <span data-t="prix par dossier|price per file">prix / dossier</span></div><div class="sc-m-ca" style="color:var(--orange)" id="sc2-m3-ca">1 673 200 FDJ</div><div class="sc-m-net" id="sc2-m3-net" style="color:var(--green)">+1 522 700 FDJ net</div></div></div>
       </div>
       <div class="sc" id="sc3">
-        <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">235</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">125%</div><div class="sc-k-l" data-t="du volume historique|of historical volume">du volume historique</div></div><div class="sc-k"><div class="sc-k-n">130</div><div class="sc-k-l" data-t="Tournées est.|Est. trips">Tournées est.</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--orange)">⚠️</div><div class="sc-k-l" data-t="Renfort ponctuel|Backup needed">Renfort ponctuel</div></div></div>
+        <div class="sc-kpis"><div class="sc-k"><div class="sc-k-n" style="color:var(--green)">546</div><div class="sc-k-l" data-t="Bagages/mois|Bags/month">Bagages/mois</div></div><div class="sc-k"><div class="sc-k-n">235</div><div class="sc-k-l" data-t="Dossiers/mois|Files/month">Dossiers/mois</div></div><div class="sc-k"><div class="sc-k-n">130</div><div class="sc-k-l" data-t="Tournées|Trips">Tournées</div></div><div class="sc-k"><div class="sc-k-n" style="color:var(--orange)">⚠️</div><div class="sc-k-l" data-t="Renfort ponctuel|Backup needed">Renfort ponctuel</div></div></div>
         <div class="sc-models"><div class="sc-m sm1"><div class="sc-m-l" data-t="Modèle 1 — Paliers|Model 1 — Tiers">M1 — Paliers</div><div class="sc-m-ca" style="color:var(--blue)">950 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+799 500 FDJ net</div></div><div class="sc-m sm2"><div class="sc-m-l" data-t="Modèle 2 — Forfait|Model 2 — Flat">M2 — Forfait</div><div class="sc-m-ca" style="color:var(--green)">1 430 000 FDJ</div><div class="sc-m-net" style="color:var(--green)">+1 279 500 FDJ net</div></div><div class="sc-m sm3"><div class="sc-m-l">M3 — <span data-t="prix par dossier|price per file">prix / dossier</span></div><div class="sc-m-ca" style="color:var(--orange)" id="sc3-m3-ca">2 091 500 FDJ</div><div class="sc-m-net" id="sc3-m3-net" style="color:var(--green)">+1 941 000 FDJ net</div></div></div>
-        <div class="cbox cb-warn" style="margin-top:14px"><p>⚠️ <span data-t="235 dossiers/mois peut nécessiter un véhicule de renfort ponctuel lors des pics.|235 files/month may require a punctual backup vehicle during peaks.">À ce volume, un renfort véhicule ponctuel peut être nécessaire lors des pics.</span></p></div>
+        <div class="cbox cb-warn" style="margin-top:14px"><p>⚠️ <span data-t="546 bagages/mois peut nécessiter un véhicule de renfort ponctuel lors des pics.|546 bags/month may require a punctual backup vehicle during peaks.">546 bagages/mois peut nécessiter un renfort véhicule ponctuel lors des pics.</span></p></div>
       </div>
     </div>
   </div>
@@ -1103,6 +1185,57 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
   </div>
 </section>
 
+<div style="height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)"></div>
+
+<!-- ══════════ SIMULATOR ══════════ -->
+<section id="simulator">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-t="Outil interactif|Interactive Tool">Outil interactif</div>
+    <h2 class="reveal" data-t="Simulateur financier|Financial Simulator">Simulateur financier</h2>
+    <p class="body reveal" data-t="Modifiez n'importe quelle hypothèse — tous les résultats se recalculent instantanément.|Change any assumption — all results recalculate instantly.">Modifiez n'importe quelle hypothèse — tous les résultats se recalculent instantanément.</p>
+    <div class="sim-wrap reveal">
+      <div class="sim-panel">
+        <div class="sim-ttl" data-t="⚙ Hypothèses — modifiables|⚙ Assumptions — adjustable">⚙ Hypothèses — modifiables</div>
+        <div class="sf"><label data-t="Dossiers / mois|Files / month">Dossiers / mois</label><input type="number" id="s-dos" value="188" oninput="sim()"></div>
+        <div class="sf"><label data-t="Ratio bagages / dossier|Bags / file ratio">Ratio bagages / dossier</label><input type="number" id="s-rat" value="2.32" step="0.1" oninput="sim()"></div>
+        <div class="sf"><label data-t="Modèle 3 — Prix par DOSSIER (FDJ)|Model 3 — Price per FILE (FDJ)">Modèle 3 — Prix par DOSSIER (FDJ)</label><input type="number" id="s-usd" value="8900" step="100" oninput="sim()"></div>
+        <div class="sf"><label data-t="Forfait mensuel total (FDJ)|Total monthly flat rate (FDJ)">Forfait mensuel total (FDJ)</label><input type="number" id="s-forf" value="1430000" oninput="sim()"></div>
+        <div class="sf"><label data-t="Salaire chauffeur (FDJ/mois)|Driver salary (FDJ/month)">Salaire chauffeur (FDJ/mois)</label><input type="number" id="s-sal" value="80000" oninput="sim()"></div>
+        <div class="sf"><label data-t="Carburant (FDJ/mois)|Fuel (FDJ/month)">Carburant (FDJ/mois)</label><input type="number" id="s-carb" value="24000" oninput="sim()"></div>
+        <div class="sf"><label data-t="Entretien Bajaj (FDJ/mois)|Bajaj maintenance (FDJ/month)">Entretien Bajaj (FDJ/mois)</label><input type="number" id="s-ent" value="25000" oninput="sim()"></div>
+        <div class="sf"><label data-t="Téléphone / data (FDJ/mois)|Phone / data (FDJ/month)">Téléphone / data (FDJ/mois)</label><input type="number" id="s-tel" value="6500" oninput="sim()"></div>
+        <div class="sf"><label data-t="Réserve imprévus (FDJ/mois)|Contingency (FDJ/month)">Réserve imprévus (FDJ/mois)</label><input type="number" id="s-imp" value="15000" oninput="sim()"></div>
+        <div class="sf"><label data-t="Amortissement Bajaj (FDJ/mois)|Bajaj depreciation (FDJ/month)">Amortissement Bajaj (FDJ/mois)</label><input type="number" id="s-amort" value="41667" oninput="sim()"></div>
+        <div class="sf"><label data-t="Capacité Bajaj (valises)|Bajaj capacity (bags)">Capacité Bajaj (valises)</label><input type="number" id="s-cap" value="6" min="4" max="8" oninput="sim()"></div>
+        <div class="sf"><label data-t="Taux de remplissage (%)|Fill rate (%)">Taux de remplissage (%)</label><input type="number" id="s-fill" value="70" min="50" max="100" oninput="sim()"></div>
+      </div>
+      <div class="sim-panel">
+        <div class="sim-ttl" data-t="📊 Résultats en temps réel|📊 Real-time Results">📊 Résultats en temps réel</div>
+        <div class="sim-rows">
+          <div class="sr"><span class="sr-l" data-t="Bagages / mois|Bags / month">Bagages / mois</span><span class="sr-v" id="r-bags" style="color:var(--blue)">437</span></div>
+          <div class="sr"><span class="sr-l" data-t="Capacité réelle / tournée|Real capacity / trip">Capacité réelle / tournée</span><span class="sr-v" id="r-cap">4,2 bags</span></div>
+          <div class="sr"><span class="sr-l" data-t="Tournées / mois|Trips / month">Tournées / mois</span><span class="sr-v" id="r-trips">104</span></div>
+          <div class="sim-div"></div>
+          <div class="sr"><span class="sr-l" data-t="Charges totales / mois|Total costs / month">Charges totales / mois</span><span class="sr-v" id="r-cost" style="color:var(--red)">192 167 FDJ</span></div>
+          <div class="sim-div"></div>
+          <div class="sr sb"><span class="sr-l" data-t="CA M1 — Paliers|Revenue M1 — Tiers">CA M1 — Paliers</span><span class="sr-v" id="r-m1" style="color:var(--blue)">800 000 FDJ</span></div>
+          <div class="sr sb"><span class="sr-l" data-t="Bénéfice net M1|Net profit M1">Bénéfice net M1</span><span class="sr-v" id="r-n1" style="color:var(--green)">+607 833 FDJ</span></div>
+          <div class="sim-div"></div>
+          <div class="sr sg"><span class="sr-l" data-t="CA M2 — Forfait|Revenue M2 — Flat rate">CA M2 — Forfait</span><span class="sr-v" id="r-m2" style="color:var(--green)">1 430 000 FDJ</span></div>
+          <div class="sr sg"><span class="sr-l" data-t="Bénéfice net M2|Net profit M2">Bénéfice net M2</span><span class="sr-v" id="r-n2" style="color:var(--green)">+1 237 833 FDJ</span></div>
+          <div class="sim-div"></div>
+          <div class="sr so"><span class="sr-l" data-t="CA M3 — Prix / dossier|Revenue M3 — Price / file">CA M3 — Prix / dossier</span><span class="sr-v" id="r-m3" style="color:var(--orange)">3 889 300 FDJ</span></div>
+          <div class="sr so"><span class="sr-l" data-t="Bénéfice net M3 (par dossier)|Net profit M3 (per file)">Bénéfice net M3</span><span class="sr-v" id="r-n3" style="color:var(--green)">+3 697 133 FDJ</span></div>
+          <div class="sim-div"></div>
+          <div class="sr" style="border-color:rgba(18,183,106,.3);background:var(--green-d)"><span class="sr-l" data-t="Break-even M3 (dossiers)|Break-even M3 (files)">Break-even M3 (dossiers)</span><span class="sr-v" id="r-be" style="color:var(--green)">22 bags</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)"></div>
+
 <!-- ══════════ DASHBOARD ══════════ -->
 <section id="dashboard" style="background:var(--bg);transition:background .35s">
   <div class="wrap">
@@ -1120,141 +1253,101 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
           <div class="db-airline" data-airline="0">
             <div class="db-airline-top">
               <label class="db-check"><input type="checkbox" id="al0" checked onchange="dbCalc()"><span class="db-chk-box"></span><span class="db-al-name">Ethiopian Airlines</span></label>
-              <span class="db-al-hist" data-t="hist. 2 823 dos/mois|hist. 2,823 files/mo">hist. 2 823 dos/mois</span>
+              <span class="db-al-hist" data-t="hist. 122 dos/mois (moy. 10 mois)|hist. 122 files/mo (avg 10 mo)">hist. 122 dos/mois</span>
             </div>
             <div class="db-slider-row" id="al0-ctrl">
               <span class="db-sl-label" data-t="Dossiers/mois|Files/mo">Dossiers/mois</span>
-              <input type="range" min="0" max="6000" value="2823" step="1" id="al0-dos" oninput="dbSlide(0)">
-              <span class="db-sl-val" id="al0-val">2 823</span>
+              <input type="range" min="0" max="300" value="122" step="1" id="al0-dos" oninput="dbSlide(0)">
+              <span class="db-sl-val" id="al0-val">122</span>
             </div>
           </div>
           <div class="db-airline" data-airline="1">
             <div class="db-airline-top">
               <label class="db-check"><input type="checkbox" id="al1" onchange="dbCalc()"><span class="db-chk-box"></span><span class="db-al-name">Air France</span></label>
-              <span class="db-al-hist" data-t="hist. 262 dos/mois|hist. 262 files/mo">hist. 262 dos/mois</span>
+              <span class="db-al-hist" data-t="hist. 12 dos/mois (moy. 10 mois)|hist. 12 files/mo (avg 10 mo)">hist. 12 dos/mois</span>
             </div>
             <div class="db-slider-row" id="al1-ctrl" style="opacity:.35;pointer-events:none">
               <span class="db-sl-label" data-t="Dossiers/mois|Files/mo">Dossiers/mois</span>
-              <input type="range" min="0" max="600" value="262" step="1" id="al1-dos" oninput="dbSlide(1)">
-              <span class="db-sl-val" id="al1-val">262</span>
+              <input type="range" min="0" max="60" value="12" step="1" id="al1-dos" oninput="dbSlide(1)">
+              <span class="db-sl-val" id="al1-val">12</span>
             </div>
           </div>
           <div class="db-airline" data-airline="2">
             <div class="db-airline-top">
               <label class="db-check"><input type="checkbox" id="al2" onchange="dbCalc()"><span class="db-chk-box"></span><span class="db-al-name">Turkish Airlines</span></label>
-              <span class="db-al-hist" data-t="hist. 464 dos/mois|hist. 464 files/mo">hist. 464 dos/mois</span>
+              <span class="db-al-hist" data-t="hist. 39 dos/mois (moy. 10 mois)|hist. 39 files/mo (avg 10 mo)">hist. 39 dos/mois</span>
             </div>
             <div class="db-slider-row" id="al2-ctrl" style="opacity:.35;pointer-events:none">
               <span class="db-sl-label" data-t="Dossiers/mois|Files/mo">Dossiers/mois</span>
-              <input type="range" min="0" max="900" value="464" step="1" id="al2-dos" oninput="dbSlide(2)">
-              <span class="db-sl-val" id="al2-val">464</span>
+              <input type="range" min="0" max="150" value="39" step="1" id="al2-dos" oninput="dbSlide(2)">
+              <span class="db-sl-val" id="al2-val">39</span>
             </div>
           </div>
           <div class="db-airline" data-airline="3">
             <div class="db-airline-top">
               <label class="db-check"><input type="checkbox" id="al3" onchange="dbCalc()"><span class="db-chk-box"></span><span class="db-al-name">FlyDubai</span></label>
-              <span class="db-al-hist" data-t="hist. 418 dos/mois|hist. 418 files/mo">hist. 418 dos/mois</span>
+              <span class="db-al-hist" data-t="hist. 11 dos/mois (moy. 10 mois)|hist. 11 files/mo (avg 10 mo)">hist. 11 dos/mois</span>
             </div>
             <div class="db-slider-row" id="al3-ctrl" style="opacity:.35;pointer-events:none">
               <span class="db-sl-label" data-t="Dossiers/mois|Files/mo">Dossiers/mois</span>
-              <input type="range" min="0" max="900" value="418" step="1" id="al3-dos" oninput="dbSlide(3)">
-              <span class="db-sl-val" id="al3-val">418</span>
+              <input type="range" min="0" max="60" value="11" step="1" id="al3-dos" oninput="dbSlide(3)">
+              <span class="db-sl-val" id="al3-val">11</span>
             </div>
           </div>
           <div class="db-airline" data-airline="4">
             <div class="db-airline-top">
               <label class="db-check"><input type="checkbox" id="al4" onchange="dbCalc()"><span class="db-chk-box"></span><span class="db-al-name">EgyptAir</span></label>
-              <span class="db-al-hist" data-t="hist. 397 dos/mois|hist. 397 files/mo">hist. 397 dos/mois</span>
+              <span class="db-al-hist" data-t="hist. 13 dos/mois (moy. 4 mois)|hist. 13 files/mo (avg 4 mo)">hist. 13 dos/mois</span>
             </div>
             <div class="db-slider-row" id="al4-ctrl" style="opacity:.35;pointer-events:none">
               <span class="db-sl-label" data-t="Dossiers/mois|Files/mo">Dossiers/mois</span>
-              <input type="range" min="0" max="800" value="397" step="1" id="al4-dos" oninput="dbSlide(4)">
-              <span class="db-sl-val" id="al4-val">397</span>
+              <input type="range" min="0" max="60" value="13" step="1" id="al4-dos" oninput="dbSlide(4)">
+              <span class="db-sl-val" id="al4-val">13</span>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Price + Costs + Time -->
-      <div class="db-card" style="display:flex;flex-direction:column;gap:0">
-        <div class="db-card-title" data-t="⚙ Paramètres — tout modifier|⚙ Parameters — adjust everything">⚙ Paramètres — tout modifier</div>
-
-        <!-- Revenus -->
-        <div class="db-section-label" data-t="REVENUS|REVENUE">REVENUS</div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Prix / dossier|Price / file">Prix / dossier</span>
-          <input type="range" min="500" max="30000" value="8900" step="100" id="db-fdj-range" oninput="dbFdjSync('range')" class="db-rc-range">
-          <input type="number" min="500" max="30000" value="8900" step="100" id="db-fdj-num" oninput="dbFdjSync('num')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
+      <!-- Price + Time -->
+      <div class="db-card">
+        <div class="db-card-title" data-t="⚙ Paramètres financiers|⚙ Financial parameters">⚙ Paramètres financiers</div>
+        <div class="db-param">
+          <label class="db-param-label" data-t="Tarification par paliers (par dossier)|Tiered pricing (per file)">Tarification par paliers (par dossier)</label>
+          <div class="db-param-note" style="margin-top:6px;line-height:1.7">
+            <span style="color:var(--blue)">▸ 0–50 dos/mois</span> : <strong>3 560 FDJ</strong> (20 $)<br>
+            <span style="color:var(--green)">▸ 51–70 dos/mois</span> : <strong>3 204 FDJ</strong> (18 $)<br>
+            <span style="color:var(--orange)">▸ &gt;70 dos/mois</span> : <strong>2 670 FDJ</strong> (15 $)
+          </div>
+          <div class="db-param-note" style="margin-top:4px;opacity:.6;font-size:11px">Taux : 178 FDJ/USD · Paliers appliqués par compagnie</div>
+          <div id="db-palier-detail" style="margin-top:8px;font-size:11px;opacity:.7;line-height:1.6"></div>
         </div>
-
-        <!-- Charges -->
-        <div class="db-section-label" style="margin-top:14px" data-t="CHARGES MENSUELLES|MONTHLY COSTS">CHARGES MENSUELLES</div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Salaire chauffeur|Driver salary">Salaire chauffeur</span>
-          <input type="range" min="0" max="200000" value="80000" step="1000" id="c-sal" oninput="dbCostSync('c-sal')" class="db-rc-range">
-          <input type="number" value="80000" step="1000" id="c-sal-n" oninput="dbCostSyncN('c-sal')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
+        <div class="db-param" style="margin-top:20px">
+          <label class="db-param-label" data-t="Ratio bagages / dossier|Bags / file ratio">Ratio bagages / dossier</label>
+          <div class="db-param-input-row">
+            <input type="range" min="1" max="5" value="2.32" step="0.1" id="db-rat-range" oninput="dbRatSync('range')">
+            <input type="number" min="1" max="5" value="2.32" step="0.1" id="db-rat-num" oninput="dbRatSync('num')" style="width:70px">
+          </div>
         </div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Carburant|Fuel">Carburant</span>
-          <input type="range" min="0" max="80000" value="24000" step="500" id="c-carb" oninput="dbCostSync('c-carb')" class="db-rc-range">
-          <input type="number" value="24000" step="500" id="c-carb-n" oninput="dbCostSyncN('c-carb')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
+        <div class="db-param" style="margin-top:20px">
+          <label class="db-param-label" data-t="Horizon de projection|Projection horizon">Horizon de projection</label>
+          <div class="db-months-btns" id="db-months-btns">
+            <button class="db-mth on" onclick="dbSetMonths(3,this)">3 mois</button>
+            <button class="db-mth" onclick="dbSetMonths(6,this)">6 mois</button>
+            <button class="db-mth" onclick="dbSetMonths(12,this)">12 mois</button>
+            <button class="db-mth" onclick="dbSetMonths(18,this)">18 mois</button>
+            <button class="db-mth" onclick="dbSetMonths(24,this)">24 mois</button>
+          </div>
         </div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Entretien Bajaj|Bajaj maintenance">Entretien Bajaj</span>
-          <input type="range" min="0" max="80000" value="25000" step="500" id="c-ent" oninput="dbCostSync('c-ent')" class="db-rc-range">
-          <input type="number" value="25000" step="500" id="c-ent-n" oninput="dbCostSyncN('c-ent')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
+        <div class="db-param" style="margin-top:20px">
+          <label class="db-param-label" data-t="Charges fixes / mois (FDJ)|Fixed costs / month (FDJ)">Charges fixes / mois (FDJ)</label>
+          <input type="number" id="db-charges" value="192167" step="1000" oninput="dbCalc()" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:14px">
         </div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Téléphone / data|Phone / data">Téléphone / data</span>
-          <input type="range" min="0" max="30000" value="6500" step="500" id="c-tel" oninput="dbCostSync('c-tel')" class="db-rc-range">
-          <input type="number" value="6500" step="500" id="c-tel-n" oninput="dbCostSyncN('c-tel')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
-        </div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Réserve imprévus|Contingency">Réserve imprévus</span>
-          <input type="range" min="0" max="60000" value="15000" step="500" id="c-imp" oninput="dbCostSync('c-imp')" class="db-rc-range">
-          <input type="number" value="15000" step="500" id="c-imp-n" oninput="dbCostSyncN('c-imp')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
-        </div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Amortissement Bajaj|Bajaj depreciation">Amortissement Bajaj</span>
-          <input type="range" min="0" max="100000" value="41667" step="500" id="c-amort" oninput="dbCostSync('c-amort')" class="db-rc-range">
-          <input type="number" value="41667" step="500" id="c-amort-n" oninput="dbCostSyncN('c-amort')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
-        </div>
-        <div class="db-charges-total">
-          <span data-t="Total charges / mois|Total costs / month">Total charges / mois</span>
-          <strong id="db-charges-total-val">192 167 FDJ</strong>
-        </div>
-
-        <!-- Investissement initial -->
-        <div class="db-section-label" style="margin-top:14px" data-t="INVESTISSEMENT INITIAL|INITIAL INVESTMENT">INVESTISSEMENT INITIAL</div>
-        <div class="db-row-ctrl">
-          <span class="db-rc-label" data-t="Capital de départ (FDJ)|Starting capital (FDJ)">Capital de départ</span>
-          <input type="range" min="0" max="2000000" value="500000" step="10000" id="c-invest" oninput="dbCostSync('c-invest')" class="db-rc-range">
-          <input type="number" value="500000" step="10000" id="c-invest-n" oninput="dbCostSyncN('c-invest')" class="db-rc-num">
-          <span class="db-rc-unit">FDJ</span>
-        </div>
-
-        <!-- Horizon -->
-        <div class="db-section-label" style="margin-top:14px" data-t="HORIZON|HORIZON">HORIZON</div>
-        <div class="db-months-btns" id="db-months-btns">
-          <button class="db-mth on" onclick="dbSetMonths(3,this)">3 mois</button>
-          <button class="db-mth" onclick="dbSetMonths(6,this)">6 mois</button>
-          <button class="db-mth" onclick="dbSetMonths(12,this)">12 mois</button>
-          <button class="db-mth" onclick="dbSetMonths(18,this)">18 mois</button>
-          <button class="db-mth" onclick="dbSetMonths(24,this)">24 mois</button>
-        </div>
-
         <!-- KPI summary -->
-        <div class="db-kpi-row" style="margin-top:20px">
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-dos">1 217</div><div class="db-kpi-lbl" data-t="dossiers/mois|files/mo">dossiers/mois</div></div>
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-ca" style="color:var(--blue)">10,8M FDJ</div><div class="db-kpi-lbl" data-t="CA mensuel|Monthly revenue">CA mensuel</div></div>
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-net" style="color:var(--green)">+10,6M</div><div class="db-kpi-lbl" data-t="net mensuel|Monthly net">net mensuel</div></div>
+        <div class="db-kpi-row" style="margin-top:24px">
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-dos">122</div><div class="db-kpi-lbl" data-t="dossiers/mois|files/mo">dossiers/mois</div></div>
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-bags">283</div><div class="db-kpi-lbl" data-t="bagages/mois|bags/mo">bagages/mois</div></div>
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-ca" style="color:var(--blue)">326K FDJ</div><div class="db-kpi-lbl" data-t="CA mensuel|Monthly rev.">CA mensuel</div></div>
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-net" style="color:var(--green)">+136K</div><div class="db-kpi-lbl" data-t="net mensuel|Monthly net">net mensuel</div></div>
         </div>
       </div>
     </div>
@@ -1272,6 +1365,7 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
           <tr>
             <th data-t="Mois|Month">Mois</th>
             <th data-t="Dossiers|Files">Dossiers</th>
+            <th data-t="Bagages|Bags">Bagages</th>
             <th data-t="CA (FDJ)|Rev. (FDJ)">CA (FDJ)</th>
             <th data-t="Charges (FDJ)|Costs (FDJ)">Charges (FDJ)</th>
             <th data-t="Net (FDJ)|Net (FDJ)">Net (FDJ)</th>
@@ -1287,19 +1381,187 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
 
 <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)"></div>
 
+<!-- ══════════ HISTORIQUE MENSUEL ══════════ -->
+<section id="historique" style="background:var(--bg2);transition:background .35s">
+  <div class="wrap">
+    <div class="eyebrow reveal" data-t="Données réelles 2024|Real 2024 Data">Données réelles 2024</div>
+    <h2 class="reveal" data-t="Performance mensuelle Jan–Oct 2024|Monthly Performance Jan–Oct 2024">Performance mensuelle Jan–Oct 2024</h2>
+    <p class="body reveal" data-t="Chiffres extraits des fichiers Excel de chaque compagnie. Tarification par paliers appliquée par compagnie (20$/dos ≤50, 18$/dos 51–70, 15$/dos >70). Charges fixes : 190 660 FDJ/mois.|Figures extracted from each airline's Excel files. Tiered pricing applied per airline (20$/file ≤50, 18$/file 51–70, 15$/file >70). Fixed costs: 190,660 FDJ/month.">Chiffres extraits des fichiers Excel de chaque compagnie. Paliers par compagnie : 20$/dos (0–50), 18$/dos (51–70), 15$/dos (&gt;70). Charges : 190 660 FDJ/mois.</p>
+
+    <!-- Bar chart visualization -->
+    <div style="margin:32px 0 16px;overflow-x:auto">
+      <div style="min-width:600px;padding:0 8px">
+        <div id="hist-chart" style="display:flex;align-items:flex-end;gap:8px;height:160px;border-bottom:2px solid var(--border2);padding-bottom:4px"></div>
+        <div style="display:flex;gap:8px;margin-top:6px" id="hist-xlabels"></div>
+      </div>
+    </div>
+
+    <!-- Monthly table -->
+    <div class="db-table-wrap reveal" style="margin-top:16px;overflow-x:auto">
+      <table class="db-table">
+        <thead>
+          <tr>
+            <th>Mois</th>
+            <th>Total dos.</th>
+            <th>CA (FDJ)</th>
+            <th>Charges (FDJ)</th>
+            <th>Résultat (FDJ)</th>
+            <th>Marge</th>
+          </tr>
+        </thead>
+        <tbody id="hist-tbody"></tbody>
+        <tfoot id="hist-tfoot"></tfoot>
+      </table>
+    </div>
+
+    <!-- Per-airline table -->
+    <details style="margin-top:24px">
+      <summary style="cursor:pointer;font-weight:600;padding:12px;background:var(--bg3,var(--bg2));border-radius:8px;list-style:none;display:flex;align-items:center;gap:8px">
+        <span>▶</span> Dossiers par compagnie / mois
+      </summary>
+      <div class="db-table-wrap reveal" style="margin-top:8px;overflow-x:auto">
+        <table class="db-table">
+          <thead>
+            <tr>
+              <th>Compagnie</th>
+              <th>Jan</th><th>Fév</th><th>Mar</th><th>Avr</th><th>Mai</th>
+              <th>Jun</th><th>Jul</th><th>Aoû</th><th>Sep</th><th>Oct</th>
+              <th>Total</th><th>Moy/mois</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Ethiopian</td><td>224</td><td>138</td><td>163</td><td>101</td><td>78</td><td>150</td><td>100</td><td>133</td><td>81</td><td>51</td><td><strong>1 219</strong></td><td>122</td></tr>
+            <tr><td>Turkish</td><td>35</td><td>16</td><td>104</td><td>28</td><td>14</td><td>31</td><td>72</td><td>54</td><td>27</td><td>10</td><td><strong>391</strong></td><td>39</td></tr>
+            <tr><td>Air France</td><td>9</td><td>8</td><td>13</td><td>14</td><td>10</td><td>9</td><td>13</td><td>15</td><td>12</td><td>12</td><td><strong>115</strong></td><td>12</td></tr>
+            <tr><td>FlyDubai</td><td>10</td><td>3</td><td>15</td><td>8</td><td>9</td><td>11</td><td>14</td><td>13</td><td>14</td><td>12</td><td><strong>109</strong></td><td>11</td></tr>
+            <tr><td>EgyptAir</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>3</td><td>34</td><td>9</td><td>6</td><td><strong>52</strong></td><td>13 (4 mois)</td></tr>
+            <tr style="background:var(--bg3,rgba(74,126,199,0.08));font-weight:600"><td>TOTAL</td><td>278</td><td>165</td><td>295</td><td>151</td><td>111</td><td>201</td><td>202</td><td>249</td><td>143</td><td>91</td><td><strong>1 886</strong></td><td>197</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </div>
+</section>
+
+<script>
+(function(){
+  // Real monthly data (Jan–Oct 2024)
+  const HIST_MONTHS = ['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct'];
+  const RATE = 178;
+  // Per-compagnie per-month dossiers
+  const DATA = {
+    Ethiopian: [224,138,163,101,78,150,100,133,81,51],
+    Turkish:   [35,16,104,28,14,31,72,54,27,10],
+    AirFrance: [9,8,13,14,10,9,13,15,12,12],
+    FlyDubai:  [10,3,15,8,9,11,14,13,14,12],
+    EgyptAir:  [0,0,0,0,0,0,3,34,9,6]
+  };
+  const CHARGES = 190660;
+
+  function palier(dos){
+    if(dos<=0) return 0;
+    if(dos<=50) return dos*20*RATE;
+    if(dos<=70) return dos*18*RATE;
+    return dos*15*RATE;
+  }
+
+  // Build monthly totals
+  const months = HIST_MONTHS.map(function(name, i){
+    const companies = Object.keys(DATA);
+    let totalDos = 0;
+    let ca = 0;
+    companies.forEach(function(c){
+      const d = DATA[c][i];
+      totalDos += d;
+      ca += palier(d);
+    });
+    const net = ca - CHARGES;
+    const marge = ca > 0 ? Math.round(net/ca*100) : 0;
+    return {name, totalDos, ca, charges: CHARGES, net, marge};
+  });
+
+  // Render bar chart
+  const chart = document.getElementById('hist-chart');
+  const xlabels = document.getElementById('hist-xlabels');
+  if(chart && xlabels){
+    const maxCA = Math.max.apply(null, months.map(function(m){return m.ca;}));
+    months.forEach(function(m, i){
+      const barH = Math.round((m.ca / maxCA) * 140);
+      const col = m.net >= 0 ? 'var(--green)' : 'var(--red)';
+      const bar = document.createElement('div');
+      bar.style.cssText = 'flex:1;background:'+col+';border-radius:4px 4px 0 0;min-height:4px;height:'+barH+'px;position:relative;cursor:default';
+      bar.title = m.name + ' : ' + m.totalDos + ' dos · CA ' + Math.round(m.ca/1000) + 'K FDJ · Net ' + (m.net>=0?'+':'') + Math.round(m.net/1000) + 'K';
+      chart.appendChild(bar);
+
+      const lbl = document.createElement('div');
+      lbl.style.cssText = 'flex:1;text-align:center;font-size:10px;color:var(--muted)';
+      lbl.textContent = m.name;
+      xlabels.appendChild(lbl);
+    });
+  }
+
+  // Render monthly table
+  const tbody = document.getElementById('hist-tbody');
+  if(tbody){
+    let cumNet = 0;
+    months.forEach(function(m){
+      cumNet += m.net;
+      const tr = document.createElement('tr');
+      const margeColor = m.marge >= 60 ? 'var(--green)' : m.marge >= 40 ? 'var(--orange)' : 'var(--red)';
+      tr.innerHTML =
+        '<td><strong>'+m.name+'</strong></td>'+
+        '<td>'+m.totalDos+'</td>'+
+        '<td class="td-ca">'+Math.round(m.ca).toLocaleString('fr-FR')+' FDJ</td>'+
+        '<td class="td-neg">−'+CHARGES.toLocaleString('fr-FR')+' FDJ</td>'+
+        '<td class="'+(m.net>=0?'td-pos':'td-neg')+'">'+(m.net>=0?'+':'')+Math.round(m.net).toLocaleString('fr-FR')+' FDJ</td>'+
+        '<td style="color:'+margeColor+';font-weight:600">'+m.marge+'%</td>';
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Render totals
+  const tfoot = document.getElementById('hist-tfoot');
+  if(tfoot){
+    const totalCA = months.reduce(function(s,m){return s+m.ca;},0);
+    const totalNet = months.reduce(function(s,m){return s+m.net;},0);
+    const totalDos = months.reduce(function(s,m){return s+m.totalDos;},0);
+    const avgMarge = Math.round(totalNet/totalCA*100);
+    tfoot.innerHTML =
+      '<tr style="font-weight:700;background:var(--bg3,rgba(74,126,199,0.1))">'+
+      '<td>TOTAL 10 mois</td>'+
+      '<td>'+totalDos+'</td>'+
+      '<td class="td-ca">'+Math.round(totalCA).toLocaleString('fr-FR')+' FDJ</td>'+
+      '<td class="td-neg">−'+(CHARGES*10).toLocaleString('fr-FR')+' FDJ</td>'+
+      '<td class="td-pos">+'+Math.round(totalNet).toLocaleString('fr-FR')+' FDJ</td>'+
+      '<td style="color:var(--green);font-weight:700">'+avgMarge+'%</td>'+
+      '</tr>';
+  }
+
+  // Fix details summary arrow toggle
+  document.querySelectorAll('details').forEach(function(d){
+    d.addEventListener('toggle',function(){
+      const arrow = d.querySelector('summary span');
+      if(arrow) arrow.textContent = d.open ? '▼' : '▶';
+    });
+  });
+})();
+</script>
+
+<div style="height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)"></div>
+
 <!-- ══════════ CONCLUSION ══════════ -->
 <section id="conclusion">
   <div class="wrap">
     <div class="eyebrow reveal" data-t="Conclusion|Conclusion">Conclusion</div>
     <h2 class="reveal" data-t="5 questions clés — 5 réponses|5 Key Questions — 5 Answers">5 questions clés — 5 réponses</h2>
     <div class="qa-grid">
-      <div class="qa reveal d1"><div class="qa-q">Q1</div><div class="qa-title" data-t="Volume suffisant pour être rentable ?|Sufficient volume to be profitable?">Volume suffisant pour être rentable ?</div><div class="qa-a"><span class="verd vy">✓ OUI</span><span data-t="188 dossiers/mois en moyenne historique. Les charges sont fixes et connues. Le levier : le prix par dossier — ajustez-le dans le tableau de bord.|188 files/month historical average. Costs are fixed and known. The lever: price per file — adjust it in the dashboard.">188 dossiers/mois en moyenne historique. Charges fixes connues. Le levier de rentabilité : le prix par dossier — testez-le dans le tableau de bord.</span></div></div>
-      <div class="qa reveal d2"><div class="qa-q">Q2</div><div class="qa-title" data-t="1 Bajaj suffit au lancement ?|1 Bajaj enough at launch?">1 Bajaj suffit au lancement ?</div><div class="qa-a"><span class="verd vy">✓ OUI</span><span data-t="En activité normale (188 dossiers/mois). Tension possible en mars. Taxi de secours ponctuel sans 2e achat.|At normal activity (188 files/month). Possible strain in March. Punctual backup taxi without 2nd purchase.">En activité normale. Tension possible sur les pics. Taxi de secours ponctuel, pas de 2e achat.</span></div></div>
-      <div class="qa reveal d3"><div class="qa-q">Q3</div><div class="qa-title" data-t="Coût réel d'une livraison ?|Real cost of a delivery?">Coût réel d'une livraison ?</div><div class="qa-a"><span class="verd vm">≈ 1 022 FDJ</span><span data-t="192 167 FDJ de charges ÷ 188 dossiers = 1 022 FDJ/dossier coût complet. Salaire = poste principal (42%).|192,167 FDJ costs ÷ 188 files = 1,022 FDJ/file full cost. Salary = main item (42%).">192 167 FDJ charges ÷ 188 dossiers = 1 022 FDJ/dossier coût complet. Salaire = poste principal.</span></div></div>
-      <div class="qa reveal d4"><div class="qa-q">Q4</div><div class="qa-title" data-t="Quel modèle de facturation ?|Which billing model?">Quel modèle de facturation ?</div><div class="qa-a"><span class="verd vm">⚡ Stratégique</span><span data-t="M3 = prix par dossier = CA le plus prévisible et direct. M2 = forfait mensuel fixe. M1 = paliers selon volume. Testez tous dans le tableau de bord.|M3 = price per file = most predictable and direct revenue. M2 = fixed monthly flat rate. M1 = volume tiers. Test all in the dashboard.">M3 (prix/dossier) = CA direct et prévisible. M2 (forfait) = revenu garanti. M1 (paliers) = équilibre. Comparez dans le tableau de bord.</span></div></div>
-      <div class="qa full reveal"><div class="qa-q">Q5</div><div class="qa-title" data-t="Combien de compagnies pour être rentable ?|How many airlines to be profitable?">Combien de compagnies pour être rentable ?</div><div class="qa-a"><span class="verd vy">✓ 2 minimum · 3 idéal</span><span data-t="2 compagnies signées = structure couverte. 3 compagnies = marge confortable. Ethiopian seule = risque critique. Diversifier rapidement est la priorité absolue.|2 airlines signed = structure covered. 3 airlines = comfortable margin. Ethiopian alone = critical risk. Fast diversification is the absolute priority.">2 compagnies signées = structure couverte. 3 = marge confortable. Ethiopian seule = risque critique. Diversifier rapidement = priorité absolue.</span></div></div>
+      <div class="qa reveal d1"><div class="qa-q">Q1</div><div class="qa-title" data-t="Volume suffisant pour être rentable ?|Sufficient volume to be profitable?">Volume suffisant pour être rentable ?</div><div class="qa-a"><span class="verd vy">✓ OUI</span><span data-t="197 dossiers/mois en moyenne (réel 2024). Rentable 8 mois sur 10 avec paliers. CA total 10 mois : 5 480 620 FDJ.|197 files/month avg (actual 2024). Profitable 8 out of 10 months with tiered pricing. Total 10-month revenue: 5,480,620 FDJ.">197 dossiers/mois en moyenne (réel 2024). Rentable 8 mois sur 10 avec paliers. CA total : 5 480 620 FDJ.</span></div></div>
+      <div class="qa reveal d2"><div class="qa-q">Q2</div><div class="qa-title" data-t="1 Bajaj suffit au lancement ?|1 Bajaj enough at launch?">1 Bajaj suffit au lancement ?</div><div class="qa-a"><span class="verd vy">✓ OUI</span><span data-t="En activité normale (188 dossiers/mois). Tension possible en mars. Taxi de secours ponctuel sans 2e achat.|At normal activity (188 files/month). Possible strain in March. Punctual backup taxi without 2nd purchase.">En activité normale. Tension en mars. Taxi de secours ponctuel, pas de 2e achat.</span></div></div>
+      <div class="qa reveal d3"><div class="qa-q">Q3</div><div class="qa-title" data-t="Coût réel d'une livraison ?|Real cost of a delivery?">Coût réel d'une livraison ?</div><div class="qa-a"><span class="verd vm">≈ 440 FDJ</span><span data-t="192 167 ÷ 437 = 440 FDJ/bagage coût complet. Carburant seul : 55 FDJ. Le salaire est le poste majeur (52%).|192,167 ÷ 437 = 440 FDJ/bag full cost. Fuel alone: 55 FDJ. Salary is the main item (52%).">192 167 ÷ 437 = 440 FDJ/bagage. Carburant = 55 FDJ. Salaire = poste principal (52%).</span></div></div>
+      <div class="qa reveal d4"><div class="qa-q">Q4</div><div class="qa-title" data-t="Quel modèle de facturation ?|Which billing model?">Quel modèle de facturation ?</div><div class="qa-a"><span class="verd vm">⚡ Stratégique</span><span data-t="M3 = CA maximal mais dur à négocier. M2 = prévisibilité. M1 = équilibre. La décision dossier vs TAG est déterminante.|M3 = max revenue but hard to negotiate. M2 = predictability. M1 = balance. File vs TAG decision is critical.">M3 = CA maximum. M2 = prévisibilité. M1 = équilibre. Dossier vs TAG = décision déterminante.</span></div></div>
+      <div class="qa full reveal"><div class="qa-q">Q5</div><div class="qa-title" data-t="Combien de compagnies pour être rentable ?|How many airlines to be profitable?">Combien de compagnies pour être rentable ?</div><div class="qa-a"><span class="verd vy">✓ 2 minimum · 3 idéal</span><span data-t="2 compagnies à 100 000 FDJ/mois = structure couverte. 3 compagnies = marge confortable. Ethiopian seule = risque critique. Diversifier rapidement est la priorité.|2 airlines at 100,000 FDJ/month = structure covered. 3 airlines = comfortable margin. Ethiopian alone = critical risk. Fast diversification is the priority.">2 compagnies à 100 000 FDJ/mois = structure couverte. 3 = marge confortable. Ethiopian seule = risque critique. Diversifier rapidement = priorité absolue.</span></div></div>
     </div>
-    <div class="cbox cb-ok reveal" style="margin-top:20px"><p><strong data-t="Conclusion objective :" data-en="Objective conclusion:">Conclusion objective :</strong> <span data-t="Investissement faible (500 000 FDJ). Charges maîtrisées. Break-even très inférieur au volume potentiel. Le risque est commercial et opérationnel — concentration Ethiopian, choix du modèle de facturation, dossier vs TAG — non logistique. Ce projet est financièrement viable si les contrats sont obtenus.|Low investment (500,000 FDJ). Controlled costs. Break-even well below potential volume. Risk is commercial and operational — Ethiopian concentration, billing model choice, file vs TAG — not logistical. This project is financially viable if contracts are secured.">Investissement faible. Charges maîtrisées. Break-even très inférieur au volume. Risque commercial — pas logistique. Viable si les contrats sont obtenus.</span></p></div>
+    <div class="cbox cb-ok reveal" style="margin-top:20px"><p><strong data-t="Conclusion objective :" data-en="Objective conclusion:">Conclusion objective :</strong> <span data-t="Capital de départ : 1 453 960 FDJ (Bajaj + frais + trésorerie 3 mois). Tarification par paliers (15–20 $/dossier). Rentable 8/10 mois sur données réelles 2024. CA annuel projeté > 6,5M FDJ. Risque commercial — concentration Ethiopian — pas logistique.|Startup capital: 1,453,960 FDJ (Bajaj + costs + 3-month treasury). Tiered pricing (15–20 $/file). Profitable 8/10 months on real 2024 data. Projected annual revenue > 6.5M FDJ. Commercial risk — Ethiopian concentration — not logistical.">Capital départ : 1 453 960 FDJ. Tarification 15–20 $/dossier par paliers. Rentable 8/10 mois sur données réelles 2024. CA annuel projeté &gt; 6,5M FDJ. Risque commercial — concentration Ethiopian.</span></p></div>
   </div>
 </section>
 
@@ -1485,17 +1747,128 @@ function showTab(id,btn){
   btn.classList.add('on');
 }
 
+// ══════════════════════════════════════════
+// SIMULATOR
+// ══════════════════════════════════════════
+const tiers=[
+  {min:1,max:10,p:90000},{min:11,max:25,p:160000},{min:26,max:50,p:290000},
+  {min:51,max:100,p:480000},{min:101,max:150,p:650000},{min:151,max:200,p:800000},
+  {min:201,max:250,p:950000},{min:251,max:300,p:1100000}
+];
+function getTier(d){
+  for(const t of tiers) if(d>=t.min&&d<=t.max) return t.p;
+  if(d>300) return 1100000+(d-300)*4000;
+  return 90000;
+}
+function fmtN(n){
+  const s=Math.abs(Math.round(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
+  return (n<0?'−':'+')+s+' FDJ';
+}
+function fmtR(n){ return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' FDJ'; }
+function g(id){ return parseFloat(document.getElementById(id).value)||0; }
+function sv(id,v){ document.getElementById(id).textContent=v; }
+function sc(id,v){ document.getElementById(id).style.color=v>=0?'var(--green)':'var(--red)'; }
+
+function sim(){
+  const dos=g('s-dos'),rat=g('s-rat'),usd=g('s-usd'),forf=g('s-forf');
+  const sal=g('s-sal'),carb=g('s-carb'),ent=g('s-ent'),tel=g('s-tel'),imp=g('s-imp'),amort=g('s-amort');
+  const cap=g('s-cap'),fill=g('s-fill');
+  const bags=Math.round(dos*rat);
+  const capR=cap*(fill/100);
+  const trips=capR>0?Math.ceil(bags/capR):0;
+  const cost=sal+carb+ent+tel+imp+amort;
+  const m1=getTier(dos),m2=forf,m3=dos*usd;
+  const be=usd>0?Math.ceil(cost/usd):0; // break-even en dossiers
+  sv('r-bags',bags); sv('r-cap',capR.toFixed(1)+' bags');
+  sv('r-trips',trips); sv('r-cost',fmtR(cost));
+  sv('r-m1',fmtR(m1)); sv('r-m2',fmtR(m2)); sv('r-m3',fmtR(m3));
+  const n1=m1-cost,n2=m2-cost,n3=m3-cost;
+  sv('r-n1',fmtN(n1)); sc('r-n1',n1);
+  sv('r-n2',fmtN(n2)); sc('r-n2',n2);
+  sv('r-n3',fmtN(n3)); sc('r-n3',n3);
+  sv('r-be',be+' dossiers');
+}
+sim();
+// ═══════════════════════════════════
+// GLOBAL PRICE WIDGET
+// ═══════════════════════════════════
+const USD_FDJ = 178;
+const CHARGES = 192167;
+const DOS_MOY = 188;
+
+function globalPriceChange(){
+  const usd = parseFloat(document.getElementById('g-price-usd').value) || 0;
+  const fdj_per_dos = Math.round(usd * USD_FDJ);
+  const ca = DOS_MOY * fdj_per_dos;
+  const ben = ca - CHARGES;
+  const be = fdj_per_dos > 0 ? Math.ceil(CHARGES / fdj_per_dos) : 0;
+  const margin = ca > 0 ? ((ben/ca)*100) : 0;
+
+  document.getElementById('g-price-fdj').textContent = fmtSpace(ca);
+  document.getElementById('g-price-sub').textContent =
+    '('+DOS_MOY+' dossiers x '+fmtSpace(fdj_per_dos)+' FDJ)';
+
+  const caEl = document.getElementById('g-ca');
+  caEl.textContent = fmtSpace(ca)+' FDJ';
+
+  const benEl = document.getElementById('g-ben');
+  benEl.textContent = (ben>=0?'+':'')+fmtSpace(Math.abs(ben))+' FDJ';
+  benEl.style.color = ben>=0?'var(--green)':'var(--red)';
+
+  document.getElementById('g-be').textContent = be+' dossiers';
+
+  const margEl = document.getElementById('g-margin');
+  margEl.textContent = margin.toFixed(1)+'%';
+  margEl.style.color = margin>=30?'var(--green)':margin>=0?'var(--orange)':'var(--red)';
+
+  // Sync simulateur
+  const simUsd = document.getElementById('s-usd');
+  if(simUsd){ simUsd.value = fdj_per_dos; sim(); }
+
+  // Sync USD callout
+  const hist = 1881 * fdj_per_dos;
+  const moy  = 188  * fdj_per_dos;
+  const el_h = document.getElementById('uc-historique');
+  const el_hs = document.getElementById('uc-historique-s');
+  const el_m = document.getElementById('uc-mensuel');
+  const el_ms = document.getElementById('uc-mensuel-s');
+  if(el_h){
+    el_h.textContent = (hist>=1000000?(hist/1000000).toFixed(1)+'M':fmtSpace(hist))+' FDJ';
+    el_hs.textContent = '1 881 × '+fmtSpace(fdj_per_dos)+' FDJ';
+    el_m.textContent = fmtSpace(moy)+' FDJ';
+    el_ms.textContent = '188 × '+fmtSpace(fdj_per_dos)+' FDJ';
+  }
+
+  // Sync scénarios M3 (par dossier)
+  const CHRG = 192167;
+  const sc_dos = [94, 188, 235];
+  const sc_ids = [['sc1-m3-ca','sc1-m3-net'],['sc2-m3-ca','sc2-m3-net'],['sc3-m3-ca','sc3-m3-net']];
+  sc_dos.forEach((d,i)=>{
+    const ca = d * fdj_per_dos;
+    const net = ca - CHRG;
+    const caEl = document.getElementById(sc_ids[i][0]);
+    const netEl = document.getElementById(sc_ids[i][1]);
+    if(caEl) caEl.textContent = fmtSpace(ca)+' FDJ';
+    if(netEl){
+      netEl.textContent = (net>=0?'+':'')+fmtSpace(Math.abs(net))+' FDJ net';
+      netEl.style.color = net>=0?'var(--green)':'var(--red)';
+    }
+  });
+}
+
 function fmtSpace(n){
   return Math.round(Math.abs(n)).toString().replace(/\B(?=(\d{3})+(?!\d))/g,' ');
 }
 
+globalPriceChange();
+
 /* ── DASHBOARD JS ── */
 const DB_AIRLINES=[
-  {id:0,name:'Ethiopian Airlines',def:1217,maxRange:1500},
-  {id:1,name:'Air France',def:113,maxRange:300},
-  {id:2,name:'Turkish Airlines',def:200,maxRange:400},
-  {id:3,name:'FlyDubai',def:180,maxRange:400},
-  {id:4,name:'EgyptAir',def:171,maxRange:350}
+  {id:0,name:'Ethiopian Airlines',def:122,maxRange:300},
+  {id:1,name:'Air France',def:12,maxRange:60},
+  {id:2,name:'Turkish Airlines',def:39,maxRange:150},
+  {id:3,name:'FlyDubai',def:11,maxRange:60},
+  {id:4,name:'EgyptAir',def:13,maxRange:60}
 ];
 let dbMonths=3;
 
@@ -1504,40 +1877,11 @@ function dbSlide(i){
   document.getElementById('al'+i+'-val').textContent=fmtSpace(v);
   dbCalc();
 }
-function dbFdjSync(src){
-  const r=document.getElementById('db-fdj-range');
-  const n=document.getElementById('db-fdj-num');
+function dbRatSync(src){
+  const r=document.getElementById('db-rat-range');
+  const n=document.getElementById('db-rat-num');
   if(src==='range') n.value=r.value; else r.value=n.value;
   dbCalc();
-}
-
-function dbCostSync(id){
-  // range → number
-  const rng=document.getElementById(id);
-  const num=document.getElementById(id+'-n');
-  if(num) num.value=rng.value;
-  dbUpdateChargesTotal();
-  dbCalc();
-}
-function dbCostSyncN(id){
-  // number → range
-  const rng=document.getElementById(id);
-  const num=document.getElementById(id+'-n');
-  if(rng) rng.value=num.value;
-  dbUpdateChargesTotal();
-  dbCalc();
-}
-function dbGetCharges(){
-  function cv(id){return parseFloat(document.getElementById(id+'-n').value)||0;}
-  return cv('c-sal')+cv('c-carb')+cv('c-ent')+cv('c-tel')+cv('c-imp')+cv('c-amort');
-}
-function dbGetInvest(){
-  return parseFloat(document.getElementById('c-invest-n').value)||0;
-}
-function dbUpdateChargesTotal(){
-  const tot=dbGetCharges();
-  const el=document.getElementById('db-charges-total-val');
-  if(el) el.textContent=fmtSpace(tot)+' FDJ';
 }
 function dbSetMonths(m,btn){
   dbMonths=m;
@@ -1553,33 +1897,49 @@ document.addEventListener('change',function(e){
     dbCalc();
   }
 });
-function dbCalc(){
-  const fdjEl=document.getElementById('db-fdj-num');
-  const fdjPerDos=fdjEl?parseFloat(fdjEl.value)||8900:8900;
-  const charges=dbGetCharges();
-  const invest=dbGetInvest();
+// Tiered pricing per compagnie: 0-50 → 20$/dos, 51-70 → 18$/dos, >70 → 15$/dos @ 178 FDJ/USD
+function prixPalier(dos){
+  const RATE=178;
+  if(dos<=0) return {ca:0,label:'—'};
+  if(dos<=50) return {ca:dos*20*RATE, label:'20 $/dos (palier 1)'};
+  if(dos<=70) return {ca:dos*18*RATE, label:'18 $/dos (palier 2)'};
+  return {ca:dos*15*RATE, label:'15 $/dos (palier 3)'};
+}
 
-  // total dossiers from checked airlines
+function dbCalc(){
+  const ratio=parseFloat(document.getElementById('db-rat-num').value)||2.32;
+  const charges=parseFloat(document.getElementById('db-charges').value)||192167;
+
+  // CA par compagnie avec paliers
   let totalDos=0;
+  let caMensuel=0;
+  let palierLines=[];
   DB_AIRLINES.forEach(function(al){
     const chk=document.getElementById('al'+al.id);
     if(chk&&chk.checked){
       const v=parseInt(document.getElementById('al'+al.id+'-dos').value)||0;
-      totalDos+=v;
+      if(v>0){
+        const p=prixPalier(v);
+        totalDos+=v;
+        caMensuel+=p.ca;
+        palierLines.push(al.name.split(' ')[0]+' : '+v+' dos → '+p.label+' = '+fmtSpace(p.ca)+' FDJ');
+      }
     }
   });
-  const caMensuel=totalDos*fdjPerDos;
+  const totalBags=Math.round(totalDos*ratio);
   const netMensuel=caMensuel-charges;
+
+  // Update palier detail
+  const pd=document.getElementById('db-palier-detail');
+  if(pd) pd.innerHTML=palierLines.join('<br>');
 
   // Update KPIs
   function kpi(id,val){const el=document.getElementById(id);if(el)el.textContent=val;}
   kpi('db-k-dos',fmtSpace(totalDos));
-  kpi('db-k-bags','—');
+  kpi('db-k-bags',fmtSpace(totalBags));
   const caM=caMensuel>=1e6?(caMensuel/1e6).toFixed(1)+'M FDJ':fmtSpace(caMensuel)+' FDJ';
-  const netM=(netMensuel>=0?'+':'−')+(Math.abs(netMensuel)>=1e6?(Math.abs(netMensuel)/1e6).toFixed(1)+'M FDJ':(fmtSpace(Math.abs(netMensuel))+' FDJ'));
+  const netM=(netMensuel>=0?'+':'−')+(Math.abs(netMensuel)>=1e6?(Math.abs(netMensuel)/1e6).toFixed(1)+'M':(fmtSpace(Math.abs(netMensuel))+' FDJ'));
   kpi('db-k-ca',caM);
-  const caEl2=document.getElementById('db-k-ca');
-  if(caEl2) caEl2.title=fmtSpace(totalDos)+' dossiers × '+fmtSpace(fdjPerDos)+' FDJ = '+fmtSpace(caMensuel)+' FDJ';
   const netEl=document.getElementById('db-k-net');
   if(netEl){netEl.textContent=netM;netEl.style.color=netMensuel>=0?'var(--green)':'var(--red)';}
 
@@ -1587,24 +1947,10 @@ function dbCalc(){
   const tbody=document.getElementById('db-tbody');
   if(!tbody) return;
   tbody.innerHTML='';
-  let cumul=-invest; // start negative by initial investment
+  let cumul=0;
   let beMonth=-1;
   const mnoms_fr=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
   const now=new Date(); let startM=now.getMonth();
-
-  // Row M0: initial investment
-  if(invest>0){
-    const tr0=document.createElement('tr');
-    tr0.innerHTML=
-      '<td>M0 <small style="color:var(--muted)">Invest.</small></td>'+
-      '<td>—</td><td>—</td>'+
-      '<td class="td-neg">−'+fmtSpace(invest)+' FDJ</td>'+
-      '<td class="td-neg">−'+fmtSpace(invest)+' FDJ</td>'+
-      '<td class="td-neg">−'+fmtSpace(invest)+' FDJ</td>'+
-      '<td><span class="db-badge db-badge-bad">Capital</span></td>';
-    tbody.appendChild(tr0);
-  }
-
   for(let m=1;m<=dbMonths;m++){
     const mnm=mnoms_fr[(startM+m-1)%12];
     const ca=caMensuel; const net=netMensuel; cumul+=net;
@@ -1620,6 +1966,7 @@ function dbCalc(){
     tr.innerHTML=
       '<td>M'+m+' <small style="color:var(--muted)">'+mnm+'</small></td>'+
       '<td>'+fmtSpace(totalDos)+'</td>'+
+      '<td>'+fmtSpace(totalBags)+'</td>'+
       '<td class="td-ca">'+fmtSpace(ca)+' FDJ</td>'+
       '<td class="td-neg">−'+fmtSpace(charges)+' FDJ</td>'+
       '<td class="'+(net>=0?'td-pos':'td-neg')+'">'+netSign+fmtSpace(Math.abs(net))+' FDJ</td>'+
@@ -1634,21 +1981,16 @@ function dbCalc(){
   if(!banner||!msg) return;
   if(totalDos===0){
     banner.className='db-be-banner warn'; msg.textContent='Sélectionnez au moins une compagnie pour voir les projections.';
-  } else if(beMonth===1&&invest===0){
-    banner.className='db-be-banner ok'; msg.textContent='✅ Rentable dès le mois 1 — pas d\'investissement initial.';
-  } else if(beMonth>=1){
-    banner.className='db-be-banner ok'; msg.textContent='✅ Retour sur investissement au mois '+beMonth+' — cumulé positif à partir de M'+beMonth+'.';
+  } else if(beMonth===1){
+    banner.className='db-be-banner ok'; msg.textContent='✅ Projet rentable dès le mois 1 avec cette configuration.';
+  } else if(beMonth>1){
+    banner.className='db-be-banner warn'; msg.textContent='⚠ Équilibre atteint au mois '+beMonth+' — cumulé positif à partir de ce mois.';
   } else {
-    banner.className='db-be-banner bad'; msg.textContent='⛔ Investissement non récupéré sur l\'horizon sélectionné — ajustez le prix ou les volumes.';
+    banner.className='db-be-banner bad'; msg.textContent='⛔ Déficitaire sur l\'horizon sélectionné — augmentez le prix ou les volumes.';
   }
-  dbUpdateChargesTotal();
 }
-// Init — attendre que le DOM soit prêt
-if(document.readyState==='loading'){
-  document.addEventListener('DOMContentLoaded',function(){dbCalc();dbUpdateChargesTotal();});
-} else {
-  dbCalc();dbUpdateChargesTotal();
-}
+// Init
+dbCalc();
 
 </script>
 </body>
