@@ -76,13 +76,15 @@ body::before{
 .hdr-link:hover{background:var(--bg3);}
 
 /* TOGGLE PILLS */
-.tog{display:flex;background:var(--bg3);border-radius:8px;padding:3px;gap:2px;}
+.tog{display:flex;background:var(--bg3);border-radius:9px;padding:3px;gap:2px;border:1px solid var(--border);}
 .tog-btn{
-  padding:5px 11px;border:none;border-radius:6px;
-  font-size:12px;font-weight:600;cursor:pointer;
-  background:transparent;color:var(--fg2);transition:background .15s,color .15s;
+  padding:7px 14px;border:none;border-radius:7px;
+  font-size:12px;font-weight:700;cursor:pointer;
+  background:transparent;color:var(--fg3);transition:all .15s;
+  letter-spacing:.01em;
 }
-.tog-btn.on{background:var(--blue);color:#fff;}
+.tog-btn:hover:not(.on){background:var(--bg2);color:var(--fg);}
+.tog-btn.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(45,107,228,.35);}
 
 /* MAIN */
 .main{padding-block:18px;max-width:1240px;margin:0 auto;}
@@ -97,25 +99,38 @@ body::before{
 .ctrl-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);}
 
 /* month buttons */
-.month-btns{display:flex;gap:4px;flex-wrap:wrap;}
+.month-btns{display:flex;gap:5px;flex-wrap:wrap;}
 .mth-btn{
-  padding:5px 10px;border:1px solid var(--border);border-radius:6px;
-  font-size:12px;font-weight:600;cursor:pointer;background:var(--bg3);color:var(--fg2);
-  transition:background .12s,color .12s,border-color .12s;
+  min-width:34px;padding:7px 10px;
+  border:1.5px solid var(--border);border-radius:8px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  background:var(--bg2);color:var(--fg2);
+  transition:all .12s;text-align:center;
+  box-shadow:0 1px 2px rgba(0,0,0,.06);
 }
-.mth-btn.on{background:var(--blue);color:#fff;border-color:var(--blue);}
+.mth-btn:hover:not(:disabled):not(.on){
+  background:var(--blue-lt);border-color:var(--blue);color:var(--blue);transform:translateY(-1px);
+}
+.mth-btn.on{
+  background:var(--blue);color:#fff;border-color:var(--blue);
+  box-shadow:0 2px 8px rgba(45,107,228,.4);transform:translateY(-1px);
+}
+.mth-btn:disabled{opacity:.3;cursor:not-allowed;transform:none;}
 
-/* airline checkboxes */
-.al-checks{display:flex;gap:6px;flex-wrap:wrap;}
+/* airline chips */
+.al-checks{display:flex;gap:7px;flex-wrap:wrap;}
 .al-chip{
-  display:flex;align-items:center;gap:5px;
-  padding:5px 10px;border-radius:999px;border:1px solid var(--border);
-  cursor:pointer;font-size:12px;font-weight:600;user-select:none;
-  transition:all .12s;
+  display:flex;align-items:center;gap:6px;
+  padding:7px 13px;border-radius:999px;
+  border:1.5px solid var(--border);
+  cursor:pointer;font-size:12px;font-weight:700;user-select:none;
+  transition:all .15s;background:var(--bg2);color:var(--fg2);
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
 }
-.al-chip.on{color:#fff;}
-.al-chip.off{opacity:.5;background:var(--bg3)!important;color:var(--fg2)!important;border-color:var(--border)!important;}
-.al-chip-dot{width:7px;height:7px;border-radius:50%;}
+.al-chip:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.12);}
+.al-chip.on{color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.2);}
+.al-chip.off{opacity:.4;filter:grayscale(.6);box-shadow:none;}
+.al-chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
 /* method info */
 .method-info{
