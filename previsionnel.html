@@ -132,6 +132,24 @@ body::before{
 .al-chip.off{opacity:.4;filter:grayscale(.6);box-shadow:none;}
 .al-chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
+/* charges panel */
+.charge-row{
+  display:flex;align-items:center;gap:8px;
+  padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;
+}
+.charge-row:last-of-type{border-bottom:none;}
+.ch-label{color:var(--fg2);flex:1;}
+.ch-val{font-weight:600;min-width:80px;text-align:right;font-variant-numeric:tabular-nums;}
+.ch-input{
+  width:100px;padding:4px 8px;border:1.5px solid var(--blue);border-radius:6px;
+  background:var(--blue-lt);color:var(--fg);font-size:12px;font-weight:600;text-align:right;
+  font-variant-numeric:tabular-nums;
+}
+.ch-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,107,228,.15);}
+.fixed-row .ch-val{color:var(--fg3);}
+.editable-row.editing .ch-val{display:none;}
+.editable-row.editing .ch-input{display:block!important;}
+
 /* method info */
 .method-info{
   background:var(--blue-lt);border:1px solid var(--blue);border-radius:8px;
@@ -299,7 +317,7 @@ tfoot td:not(:first-child){text-align:right;}
     <div class="kpi"><div class="kpi-lbl">Résultat net</div><div class="kpi-val" id="k-net">—</div><div class="kpi-sub" id="k-net-sub">—</div></div>
     <div class="kpi"><div class="kpi-lbl">Marge moyenne</div><div class="kpi-val" id="k-marge">—</div><div class="kpi-sub">net ÷ CA</div></div>
     <div class="kpi"><div class="kpi-lbl">Capital départ</div><div class="kpi-val" style="color:var(--orange)">1 323 460</div><div class="kpi-sub">FDJ · Bajaj + réserve 3 mois</div></div>
-    <div class="kpi"><div class="kpi-lbl">Charges cash/mois</div><div class="kpi-val" style="color:var(--red)">146 500</div><div class="kpi-sub">FDJ · sans amortissement</div></div>
+    <div class="kpi"><div class="kpi-lbl">Charges cash/mois</div><div class="kpi-val" id="k-charges" style="color:var(--red)">146 500</div><div class="kpi-sub">FDJ · sans amortissement</div></div>
   </div>
 
   <!-- GRID -->
@@ -322,16 +340,46 @@ tfoot td:not(:first-child){text-align:right;}
 
       <!-- Charges -->
       <div class="panel">
-        <div class="ph">💰 Charges cash / mois</div>
-        <div style="padding:12px 14px;">
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--fg2)">Salaire chauffeur</span><span style="font-weight:600;">70 000 FDJ</span></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--fg2)">Carburant</span><span style="font-weight:600;">45 000 FDJ</span></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--fg2)">Entretien Bajaj</span><span style="font-weight:600;">10 000 FDJ</span></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--fg2)">Téléphone / data</span><span style="font-weight:600;">6 500 FDJ</span></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;font-size:12px;"><span style="color:var(--fg2)">Réserve imprévus</span><span style="font-weight:600;">15 000 FDJ</span></div>
+        <div class="ph" style="justify-content:space-between;">
+          <span>💰 Charges cash / mois</span>
+          <button id="charges-edit-btn" onclick="toggleChargesEdit()" style="font-size:11px;font-weight:700;padding:4px 10px;border:1.5px solid var(--blue);border-radius:6px;background:var(--blue-lt);color:var(--blue);cursor:pointer;">✏️ Modifier</button>
+        </div>
+        <div style="padding:12px 14px;" id="charges-wrap">
+
+          <!-- Lignes fixes (non-éditables) -->
+          <div class="charge-row fixed-row">
+            <span class="ch-label">Salaire chauffeur</span>
+            <span class="ch-val" id="disp-salaire">70 000 FDJ</span>
+          </div>
+          <div class="charge-row fixed-row">
+            <span class="ch-label">Entretien Bajaj</span>
+            <span class="ch-val" id="disp-entretien">10 000 FDJ</span>
+          </div>
+
+          <!-- Lignes éditables -->
+          <div class="charge-row editable-row">
+            <span class="ch-label">⛽ Carburant</span>
+            <span class="ch-val" id="disp-carburant">45 000 FDJ</span>
+            <input class="ch-input" id="inp-carburant" type="number" value="45000" min="0" step="500" style="display:none;">
+          </div>
+          <div class="charge-row editable-row">
+            <span class="ch-label">📱 Téléphone / data</span>
+            <span class="ch-val" id="disp-tel">6 500 FDJ</span>
+            <input class="ch-input" id="inp-tel" type="number" value="6500" min="0" step="500" style="display:none;">
+          </div>
+          <div class="charge-row editable-row">
+            <span class="ch-label">🛡 Réserve imprévus</span>
+            <span class="ch-val" id="disp-reserve">15 000 FDJ</span>
+            <input class="ch-input" id="inp-reserve" type="number" value="15000" min="0" step="500" style="display:none;">
+          </div>
+
+          <!-- Bouton Appliquer (caché par défaut) -->
+          <button id="charges-apply-btn" onclick="applyCharges()" style="display:none;width:100%;margin-top:10px;padding:9px;border:none;border-radius:8px;background:var(--green);color:#fff;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.02em;">✓ Appliquer</button>
+
+          <!-- Total -->
           <div style="display:flex;justify-content:space-between;padding:10px 12px;background:var(--bg3);border-radius:8px;margin-top:8px;">
             <span style="font-weight:700;font-size:13px;">Total</span>
-            <span style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;">146 500 FDJ</span>
+            <span id="charges-total" style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;">146 500 FDJ</span>
           </div>
         </div>
       </div>
@@ -408,8 +456,15 @@ tfoot td:not(:first-child){text-align:right;}
    DATA
 ══════════════════════════════════════ */
 const RATE = 177.721;
-const CHARGES = 146500;
 const RESERVE_DEPART = 439500;
+
+// Charges — fixes vs éditables
+const CHARGES_FIXED = { salaire: 70000, entretien: 10000 }; // non modifiables
+const chargesEdit = { carburant: 45000, tel: 6500, reserve: 15000 };
+function CHARGES() {
+  return CHARGES_FIXED.salaire + CHARGES_FIXED.entretien
+       + chargesEdit.carburant + chargesEdit.tel + chargesEdit.reserve;
+}
 
 const HIST_MONTHS = ['Jan.','Fév.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.'];
 
@@ -489,8 +544,8 @@ function buildMonthRows() {
       rows.push({
         label: HIST_MONTHS[mi],
         dos, ca,
-        net: ca - CHARGES,
-        marge: ca > 0 ? (ca - CHARGES) / ca : 0,
+        net: ca - CHARGES(),
+        marge: ca > 0 ? (ca - CHARGES()) / ca : 0,
         // per-airline for stacked chart
         byAl: active.map(al => ({ al, dos: al.hist[mi], ca: caFn(al.hist[mi]) }))
       });
@@ -508,8 +563,8 @@ function buildMonthRows() {
       rows.push({
         label: PROJ_LABELS[mi],
         dos, ca,
-        net: ca - CHARGES,
-        marge: ca > 0 ? (ca - CHARGES) / ca : 0,
+        net: ca - CHARGES(),
+        marge: ca > 0 ? (ca - CHARGES()) / ca : 0,
         byAl: active.map(al => ({ al, dos: projVol[al.id], ca: caFn(projVol[al.id]) }))
       });
     }
@@ -663,8 +718,8 @@ function renderChartNet(rows) {
   if (!n) return;
 
   const vals = rows.map(r=>r.net);
-  const minV = Math.min(...vals,-CHARGES*0.5);
-  const maxV = Math.max(...vals, CHARGES*0.5);
+  const minV = Math.min(...vals,-CHARGES()*0.5);
+  const maxV = Math.max(...vals, CHARGES()*0.5);
   const range = maxV-minV||1;
   const toY = v => PT+cH-((v-minV)/range)*cH;
   const zY = toY(0);
@@ -710,7 +765,7 @@ function renderMainTable(rows, totalDos, totalCA, totalNet) {
       <td class="td-m">${r.label}</td>
       <td>${fmt(r.dos)}</td>
       <td class="td-ca">${fmt(r.ca)}</td>
-      <td class="td-neg">−${fmt(CHARGES)}</td>
+      <td class="td-neg">−${fmt(CHARGES())}</td>
       <td class="${r.net>=0?'td-pos':'td-neg'}">${r.net>=0?'+':''}${fmt(r.net)}</td>
       <td style="color:${colM};font-weight:600">${pct}%</td>
       <td><span class="badge ${r.net>=0?'b-ok':'b-bad'}">${r.net>=0?'✓ Rentable':'⊘ Déficit'}</span></td>
@@ -723,7 +778,7 @@ function renderMainTable(rows, totalDos, totalCA, totalNet) {
   tfoot.innerHTML = `<tr>
     <td>TOTAL</td><td>${fmt(totalDos)}</td>
     <td class="td-ca">${fmtK(totalCA)}</td>
-    <td class="td-neg">−${fmt(CHARGES*rows.length)}</td>
+    <td class="td-neg">−${fmt(CHARGES()*rows.length)}</td>
     <td class="${totalNet>=0?'td-pos':'td-neg'}">${totalNet>=0?'+':''}${fmtK(totalNet)}</td>
     <td style="color:${colM};font-weight:700">${avgM}%</td><td></td>
   </tr>`;
@@ -781,10 +836,10 @@ function renderDetailTable(active) {
       let html = '<table><thead><tr><th>Mois</th><th>Dossiers</th><th>CA Méth. A</th><th>CA Méth. B</th><th>Charges</th><th>Net A</th><th>Net B</th></tr></thead><tbody>';
       al.hist.slice(0,n).forEach((d,mi)=>{
         const a=caA(d),b=caB(d);
-        const nA=a-CHARGES, nB=b-CHARGES;
+        const nA=a-CHARGES(), nB=b-CHARGES();
         html+=`<tr><td class="td-m">${HIST_MONTHS[mi]}</td><td>${d||'—'}</td>
         <td class="td-ca">${d?fmt(a):'—'}</td><td class="td-ca">${d?fmt(b):'—'}</td>
-        <td class="td-neg">−${fmt(CHARGES)}</td>
+        <td class="td-neg">−${fmt(CHARGES())}</td>
         <td class="${nA>=0?'td-pos':'td-neg'}">${d?(nA>=0?'+':'')+fmt(nA):'—'}</td>
         <td class="${nB>=0?'td-pos':'td-neg'}">${d?(nB>=0?'+':'')+fmt(nB):'—'}</td></tr>`;
       });
@@ -793,9 +848,9 @@ function renderDetailTable(active) {
       const tA=al.hist.slice(0,n).reduce((s,d)=>s+caA(d),0);
       const tB=al.hist.slice(0,n).reduce((s,d)=>s+caB(d),0);
       html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${totDos}</td><td class="td-ca">${fmt(tA)}</td><td class="td-ca">${fmt(tB)}</td>
-      <td class="td-neg">−${fmt(CHARGES*actM)}</td>
-      <td class="${tA-CHARGES*actM>=0?'td-pos':'td-neg'}">${tA-CHARGES*actM>=0?'+':''}${fmt(tA-CHARGES*actM)}</td>
-      <td class="${tB-CHARGES*actM>=0?'td-pos':'td-neg'}">${tB-CHARGES*actM>=0?'+':''}${fmt(tB-CHARGES*actM)}</td></tr></tfoot></table>`;
+      <td class="td-neg">−${fmt(CHARGES()*actM)}</td>
+      <td class="${tA-CHARGES()*actM>=0?'td-pos':'td-neg'}">${tA-CHARGES()*actM>=0?'+':''}${fmt(tA-CHARGES()*actM)}</td>
+      <td class="${tB-CHARGES()*actM>=0?'td-pos':'td-neg'}">${tB-CHARGES()*actM>=0?'+':''}${fmt(tB-CHARGES()*actM)}</td></tr></tfoot></table>`;
       wrap.innerHTML = html;
     } else {
       // projection single airline
@@ -805,16 +860,16 @@ function renderDetailTable(active) {
       html+='<table><thead><tr><th>Mois</th><th>Dossiers</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th></tr></thead><tbody>';
       let cum=0;
       for(let mi=0;mi<MONTHS_COUNT;mi++){
-        const ca=caFn(d),net=ca-CHARGES;cum+=net;
+        const ca=caFn(d),net=ca-CHARGES();cum+=net;
         const pct=ca>0?Math.round(net/ca*100):0;
         html+=`<tr><td class="td-m">M${mi+1}</td><td>${d}</td><td class="td-ca">${fmt(ca)}</td>
-        <td class="td-neg">−${fmt(CHARGES)}</td>
+        <td class="td-neg">−${fmt(CHARGES())}</td>
         <td class="${net>=0?'td-pos':'td-neg'}">${net>=0?'+':''}${fmt(net)}</td>
         <td style="color:${pct>=50?'var(--green)':pct>=20?'var(--orange)':'var(--red)'};font-weight:600">${pct}%</td></tr>`;
       }
-      const totCA=caFn(d)*MONTHS_COUNT, totNet=totCA-CHARGES*MONTHS_COUNT;
+      const totCA=caFn(d)*MONTHS_COUNT, totNet=totCA-CHARGES()*MONTHS_COUNT;
       html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${d*MONTHS_COUNT}</td><td class="td-ca">${fmt(totCA)}</td>
-      <td class="td-neg">−${fmt(CHARGES*MONTHS_COUNT)}</td>
+      <td class="td-neg">−${fmt(CHARGES()*MONTHS_COUNT)}</td>
       <td class="${totNet>=0?'td-pos':'td-neg'}">${totNet>=0?'+':''}${fmt(totNet)}</td><td></td></tr></tfoot></table>`;
       wrap.innerHTML = html;
     }
@@ -841,7 +896,7 @@ function renderTresoCumulChart(active) {
       });
       // 50% encaissement ce mois + 50% mois précédent approx
       const enc = mi===0 ? ca*0.5 : ca;
-      cash = cash + enc - CHARGES;
+      cash = cash + enc - CHARGES();
       pts.push(cash);
     }
     return pts;
@@ -1026,6 +1081,56 @@ function setMonths(n,btn) {
   MONTHS_COUNT = n;
   document.querySelectorAll('.mth-btn').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
+  recalc();
+}
+
+/* ══════════════════════════════════════
+   CHARGES EDIT
+══════════════════════════════════════ */
+let chargesEditing = false;
+
+function toggleChargesEdit() {
+  chargesEditing = !chargesEditing;
+  const btn = document.getElementById('charges-edit-btn');
+  const applyBtn = document.getElementById('charges-apply-btn');
+  document.querySelectorAll('.editable-row').forEach(row => {
+    row.classList.toggle('editing', chargesEditing);
+  });
+  if (chargesEditing) {
+    btn.textContent = '✕ Annuler';
+    btn.style.background = 'var(--red-lt)';
+    btn.style.borderColor = 'var(--red)';
+    btn.style.color = 'var(--red)';
+    applyBtn.style.display = 'block';
+    // pré-remplir avec valeurs actuelles
+    document.getElementById('inp-carburant').value = chargesEdit.carburant;
+    document.getElementById('inp-tel').value = chargesEdit.tel;
+    document.getElementById('inp-reserve').value = chargesEdit.reserve;
+  } else {
+    btn.textContent = '✏️ Modifier';
+    btn.style.background = 'var(--blue-lt)';
+    btn.style.borderColor = 'var(--blue)';
+    btn.style.color = 'var(--blue)';
+    applyBtn.style.display = 'none';
+  }
+}
+
+function applyCharges() {
+  chargesEdit.carburant = parseInt(document.getElementById('inp-carburant').value) || 0;
+  chargesEdit.tel       = parseInt(document.getElementById('inp-tel').value) || 0;
+  chargesEdit.reserve   = parseInt(document.getElementById('inp-reserve').value) || 0;
+  // update display values
+  document.getElementById('disp-carburant').textContent = fmt(chargesEdit.carburant) + ' FDJ';
+  document.getElementById('disp-tel').textContent       = fmt(chargesEdit.tel) + ' FDJ';
+  document.getElementById('disp-reserve').textContent   = fmt(chargesEdit.reserve) + ' FDJ';
+  // update total badge
+  const tot = CHARGES();
+  document.getElementById('charges-total').textContent = fmt(tot) + ' FDJ';
+  document.getElementById('k-charges').textContent = fmt(tot).replace(/\s/g,' ');
+  // fermer mode édition
+  chargesEditing = true; // force toggle to close
+  toggleChargesEdit();
+  // recalc tout
   recalc();
 }
 
