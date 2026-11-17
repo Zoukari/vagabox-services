@@ -8,45 +8,34 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap">
 <style>
 :root {
-  --bg:#F7F8FA; --bg2:#FFFFFF; --bg3:#EEF0F5;
-  --fg:#1A1D23; --fg2:#4A5068; --fg3:#8A8FA8; --border:#DDE0EB;
-  --blue:#2D6BE4; --blue-lt:rgba(45,107,228,.1);
-  --green:#1DB87A; --green-lt:rgba(29,184,122,.1);
-  --orange:#F59E0B; --orange-lt:rgba(245,158,11,.1);
-  --red:#EF4444; --red-lt:rgba(239,68,68,.1);
-  --purple:#7C3AED; --purple-lt:rgba(124,58,237,.1);
+  --bg:#F7F8FA;--bg2:#fff;--bg3:#EEF0F5;
+  --fg:#1A1D23;--fg2:#4A5068;--fg3:#8A8FA8;--border:#DDE0EB;
+  --blue:#2D6BE4;--blue-lt:rgba(45,107,228,.1);
+  --green:#1DB87A;--green-lt:rgba(29,184,122,.1);
+  --orange:#F59E0B;--orange-lt:rgba(245,158,11,.1);
+  --red:#EF4444;--red-lt:rgba(239,68,68,.1);
+  --purple:#7C3AED;--purple-lt:rgba(124,58,237,.1);
   --shadow:0 1px 3px rgba(0,0,0,.07),0 4px 12px rgba(0,0,0,.05);
-  --r:12px;
-  --fn:'Inter',system-ui,sans-serif;
-  --fd:'Space Grotesk',system-ui,sans-serif;
+  --r:12px;--fn:'Inter',system-ui,sans-serif;--fd:'Space Grotesk',system-ui,sans-serif;
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#0F1117;--bg2:#1A1D27;--bg3:#22263A;
-  --fg:#E8ECF4;--fg2:#9BA3BF;--fg3:#5A6080;--border:#2E3348;
-  --blue:#5A8FF5;--blue-lt:rgba(90,143,245,.12);
-  --green:#34D494;--green-lt:rgba(52,212,148,.12);
-  --orange:#FBBF24;--orange-lt:rgba(251,191,36,.12);
-  --red:#F87171;--red-lt:rgba(248,113,113,.12);
+  --bg:#0F1117;--bg2:#1A1D27;--bg3:#22263A;--fg:#E8ECF4;--fg2:#9BA3BF;--fg3:#5A6080;--border:#2E3348;
+  --blue:#5A8FF5;--blue-lt:rgba(90,143,245,.12);--green:#34D494;--green-lt:rgba(52,212,148,.12);
+  --orange:#FBBF24;--orange-lt:rgba(251,191,36,.12);--red:#F87171;--red-lt:rgba(248,113,113,.12);
   --purple:#A78BFA;--purple-lt:rgba(167,139,250,.12);
-  --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.2);
-  color-scheme:dark;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.2);color-scheme:dark;
 }}
 :root[data-theme="dark"]{
-  --bg:#0F1117;--bg2:#1A1D27;--bg3:#22263A;
-  --fg:#E8ECF4;--fg2:#9BA3BF;--fg3:#5A6080;--border:#2E3348;
-  --blue:#5A8FF5;--blue-lt:rgba(90,143,245,.12);
-  --green:#34D494;--green-lt:rgba(52,212,148,.12);
-  --orange:#FBBF24;--orange-lt:rgba(251,191,36,.12);
-  --red:#F87171;--red-lt:rgba(248,113,113,.12);
+  --bg:#0F1117;--bg2:#1A1D27;--bg3:#22263A;--fg:#E8ECF4;--fg2:#9BA3BF;--fg3:#5A6080;--border:#2E3348;
+  --blue:#5A8FF5;--blue-lt:rgba(90,143,245,.12);--green:#34D494;--green-lt:rgba(52,212,148,.12);
+  --orange:#FBBF24;--orange-lt:rgba(251,191,36,.12);--red:#F87171;--red-lt:rgba(248,113,113,.12);
   --purple:#A78BFA;--purple-lt:rgba(167,139,250,.12);
-  --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.2);
-  color-scheme:dark;
+  --shadow:0 1px 3px rgba(0,0,0,.3),0 4px 12px rgba(0,0,0,.2);color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;}
 html,body{height:100%;}
 body{
-  font-family:var(--fn);background:var(--bg);color:var(--fg);
-  font-size:14px;line-height:1.5;
+  font-family:var(--fn);background:var(--bg);color:var(--fg);font-size:14px;line-height:1.5;
   padding-left:max(16px,env(safe-area-inset-left,0px));
   padding-right:max(16px,env(safe-area-inset-right,0px));
   padding-block:0;
@@ -60,166 +49,155 @@ body{
   padding:10px max(16px,env(safe-area-inset-left,0px));
   margin:0 calc(-1*max(16px,env(safe-area-inset-left,0px)));
 }
-body::before{
-  content:"";position:fixed;inset:0 0 auto;
-  height:env(safe-area-inset-top,0px);z-index:51;background:var(--bg2);
-}
-.hdr-logo{
-  width:30px;height:30px;border-radius:7px;background:var(--blue);
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--fd);font-weight:700;color:#fff;font-size:12px;flex-shrink:0;
-}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:51;background:var(--bg2);}
+.hdr-logo{width:30px;height:30px;border-radius:7px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:700;color:#fff;font-size:12px;flex-shrink:0;}
 .hdr-title{font-family:var(--fd);font-weight:700;font-size:15px;}
 .hdr-sub{font-size:11px;color:var(--fg3);}
 .hdr-right{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
 .hdr-link{font-size:12px;color:var(--blue);text-decoration:none;padding:4px 8px;border:1px solid var(--border);border-radius:6px;}
 .hdr-link:hover{background:var(--bg3);}
 
-/* TOGGLE PILLS */
+/* TOGGLE */
 .tog{display:flex;background:var(--bg3);border-radius:9px;padding:3px;gap:2px;border:1px solid var(--border);}
-.tog-btn{
-  padding:7px 14px;border:none;border-radius:7px;
-  font-size:12px;font-weight:700;cursor:pointer;
-  background:transparent;color:var(--fg3);transition:all .15s;
-  letter-spacing:.01em;
-}
+.tog-btn{padding:7px 14px;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--fg3);transition:all .15s;white-space:nowrap;}
 .tog-btn:hover:not(.on){background:var(--bg2);color:var(--fg);}
 .tog-btn.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(45,107,228,.35);}
 
 /* MAIN */
-.main{padding-block:18px;max-width:1240px;margin:0 auto;}
+.main{padding-block:16px;max-width:1240px;margin:0 auto;}
 
 /* CONTROLS BAR */
 .ctrl-bar{
   background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);
-  padding:14px 16px;margin-bottom:16px;box-shadow:var(--shadow);
-  display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;
+  padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);
+  display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;
 }
-.ctrl-section{display:flex;flex-direction:column;gap:6px;}
-.ctrl-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);}
+.ctrl-section{display:flex;flex-direction:column;gap:7px;}
+.ctrl-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--fg3);}
 
-/* month buttons */
+/* MONTH BUTTONS */
 .month-btns{display:flex;gap:5px;flex-wrap:wrap;}
 .mth-btn{
-  min-width:34px;padding:7px 10px;
-  border:1.5px solid var(--border);border-radius:8px;
-  font-size:13px;font-weight:700;cursor:pointer;
-  background:var(--bg2);color:var(--fg2);
-  transition:all .12s;text-align:center;
-  box-shadow:0 1px 2px rgba(0,0,0,.06);
+  min-width:34px;padding:7px 9px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:13px;font-weight:700;cursor:pointer;background:var(--bg2);color:var(--fg2);
+  transition:all .12s;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.06);
 }
-.mth-btn:hover:not(:disabled):not(.on){
-  background:var(--blue-lt);border-color:var(--blue);color:var(--blue);transform:translateY(-1px);
-}
-.mth-btn.on{
-  background:var(--blue);color:#fff;border-color:var(--blue);
-  box-shadow:0 2px 8px rgba(45,107,228,.4);transform:translateY(-1px);
-}
-.mth-btn:disabled{opacity:.3;cursor:not-allowed;transform:none;}
+.mth-btn:hover:not(:disabled):not(.on){background:var(--blue-lt);border-color:var(--blue);color:var(--blue);transform:translateY(-1px);}
+.mth-btn.on{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 2px 8px rgba(45,107,228,.4);transform:translateY(-1px);}
+.mth-btn:disabled{opacity:.28;cursor:not-allowed;transform:none;}
 
-/* airline chips */
+/* AIRLINE CHIPS */
 .al-checks{display:flex;gap:7px;flex-wrap:wrap;}
 .al-chip{
-  display:flex;align-items:center;gap:6px;
-  padding:7px 13px;border-radius:999px;
-  border:1.5px solid var(--border);
-  cursor:pointer;font-size:12px;font-weight:700;user-select:none;
-  transition:all .15s;background:var(--bg2);color:var(--fg2);
+  display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:999px;
+  border:1.5px solid var(--border);cursor:pointer;font-size:12px;font-weight:700;
+  user-select:none;transition:all .15s;background:var(--bg2);color:var(--fg2);
   box-shadow:0 1px 3px rgba(0,0,0,.06);
 }
 .al-chip:hover{transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,.12);}
 .al-chip.on{color:#fff;border-color:transparent;box-shadow:0 2px 8px rgba(0,0,0,.2);}
-.al-chip.off{opacity:.4;filter:grayscale(.6);box-shadow:none;}
+.al-chip.off{opacity:.38;filter:grayscale(.6);box-shadow:none;}
 .al-chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
-/* charges panel */
-.charge-row{
-  display:flex;align-items:center;gap:8px;
-  padding:7px 0;border-bottom:1px solid var(--border);font-size:12px;
-}
-.charge-row:last-of-type{border-bottom:none;}
-.ch-label{color:var(--fg2);flex:1;}
-.ch-val{font-weight:600;min-width:80px;text-align:right;font-variant-numeric:tabular-nums;}
-.ch-input{
-  width:100px;padding:4px 8px;border:1.5px solid var(--blue);border-radius:6px;
-  background:var(--blue-lt);color:var(--fg);font-size:12px;font-weight:600;text-align:right;
-  font-variant-numeric:tabular-nums;
-}
-.ch-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,107,228,.15);}
-.fixed-row .ch-val{color:var(--fg3);}
-.editable-row.editing .ch-val{display:none;}
-.editable-row.editing .ch-input{display:block!important;}
-
-/* method info */
-.method-info{
-  background:var(--blue-lt);border:1px solid var(--blue);border-radius:8px;
-  padding:10px 14px;font-size:12px;color:var(--blue);margin-bottom:16px;
-}
+/* METHOD INFO */
+.method-info{background:var(--blue-lt);border:1px solid var(--blue);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--blue);margin-bottom:14px;}
 
 /* KPIs */
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px;}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px;}
 .kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;box-shadow:var(--shadow);}
 .kpi-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg3);margin-bottom:3px;}
-.kpi-val{font-family:var(--fd);font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2;}
+.kpi-val{font-family:var(--fd);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2;}
 .kpi-sub{font-size:10px;color:var(--fg3);margin-top:2px;}
 
 /* GRID */
-.grid-2{display:grid;grid-template-columns:260px 1fr;gap:14px;align-items:start;}
-@media(max-width:680px){.grid-2{grid-template-columns:1fr;}}
+.grid-2{display:grid;grid-template-columns:270px 1fr;gap:14px;align-items:start;}
+@media(max-width:760px){.grid-2{grid-template-columns:1fr;}}
 
 /* PANELS */
 .panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;}
-.ph{
-  padding:12px 14px;font-family:var(--fd);font-weight:600;font-size:13px;
-  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;
-}
+.ph{padding:12px 14px;font-family:var(--fd);font-weight:600;font-size:13px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:7px;}
 .right-col{display:flex;flex-direction:column;gap:14px;}
 
-/* per-company detail rows */
+/* CO BREAKDOWN */
 .co-row{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:6px;align-items:center;}
 .co-row:last-child{border-bottom:none;}
-.co-name{font-weight:600;font-size:12px;min-width:90px;display:flex;align-items:center;gap:5px;}
+.co-name{font-weight:600;font-size:12px;min-width:85px;display:flex;align-items:center;gap:5px;}
 .co-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
-.co-num{font-variant-numeric:tabular-nums;font-size:11px;color:var(--fg2);}
-.co-bar-wrap{flex:1;min-width:60px;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.co-bar-wrap{flex:1;min-width:50px;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden;}
 .co-bar{height:100%;border-radius:3px;transition:width .3s;}
 
-/* per-company sliders */
+/* SLIDERS */
 .co-slider-row{padding:10px 14px;border-bottom:1px solid var(--border);}
 .co-slider-row:last-child{border-bottom:none;}
-.co-sl-top{display:flex;align-items:center;gap:6px;margin-bottom:5px;}
-.co-sl-label{font-size:11px;font-weight:600;flex:1;}
-.co-sl-val{font-family:var(--fd);font-size:12px;font-weight:700;min-width:28px;text-align:right;}
+.co-sl-top{display:flex;align-items:center;gap:6px;margin-bottom:5px;flex-wrap:wrap;}
+.co-sl-label{font-size:11px;font-weight:600;flex:1;min-width:60px;}
 input[type=range]{width:100%;accent-color:var(--blue);}
 input[type=number]{
-  padding:3px 6px;border:1px solid var(--border);border-radius:5px;
-  background:var(--bg3);color:var(--fg);font-size:12px;width:64px;
-  font-variant-numeric:tabular-nums;
+  padding:4px 7px;border:1.5px solid var(--border);border-radius:6px;
+  background:var(--bg3);color:var(--fg);font-size:12px;font-weight:600;
+  font-variant-numeric:tabular-nums;min-width:0;
 }
 input[type=number]:focus{outline:none;border-color:var(--blue);}
 
+/* ── CHARGES PANEL ── */
+.charge-row{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-bottom:1px solid var(--border);font-size:12px;
+  flex-wrap:wrap;
+}
+.charge-row:last-of-type{border-bottom:none;}
+.ch-label{color:var(--fg2);flex:1;min-width:100px;}
+.ch-val{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
+.ch-auto{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--orange-lt);color:var(--orange);font-weight:700;white-space:nowrap;}
+.ch-fixed{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--bg3);color:var(--fg3);font-weight:700;}
+.ch-input{
+  width:90px;padding:5px 8px;border:1.5px solid var(--blue);border-radius:6px;
+  background:var(--blue-lt);color:var(--fg);font-size:12px;font-weight:600;
+  text-align:right;font-variant-numeric:tabular-nums;display:none;
+}
+.ch-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,107,228,.15);}
+.ch-rate-row{
+  display:none;align-items:center;gap:6px;
+  padding:6px 14px;background:var(--orange-lt);font-size:11px;color:var(--orange);flex-wrap:wrap;
+}
+.ch-rate-row span{flex:1;}
+.ch-rate-input{
+  width:70px;padding:4px 7px;border:1.5px solid var(--orange);border-radius:6px;
+  background:var(--bg2);color:var(--fg);font-size:12px;font-weight:700;
+  text-align:right;font-variant-numeric:tabular-nums;
+}
+.ch-rate-input:focus{outline:none;}
+.ch-edit-btn{
+  font-size:11px;font-weight:700;padding:4px 10px;
+  border:1.5px solid var(--blue);border-radius:6px;
+  background:var(--blue-lt);color:var(--blue);cursor:pointer;
+  transition:all .12s;white-space:nowrap;
+}
+.ch-edit-btn:hover{background:var(--blue);color:#fff;}
+.ch-apply-btn{
+  display:none;width:calc(100% - 28px);margin:8px 14px;padding:9px;
+  border:none;border-radius:8px;background:var(--green);color:#fff;
+  font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.02em;
+}
+.ch-apply-btn:hover{opacity:.88;}
+
 /* CHARTS */
 .chart-panel{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 16px 10px;}
-.chart-title{font-family:var(--fd);font-weight:600;font-size:13px;margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-.chart-wrap{overflow-x:auto;}
-.chart-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+.chart-title{font-family:var(--fd);font-weight:600;font-size:13px;margin-bottom:10px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+.chart-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.chart-legend{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px;}
 .leg-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--fg2);}
 .leg-dot{width:7px;height:7px;border-radius:50%;}
 
 /* TABLES */
-.tbl-wrap{overflow-x:auto;}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
 table{width:100%;border-collapse:collapse;font-size:12px;}
-thead th{
-  padding:9px 12px;text-align:left;
-  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
-  color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--border);
-  white-space:nowrap;
-}
+thead th{padding:9px 10px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--border);white-space:nowrap;}
 thead th:not(:first-child){text-align:right;}
 tbody tr{border-bottom:1px solid var(--border);}
 tbody tr:last-child{border-bottom:none;}
 tbody tr:hover{background:var(--bg3);}
-tbody td{padding:9px 12px;font-variant-numeric:tabular-nums;}
+tbody td{padding:8px 10px;font-variant-numeric:tabular-nums;}
 tbody td:not(:first-child){text-align:right;}
 .td-m{font-weight:600;}
 .td-pos{color:var(--green);font-weight:600;}
@@ -229,29 +207,26 @@ tbody td:not(:first-child){text-align:right;}
 .b-ok{background:var(--green-lt);color:var(--green);}
 .b-bad{background:var(--red-lt);color:var(--red);}
 tfoot tr{background:var(--bg3);font-weight:700;border-top:2px solid var(--border);}
-tfoot td{padding:9px 12px;font-variant-numeric:tabular-nums;}
+tfoot td{padding:9px 10px;font-variant-numeric:tabular-nums;}
 tfoot td:not(:first-child){text-align:right;}
 
-/* PER-COMPANY TABLE TABS */
+/* TABS */
 .tab-row{display:flex;gap:3px;padding:10px 12px 0;overflow-x:auto;scrollbar-width:none;}
 .tab-row::-webkit-scrollbar{display:none;}
-.tab-btn{
-  padding:5px 11px;border:1px solid var(--border);border-bottom:none;
-  border-radius:5px 5px 0 0;background:var(--bg3);
-  font-size:11px;font-weight:600;cursor:pointer;color:var(--fg3);white-space:nowrap;
-}
+.tab-btn{padding:5px 11px;border:1px solid var(--border);border-bottom:none;border-radius:5px 5px 0 0;background:var(--bg3);font-size:11px;font-weight:600;cursor:pointer;color:var(--fg3);white-space:nowrap;}
 .tab-btn.on{background:var(--bg2);color:var(--blue);border-bottom-color:var(--bg2);}
 
-/* SECTION LABEL */
-.sec-lbl{
-  font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;
-  color:var(--fg3);margin-bottom:6px;padding-top:4px;
+/* RESPONSIVE HELPERS */
+@media(max-width:480px){
+  .kpi-row{grid-template-columns:repeat(2,1fr);}
+  .kpi-val{font-size:16px;}
+  .ctrl-bar{gap:12px;}
+  .hdr-title{font-size:13px;}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="hdr">
   <div class="hdr-logo">VE</div>
   <div>
@@ -263,7 +238,7 @@ tfoot td:not(:first-child){text-align:right;}
       <button class="tog-btn on" onclick="setMethod('A',this)">Méthode A</button>
       <button class="tog-btn" onclick="setMethod('B',this)">Méthode B</button>
     </div>
-    <a class="hdr-link" href="/">← Étude de faisabilité</a>
+    <a class="hdr-link" href="/">← Faisabilité</a>
   </div>
 </header>
 
@@ -271,7 +246,6 @@ tfoot td:not(:first-child){text-align:right;}
 
   <!-- CONTROLS -->
   <div class="ctrl-bar">
-
     <div class="ctrl-section">
       <div class="ctrl-label">Mode</div>
       <div class="tog" id="mode-tog">
@@ -279,7 +253,6 @@ tfoot td:not(:first-child){text-align:right;}
         <button class="tog-btn" onclick="setMode('projection',this)">🔮 Projection</button>
       </div>
     </div>
-
     <div class="ctrl-section" id="month-ctrl">
       <div class="ctrl-label">Nombre de mois</div>
       <div class="month-btns" id="month-btns">
@@ -292,32 +265,30 @@ tfoot td:not(:first-child){text-align:right;}
         <button class="mth-btn" onclick="setMonths(7,this)">7</button>
         <button class="mth-btn" onclick="setMonths(8,this)">8</button>
         <button class="mth-btn" onclick="setMonths(9,this)">9</button>
-        <button class="mth-btn" onclick="setMonths(10,this)">10</button>
+        <button class="mth-btn on" onclick="setMonths(10,this)">10</button>
         <button class="mth-btn" onclick="setMonths(11,this)">11</button>
-        <button class="mth-btn on" onclick="setMonths(12,this)">12</button>
+        <button class="mth-btn" onclick="setMonths(12,this)">12</button>
       </div>
     </div>
-
     <div class="ctrl-section">
       <div class="ctrl-label">Compagnies</div>
       <div class="al-checks" id="al-checks"></div>
     </div>
-
   </div>
 
   <!-- METHOD INFO -->
   <div class="method-info" id="method-info">
-    <strong>Méthode A</strong> — Tarif unique appliqué à tous les dossiers selon le palier global de la compagnie : ≤50 dos → 20 $/dos · 51–70 → 18 $/dos · >70 → 15 $/dos
+    <strong>Méthode A</strong> — Tarif unique par palier : ≤50 dos → 20 $/dos · 51–70 → 18 $/dos · >70 → 15 $/dos
   </div>
 
   <!-- KPIs -->
-  <div class="kpi-row" id="kpi-row">
+  <div class="kpi-row">
     <div class="kpi"><div class="kpi-lbl">Dossiers total</div><div class="kpi-val" id="k-dos" style="color:var(--blue)">—</div><div class="kpi-sub" id="k-dos-sub">—</div></div>
     <div class="kpi"><div class="kpi-lbl">CA total (FDJ)</div><div class="kpi-val" id="k-ca" style="color:var(--green)">—</div><div class="kpi-sub" id="k-ca-sub">—</div></div>
     <div class="kpi"><div class="kpi-lbl">Résultat net</div><div class="kpi-val" id="k-net">—</div><div class="kpi-sub" id="k-net-sub">—</div></div>
     <div class="kpi"><div class="kpi-lbl">Marge moyenne</div><div class="kpi-val" id="k-marge">—</div><div class="kpi-sub">net ÷ CA</div></div>
     <div class="kpi"><div class="kpi-lbl">Capital départ</div><div class="kpi-val" style="color:var(--orange)">1 323 460</div><div class="kpi-sub">FDJ · Bajaj + réserve 3 mois</div></div>
-    <div class="kpi"><div class="kpi-lbl">Charges cash/mois</div><div class="kpi-val" id="k-charges" style="color:var(--red)">146 500</div><div class="kpi-sub">FDJ · sans amortissement</div></div>
+    <div class="kpi"><div class="kpi-lbl">Charges cash/mois</div><div class="kpi-val" id="k-charges" style="color:var(--red)">—</div><div class="kpi-sub" id="k-charges-sub">FDJ · variable</div></div>
   </div>
 
   <!-- GRID -->
@@ -326,61 +297,76 @@ tfoot td:not(:first-child){text-align:right;}
     <!-- LEFT -->
     <div style="display:flex;flex-direction:column;gap:14px;">
 
-      <!-- CA par compagnie breakdown -->
+      <!-- CA par compagnie -->
       <div class="panel">
         <div class="ph">🏢 CA par compagnie</div>
         <div id="co-breakdown" style="padding:4px 0;"></div>
       </div>
 
-      <!-- Per-company sliders (projection mode) -->
+      <!-- Sliders projection -->
       <div class="panel" id="slider-panel" style="display:none;">
         <div class="ph">🎚 Volumes projetés / mois</div>
         <div id="slider-list"></div>
       </div>
 
-      <!-- Charges -->
-      <div class="panel">
+      <!-- CHARGES PANEL -->
+      <div class="panel" id="charges-panel">
         <div class="ph" style="justify-content:space-between;">
-          <span>💰 Charges cash / mois</span>
-          <button id="charges-edit-btn" onclick="toggleChargesEdit()" style="font-size:11px;font-weight:700;padding:4px 10px;border:1.5px solid var(--blue);border-radius:6px;background:var(--blue-lt);color:var(--blue);cursor:pointer;">✏️ Modifier</button>
+          <span>💰 Charges / mois</span>
+          <button class="ch-edit-btn" id="charges-edit-btn" onclick="toggleChargesEdit()">✏️ Modifier</button>
         </div>
-        <div style="padding:12px 14px;" id="charges-wrap">
 
-          <!-- Lignes fixes (non-éditables) -->
-          <div class="charge-row fixed-row">
+        <!-- Taux carburant/dossier (auto row) -->
+        <div class="ch-rate-row" id="ch-rate-row">
+          <span>⛽ Taux carburant / dossier</span>
+          <input class="ch-rate-input" id="inp-rate-carb" type="number" value="350" min="0" step="50">
+          <span>FDJ</span>
+        </div>
+
+        <div id="charges-rows">
+          <!-- Salaire — fixe -->
+          <div class="charge-row">
             <span class="ch-label">Salaire chauffeur</span>
+            <span class="ch-fixed">fixe</span>
             <span class="ch-val" id="disp-salaire">70 000 FDJ</span>
           </div>
-          <div class="charge-row fixed-row">
+          <!-- Entretien — fixe -->
+          <div class="charge-row">
             <span class="ch-label">Entretien Bajaj</span>
+            <span class="ch-fixed">fixe</span>
             <span class="ch-val" id="disp-entretien">10 000 FDJ</span>
           </div>
-
-          <!-- Lignes éditables -->
-          <div class="charge-row editable-row">
+          <!-- Carburant — AUTO selon dossiers -->
+          <div class="charge-row" id="row-carburant">
             <span class="ch-label">⛽ Carburant</span>
-            <span class="ch-val" id="disp-carburant">45 000 FDJ</span>
-            <input class="ch-input" id="inp-carburant" type="number" value="45000" min="0" step="500" style="display:none;">
+            <span class="ch-auto" id="auto-carb-badge">auto</span>
+            <span class="ch-val" id="disp-carburant">— FDJ</span>
+            <input class="ch-input" id="inp-carburant" type="number" min="0" step="500">
           </div>
-          <div class="charge-row editable-row">
+          <!-- Téléphone — éditable -->
+          <div class="charge-row" id="row-tel">
             <span class="ch-label">📱 Téléphone / data</span>
             <span class="ch-val" id="disp-tel">6 500 FDJ</span>
-            <input class="ch-input" id="inp-tel" type="number" value="6500" min="0" step="500" style="display:none;">
+            <input class="ch-input" id="inp-tel" type="number" value="6500" min="0" step="500">
           </div>
-          <div class="charge-row editable-row">
+          <!-- Réserve — éditable -->
+          <div class="charge-row" id="row-reserve">
             <span class="ch-label">🛡 Réserve imprévus</span>
             <span class="ch-val" id="disp-reserve">15 000 FDJ</span>
-            <input class="ch-input" id="inp-reserve" type="number" value="15000" min="0" step="500" style="display:none;">
+            <input class="ch-input" id="inp-reserve" type="number" value="15000" min="0" step="500">
           </div>
+        </div>
 
-          <!-- Bouton Appliquer (caché par défaut) -->
-          <button id="charges-apply-btn" onclick="applyCharges()" style="display:none;width:100%;margin-top:10px;padding:9px;border:none;border-radius:8px;background:var(--green);color:#fff;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.02em;">✓ Appliquer</button>
+        <!-- Appliquer -->
+        <button class="ch-apply-btn" id="ch-apply-btn" onclick="applyCharges()">✓ Appliquer les modifications</button>
 
-          <!-- Total -->
-          <div style="display:flex;justify-content:space-between;padding:10px 12px;background:var(--bg3);border-radius:8px;margin-top:8px;">
-            <span style="font-weight:700;font-size:13px;">Total</span>
-            <span id="charges-total" style="font-family:var(--fd);font-size:15px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;">146 500 FDJ</span>
+        <!-- Total -->
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg3);margin-top:2px;">
+          <div>
+            <div style="font-weight:700;font-size:13px;">Total charges</div>
+            <div id="ch-total-detail" style="font-size:10px;color:var(--fg3);margin-top:1px;"></div>
           </div>
+          <span id="charges-total" style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;"></span>
         </div>
       </div>
 
@@ -389,7 +375,7 @@ tfoot td:not(:first-child){text-align:right;}
     <!-- RIGHT -->
     <div class="right-col">
 
-      <!-- CHART: CA mensuel groupé par compagnie -->
+      <!-- CHART CA -->
       <div class="chart-panel">
         <div class="chart-title">CA mensuel (FDJ) · <span id="chart-title-label">Jan–Oct 2024</span></div>
         <div class="chart-legend" id="chart-legend"></div>
@@ -398,7 +384,7 @@ tfoot td:not(:first-child){text-align:right;}
         </div>
       </div>
 
-      <!-- CHART: Résultat net -->
+      <!-- CHART NET -->
       <div class="chart-panel">
         <div class="chart-title">Résultat net mensuel (FDJ)</div>
         <div class="chart-wrap">
@@ -406,13 +392,13 @@ tfoot td:not(:first-child){text-align:right;}
         </div>
       </div>
 
-      <!-- TABLE: résumé mensuel -->
+      <!-- TABLE MENSUEL -->
       <div class="panel">
         <div class="ph">📋 Tableau mensuel</div>
         <div class="tbl-wrap">
           <table>
             <thead><tr>
-              <th>Mois</th><th>Dossiers</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th><th>Statut</th>
+              <th>Mois</th><th>Dos.</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th><th>Statut</th>
             </tr></thead>
             <tbody id="main-tbody"></tbody>
             <tfoot id="main-tfoot"></tfoot>
@@ -420,7 +406,7 @@ tfoot td:not(:first-child){text-align:right;}
         </div>
       </div>
 
-      <!-- TABLE: détail par compagnie / mois -->
+      <!-- TABLE DETAIL PAR COMPAGNIE -->
       <div class="panel">
         <div class="ph">🔍 Détail par compagnie</div>
         <div class="tab-row" id="detail-tabs">
@@ -434,11 +420,11 @@ tfoot td:not(:first-child){text-align:right;}
         <div class="tbl-wrap" id="detail-tbl-wrap"></div>
       </div>
 
-      <!-- CHART: Trésorerie cumulée -->
+      <!-- CHART TRESORERIE -->
       <div class="chart-panel">
         <div class="chart-title">📈 Cash cumulé sur la période (FDJ)</div>
-        <div style="font-size:11px;color:var(--fg3);margin-bottom:10px;">Réserve de départ : 439 500 FDJ · Encaissement à 15 jours</div>
-        <div class="chart-legend" id="treso-legend">
+        <div style="font-size:11px;color:var(--fg3);margin-bottom:8px;">Réserve de départ : 439 500 FDJ · Encaissement à 15 jours</div>
+        <div class="chart-legend">
           <div class="leg-item"><span class="leg-dot" style="background:var(--blue)"></span>Méthode A</div>
           <div class="leg-item"><span class="leg-dot" style="background:var(--purple)"></span>Méthode B</div>
         </div>
@@ -452,699 +438,420 @@ tfoot td:not(:first-child){text-align:right;}
 </div><!-- /main -->
 
 <script>
-/* ══════════════════════════════════════
-   DATA
-══════════════════════════════════════ */
+/* ═══════════════════════ DATA ═══════════════════════ */
 const RATE = 177.721;
 const RESERVE_DEPART = 439500;
-
-// Charges — fixes vs éditables
-const CHARGES_FIXED = { salaire: 70000, entretien: 10000 }; // non modifiables
-const chargesEdit = { carburant: 45000, tel: 6500, reserve: 15000 };
-function CHARGES() {
-  return CHARGES_FIXED.salaire + CHARGES_FIXED.entretien
-       + chargesEdit.carburant + chargesEdit.tel + chargesEdit.reserve;
-}
-
 const HIST_MONTHS = ['Jan.','Fév.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.'];
 
 const AIRLINES = [
-  {id:'et', name:'Ethiopian Airlines', short:'Ethiopian', color:'#2D6BE4',
-   hist:[79,45,66,90,70,91,71,37,17,18], avgMois:58},
-  {id:'tk', name:'Turkish Airlines',   short:'Turkish',   color:'#E8333A',
-   hist:[35,16,101,27,14,31,72,51,26,10], avgMois:38},
-  {id:'af', name:'Air France',         short:'Air France', color:'#D4175A',
-   hist:[9,7,13,13,10,9,13,13,12,12], avgMois:11},
-  {id:'fd', name:'flydubai',           short:'FlyDubai',   color:'#D97706',
-   hist:[10,3,17,8,9,11,14,13,14,12], avgMois:11},
-  {id:'eg', name:'EgyptAir',           short:'EgyptAir',   color:'#059669',
-   hist:[0,0,0,0,0,0,3,35,10,7], avgMois:14}
+  {id:'et', name:'Ethiopian Airlines', short:'Ethiopian', color:'#2D6BE4', hist:[79,45,66,90,70,91,71,37,17,18], avgMois:58},
+  {id:'tk', name:'Turkish Airlines',   short:'Turkish',   color:'#E8333A', hist:[35,16,101,27,14,31,72,51,26,10], avgMois:38},
+  {id:'af', name:'Air France',         short:'Air France',color:'#D4175A', hist:[9,7,13,13,10,9,13,13,12,12],    avgMois:11},
+  {id:'fd', name:'flydubai',           short:'FlyDubai',  color:'#D97706', hist:[10,3,17,8,9,11,14,13,14,12],    avgMois:11},
+  {id:'eg', name:'EgyptAir',           short:'EgyptAir',  color:'#059669', hist:[0,0,0,0,0,0,3,35,10,7],         avgMois:14}
 ];
 
-/* ══════════════════════════════════════
-   STATE
-══════════════════════════════════════ */
+/* ═══════════════════════ STATE ═══════════════════════ */
 let METHOD = 'A';
-let MODE   = 'historique';  // 'historique' | 'projection'
-let MONTHS_COUNT = 12;      // 1-12 (historique: capped at 10; projection: 1-12)
+let MODE   = 'historique';
+let MONTHS_COUNT = 10;
 let currentTab = 'all';
+let chargesEditing = false;
 
-// checked state per airline
-const checked = {};
-AIRLINES.forEach(a => checked[a.id] = true);
+const checked  = {}; AIRLINES.forEach(a => checked[a.id] = true);
+const projVol  = {}; AIRLINES.forEach(a => projVol[a.id] = a.avgMois);
 
-// projection volumes per airline (editable)
-const projVol = {};
-AIRLINES.forEach(a => projVol[a.id] = a.avgMois);
+// Charges state
+const ch = {
+  salaire:   70000,  // fixe
+  entretien: 10000,  // fixe
+  rateCarb:  350,    // FDJ par dossier (auto-calculé)
+  tel:       6500,   // éditable
+  reserve:   15000   // éditable
+};
+// carburant = rateCarb × totalDosiers (calculé à chaque recalc)
+let _currentDos = 132; // valeur courante mise à jour par recalc
 
-/* ══════════════════════════════════════
-   PRICING FUNCTIONS
-══════════════════════════════════════ */
-function caA(dos) {
-  if (dos <= 0) return 0;
-  if (dos <= 50) return dos * 20 * RATE;
-  if (dos <= 70) return dos * 18 * RATE;
-  return dos * 15 * RATE;
-}
-function caB(dos) {
-  if (dos <= 0) return 0;
-  if (dos <= 50) return dos * 20 * RATE;
-  if (dos <= 70) return 50 * 20 * RATE + (dos - 50) * 18 * RATE;
-  return 50 * 20 * RATE + 20 * 18 * RATE + (dos - 70) * 15 * RATE;
-}
-function caFn(dos) { return METHOD === 'A' ? caA(dos) : caB(dos); }
+function carburantAuto() { return ch.rateCarb * _currentDos; }
+function CHARGES()       { return ch.salaire + ch.entretien + carburantAuto() + ch.tel + ch.reserve; }
 
-/* ══════════════════════════════════════
-   FORMATTERS
-══════════════════════════════════════ */
-function fmt(n) { return Math.round(n).toLocaleString('fr-FR'); }
-function fmtK(n) {
-  const a = Math.abs(n), s = n < 0 ? '−' : '';
-  if (a >= 1e6) return s + (a/1e6).toFixed(2).replace('.',',') + ' M';
-  if (a >= 1e3) return s + Math.round(a/1000) + ' K';
-  return s + fmt(a);
-}
+/* ═══════════════════════ PRICING ═══════════════════════ */
+function caA(d){if(d<=0)return 0;if(d<=50)return d*20*RATE;if(d<=70)return d*18*RATE;return d*15*RATE;}
+function caB(d){if(d<=0)return 0;if(d<=50)return d*20*RATE;if(d<=70)return 50*20*RATE+(d-50)*18*RATE;return 50*20*RATE+20*18*RATE+(d-70)*15*RATE;}
+function caFn(d){return METHOD==='A'?caA(d):caB(d);}
 
-/* ══════════════════════════════════════
-   BUILD DISPLAY DATA
-══════════════════════════════════════ */
-function buildMonthRows() {
-  const active = AIRLINES.filter(a => checked[a.id]);
-  const rows = [];
+/* ═══════════════════════ FORMAT ═══════════════════════ */
+function fmt(n){return Math.round(n).toLocaleString('fr-FR');}
+function fmtK(n){const a=Math.abs(n),s=n<0?'−':'';if(a>=1e6)return s+(a/1e6).toFixed(2).replace('.',',')+' M';if(a>=1e3)return s+Math.round(a/1000)+' K';return s+fmt(a);}
 
-  if (MODE === 'historique') {
-    const n = Math.min(MONTHS_COUNT, 10);
-    for (let mi = 0; mi < n; mi++) {
-      let dos = 0, ca = 0;
-      active.forEach(al => {
-        const d = al.hist[mi];
-        dos += d;
-        ca  += caFn(d);
-      });
-      rows.push({
-        label: HIST_MONTHS[mi],
-        dos, ca,
-        net: ca - CHARGES(),
-        marge: ca > 0 ? (ca - CHARGES()) / ca : 0,
-        // per-airline for stacked chart
-        byAl: active.map(al => ({ al, dos: al.hist[mi], ca: caFn(al.hist[mi]) }))
-      });
+/* ═══════════════════════ BUILD ROWS ═══════════════════════ */
+function buildMonthRows(){
+  const active=AIRLINES.filter(a=>checked[a.id]);
+  const rows=[];
+  if(MODE==='historique'){
+    const n=Math.min(MONTHS_COUNT,10);
+    for(let mi=0;mi<n;mi++){
+      let dos=0,ca=0;
+      active.forEach(al=>{dos+=al.hist[mi];ca+=caFn(al.hist[mi]);});
+      _currentDos=dos;
+      const chg=CHARGES();
+      rows.push({label:HIST_MONTHS[mi],dos,ca,chg,net:ca-chg,marge:ca>0?(ca-chg)/ca:0,
+        byAl:active.map(al=>({al,dos:al.hist[mi],ca:caFn(al.hist[mi])}))});
     }
   } else {
-    // projection: use projVol, repeat MONTHS_COUNT times
-    const PROJ_LABELS = ['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
-    for (let mi = 0; mi < MONTHS_COUNT; mi++) {
-      let dos = 0, ca = 0;
-      active.forEach(al => {
-        const d = projVol[al.id];
-        dos += d;
-        ca  += caFn(d);
-      });
-      rows.push({
-        label: PROJ_LABELS[mi],
-        dos, ca,
-        net: ca - CHARGES(),
-        marge: ca > 0 ? (ca - CHARGES()) / ca : 0,
-        byAl: active.map(al => ({ al, dos: projVol[al.id], ca: caFn(projVol[al.id]) }))
-      });
+    const LABELS=['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
+    for(let mi=0;mi<MONTHS_COUNT;mi++){
+      let dos=0,ca=0;
+      active.forEach(al=>{dos+=projVol[al.id];ca+=caFn(projVol[al.id]);});
+      _currentDos=dos;
+      const chg=CHARGES();
+      rows.push({label:LABELS[mi],dos,ca,chg,net:ca-chg,marge:ca>0?(ca-chg)/ca:0,
+        byAl:active.map(al=>({al,dos:projVol[al.id],ca:caFn(projVol[al.id])}))});
     }
   }
   return rows;
 }
 
-/* ══════════════════════════════════════
-   RENDER
-══════════════════════════════════════ */
-function recalc() {
-  const rows = buildMonthRows();
-  const active = AIRLINES.filter(a => checked[a.id]);
+/* ═══════════════════════ RECALC ═══════════════════════ */
+function recalc(){
+  const rows=buildMonthRows();
+  const active=AIRLINES.filter(a=>checked[a.id]);
+
+  // moyenne des dos sur les mois pour le carburant
+  const avgDos=rows.length?rows.reduce((s,r)=>s+r.dos,0)/rows.length:0;
+  _currentDos=Math.round(avgDos);
+
+  const totalDos=rows.reduce((s,r)=>s+r.dos,0);
+  const totalCA =rows.reduce((s,r)=>s+r.ca,0);
+  const totalNet=rows.reduce((s,r)=>s+r.net,0);
+  const avgMarge=totalCA>0?totalNet/totalCA:0;
 
   // KPIs
-  const totalDos = rows.reduce((s,r)=>s+r.dos,0);
-  const totalCA  = rows.reduce((s,r)=>s+r.ca,0);
-  const totalNet = rows.reduce((s,r)=>s+r.net,0);
-  const avgMarge = totalCA > 0 ? totalNet/totalCA : 0;
+  document.getElementById('k-dos').textContent=fmt(totalDos);
+  document.getElementById('k-dos-sub').textContent=rows.length+' mois · '+active.length+' cies';
+  document.getElementById('k-ca').textContent=fmtK(totalCA)+' FDJ';
+  document.getElementById('k-ca-sub').textContent=rows.length+' mois · méth. '+METHOD;
+  const ne=document.getElementById('k-net');
+  ne.textContent=(totalNet>=0?'+':'')+fmtK(totalNet)+' FDJ';
+  ne.style.color=totalNet>=0?'var(--green)':'var(--red)';
+  document.getElementById('k-net-sub').textContent='sur '+rows.length+' mois';
+  const me=document.getElementById('k-marge');
+  me.textContent=Math.round(avgMarge*100)+'%';
+  me.style.color=avgMarge>.5?'var(--green)':avgMarge>.2?'var(--orange)':'var(--red)';
 
-  document.getElementById('k-dos').textContent   = fmt(totalDos);
-  document.getElementById('k-dos-sub').textContent = rows.length + ' mois · ' + active.length + ' cies';
-  document.getElementById('k-ca').textContent    = fmtK(totalCA) + ' FDJ';
-  document.getElementById('k-ca-sub').textContent= rows.length + ' mois · méth. ' + METHOD;
-  const netEl = document.getElementById('k-net');
-  netEl.textContent  = (totalNet>=0?'+':'') + fmtK(totalNet) + ' FDJ';
-  netEl.style.color  = totalNet>=0 ? 'var(--green)' : 'var(--red)';
-  document.getElementById('k-net-sub').textContent = 'sur ' + rows.length + ' mois';
-  const margeEl = document.getElementById('k-marge');
-  margeEl.textContent = Math.round(avgMarge*100) + '%';
-  margeEl.style.color = avgMarge>.5?'var(--green)':avgMarge>.2?'var(--orange)':'var(--red)';
+  // charge KPI
+  const chgMois=CHARGES();
+  document.getElementById('k-charges').textContent=fmt(chgMois);
+  document.getElementById('k-charges-sub').textContent='FDJ · carb. auto ('+_currentDos+' dos × '+fmt(ch.rateCarb)+')';
 
   // chart title
-  if (MODE==='historique') {
-    const n = Math.min(MONTHS_COUNT,10);
-    document.getElementById('chart-title-label').textContent =
-      HIST_MONTHS[0] + '–' + HIST_MONTHS[n-1] + ' 2024';
+  if(MODE==='historique'){
+    const n=Math.min(MONTHS_COUNT,10);
+    document.getElementById('chart-title-label').textContent=HIST_MONTHS[0]+'–'+HIST_MONTHS[n-1]+' 2024';
   } else {
-    document.getElementById('chart-title-label').textContent =
-      'Projection ' + MONTHS_COUNT + ' mois';
+    document.getElementById('chart-title-label').textContent='Projection '+MONTHS_COUNT+' mois';
   }
 
-  renderCoBreakdown(active, rows);
-  renderChartCA(active, rows);
+  updateChargesDisplay();
+  renderCoBreakdown(active,rows);
+  renderChartCA(active,rows);
   renderChartNet(rows);
-  renderMainTable(rows, totalDos, totalCA, totalNet);
+  renderMainTable(rows,totalDos,totalCA,totalNet);
   renderDetailTable(active);
   renderTresoCumulChart(active);
 }
 
-/* ── CO BREAKDOWN ── */
-function renderCoBreakdown(active, rows) {
-  const el = document.getElementById('co-breakdown');
-  if (!active.length) {
-    el.innerHTML = '<div style="padding:14px;color:var(--fg3);font-size:12px;">Aucune compagnie sélectionnée</div>';
-    return;
+/* ═══════════════════════ CHARGES DISPLAY ═══════════════════════ */
+function updateChargesDisplay(){
+  const carbVal=carburantAuto();
+  document.getElementById('disp-carburant').textContent=fmt(carbVal)+' FDJ';
+  document.getElementById('disp-tel').textContent=fmt(ch.tel)+' FDJ';
+  document.getElementById('disp-reserve').textContent=fmt(ch.reserve)+' FDJ';
+  const tot=CHARGES();
+  document.getElementById('charges-total').textContent=fmt(tot)+' FDJ';
+  document.getElementById('ch-total-detail').textContent=
+    'Carb. '+fmt(carbVal)+' · Tel. '+fmt(ch.tel)+' · Rés. '+fmt(ch.reserve);
+  document.getElementById('k-charges').textContent=fmt(tot);
+}
+
+/* ═══════════════════════ CHARGES EDIT ═══════════════════════ */
+function toggleChargesEdit(){
+  chargesEditing=!chargesEditing;
+  const btn=document.getElementById('charges-edit-btn');
+  const applyBtn=document.getElementById('ch-apply-btn');
+  const rateRow=document.getElementById('ch-rate-row');
+
+  // show/hide inputs
+  document.querySelectorAll('.ch-input').forEach(i=>i.style.display=chargesEditing?'block':'none');
+  document.querySelectorAll('#charges-rows .ch-val').forEach(v=>v.style.display=chargesEditing?'none':'block');
+  document.querySelectorAll('#charges-rows .ch-auto').forEach(v=>v.style.display=chargesEditing?'none':'inline-flex');
+  applyBtn.style.display=chargesEditing?'block':'none';
+  rateRow.style.display=chargesEditing?'flex':'none';
+
+  if(chargesEditing){
+    // pré-remplir
+    document.getElementById('inp-carburant').value=Math.round(carburantAuto());
+    document.getElementById('inp-tel').value=ch.tel;
+    document.getElementById('inp-reserve').value=ch.reserve;
+    document.getElementById('inp-rate-carb').value=ch.rateCarb;
+    btn.textContent='✕ Annuler';btn.style.borderColor='var(--red)';btn.style.color='var(--red)';btn.style.background='var(--red-lt)';
+    // quand on modifie le taux → rafraîchir le champ carburant
+    document.getElementById('inp-rate-carb').oninput=function(){
+      ch.rateCarb=parseInt(this.value)||0;
+      document.getElementById('inp-carburant').value=Math.round(carburantAuto());
+    };
+  } else {
+    btn.textContent='✏️ Modifier';btn.style.borderColor='var(--blue)';btn.style.color='var(--blue)';btn.style.background='var(--blue-lt)';
   }
-  const totalCA = rows.reduce((s,r)=>s+r.ca,0);
-  el.innerHTML = '';
-  active.forEach(al => {
-    const alCA = rows.reduce((s,r) => {
-      const found = r.byAl.find(x=>x.al.id===al.id);
-      return s + (found ? found.ca : 0);
-    }, 0);
-    const alDos = rows.reduce((s,r) => {
-      const found = r.byAl.find(x=>x.al.id===al.id);
-      return s + (found ? found.dos : 0);
-    }, 0);
-    const pct = totalCA > 0 ? alCA/totalCA : 0;
-    el.innerHTML += `
-      <div class="co-row">
-        <div class="co-name">
-          <span class="co-dot" style="background:${al.color}"></span>${al.short}
+}
+
+function applyCharges(){
+  ch.rateCarb=parseInt(document.getElementById('inp-rate-carb').value)||0;
+  ch.tel     =parseInt(document.getElementById('inp-tel').value)||0;
+  ch.reserve =parseInt(document.getElementById('inp-reserve').value)||0;
+  chargesEditing=true;
+  toggleChargesEdit();
+  recalc();
+}
+
+/* ═══════════════════════ CO BREAKDOWN ═══════════════════════ */
+function renderCoBreakdown(active,rows){
+  const el=document.getElementById('co-breakdown');
+  if(!active.length){el.innerHTML='<div style="padding:14px;color:var(--fg3);font-size:12px;">Aucune compagnie sélectionnée</div>';return;}
+  const totalCA=rows.reduce((s,r)=>s+r.ca,0);
+  el.innerHTML='';
+  active.forEach(al=>{
+    const alCA=rows.reduce((s,r)=>{const f=r.byAl.find(x=>x.al.id===al.id);return s+(f?f.ca:0);},0);
+    const alDos=rows.reduce((s,r)=>{const f=r.byAl.find(x=>x.al.id===al.id);return s+(f?f.dos:0);},0);
+    const pct=totalCA>0?alCA/totalCA:0;
+    el.innerHTML+=`<div class="co-row">
+      <div class="co-name"><span class="co-dot" style="background:${al.color}"></span>${al.short}</div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
+        <div style="display:flex;justify-content:space-between;font-size:11px;">
+          <span style="color:var(--fg2)">${fmt(alDos)} dos</span>
+          <span style="font-weight:700;font-variant-numeric:tabular-nums">${fmtK(alCA)} FDJ</span>
         </div>
-        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;">
-          <div style="display:flex;justify-content:space-between;font-size:11px;">
-            <span class="co-num">${fmt(alDos)} dos</span>
-            <span style="font-weight:700;font-variant-numeric:tabular-nums;font-size:11px;">${fmtK(alCA)} FDJ</span>
-          </div>
-          <div class="co-bar-wrap">
-            <div class="co-bar" style="width:${Math.round(pct*100)}%;background:${al.color};"></div>
-          </div>
-          <div style="font-size:10px;color:var(--fg3);">${Math.round(pct*100)}% du CA</div>
-        </div>
-      </div>`;
+        <div class="co-bar-wrap"><div class="co-bar" style="width:${Math.round(pct*100)}%;background:${al.color}"></div></div>
+        <div style="font-size:10px;color:var(--fg3)">${Math.round(pct*100)}% du CA</div>
+      </div></div>`;
   });
 }
 
-/* ── CHART CA (grouped bars) ── */
-function renderChartCA(active, rows) {
-  const svg = document.getElementById('chart-ca');
-  svg.innerHTML = '';
-  const W=800,H=220,PL=58,PR=12,PT=14,PB=28;
-  const cW=W-PL-PR, cH=H-PT-PB;
-  const n = rows.length;
-
-  if (!active.length || !n) {
-    putText(svg,W/2,H/2,'Aucune donnée','var(--fg3)',13,'middle'); return;
-  }
-
-  const tots = rows.map(r=>r.byAl.reduce((s,x)=>s+x.ca,0));
-  const maxCA = Math.max(...tots, 1);
-
-  // gridlines
-  for(let i=0;i<=4;i++){
-    const y=PT+cH-(i/4)*cH;
-    svgLine(svg,PL,W-PR,y,y,'var(--border)','1');
-    putText(svg,PL-4,y+4,fmtK(i/4*maxCA),'var(--fg3)',9,'end');
-  }
-
-  const gW = cW/n;
-  const nAl = active.length;
-  const bW = Math.min(28, gW*0.72/nAl);
-  const gGap = (gW - bW*nAl)/2;
-
-  rows.forEach((r,mi) => {
-    const gx = PL + mi*gW + gGap;
-    r.byAl.forEach((x,ai) => {
-      if (!x.ca) return;
-      const bh = Math.max(2,(x.ca/maxCA)*cH);
-      const bx = gx + ai*bW;
-      const by = PT+cH-bh;
-      const rect = svgEl('rect');
-      rect.setAttribute('x',bx); rect.setAttribute('y',by);
-      rect.setAttribute('width',bW-1); rect.setAttribute('height',bh);
-      rect.setAttribute('fill',x.al.color); rect.setAttribute('rx','2');
-      rect.setAttribute('opacity','0.88');
-      const t = svgEl('title'); t.textContent = `${x.al.short} ${r.label} : ${fmt(x.ca)} FDJ (${x.dos} dos)`;
-      rect.appendChild(t); svg.appendChild(rect);
+/* ═══════════════════════ CHART CA ═══════════════════════ */
+function renderChartCA(active,rows){
+  const svg=document.getElementById('chart-ca');svg.innerHTML='';
+  const W=800,H=220,PL=58,PR=12,PT=14,PB=28,cW=W-PL-PR,cH=H-PT-PB,n=rows.length;
+  if(!active.length||!n){putText(svg,W/2,H/2,'Aucune donnée','var(--fg3)',13,'middle');return;}
+  const tots=rows.map(r=>r.byAl.reduce((s,x)=>s+x.ca,0));
+  const maxCA=Math.max(...tots,1);
+  for(let i=0;i<=4;i++){const y=PT+cH-(i/4)*cH;svgLine(svg,PL,W-PR,y,y,'var(--border)','1');putText(svg,PL-4,y+4,fmtK(i/4*maxCA),'var(--fg3)',9,'end');}
+  const gW=cW/n,nAl=active.length,bW=Math.min(28,gW*.72/nAl),gGap=(gW-bW*nAl)/2;
+  rows.forEach((r,mi)=>{
+    const gx=PL+mi*gW+gGap;
+    r.byAl.forEach((x,ai)=>{
+      if(!x.ca)return;
+      const bh=Math.max(2,(x.ca/maxCA)*cH),bx=gx+ai*bW,by=PT+cH-bh;
+      const rect=svgEl('rect');rect.setAttribute('x',bx);rect.setAttribute('y',by);rect.setAttribute('width',bW-1);rect.setAttribute('height',bh);rect.setAttribute('fill',x.al.color);rect.setAttribute('rx','2');rect.setAttribute('opacity','.88');
+      const t=svgEl('title');t.textContent=`${x.al.short} ${r.label} : ${fmt(x.ca)} FDJ (${x.dos} dos)`;rect.appendChild(t);svg.appendChild(rect);
     });
     putText(svg,gx+bW*nAl/2,H-5,r.label,'var(--fg3)',9,'middle');
   });
-
-  // legend
-  const legend = document.getElementById('chart-legend');
-  legend.innerHTML = '';
-  active.forEach(al => {
-    const d=document.createElement('div'); d.className='leg-item';
-    d.innerHTML=`<span class="leg-dot" style="background:${al.color}"></span>${al.short}`;
-    legend.appendChild(d);
-  });
+  const legend=document.getElementById('chart-legend');legend.innerHTML='';
+  active.forEach(al=>{const d=document.createElement('div');d.className='leg-item';d.innerHTML=`<span class="leg-dot" style="background:${al.color}"></span>${al.short}`;legend.appendChild(d);});
 }
 
-/* ── CHART NET ── */
-function renderChartNet(rows) {
-  const svg = document.getElementById('chart-net');
-  svg.innerHTML = '';
-  const W=800,H=160,PL=62,PR=12,PT=18,PB=24;
-  const cW=W-PL-PR, cH=H-PT-PB;
-  const n = rows.length;
-  if (!n) return;
-
-  const vals = rows.map(r=>r.net);
-  const minV = Math.min(...vals,-CHARGES()*0.5);
-  const maxV = Math.max(...vals, CHARGES()*0.5);
-  const range = maxV-minV||1;
-  const toY = v => PT+cH-((v-minV)/range)*cH;
-  const zY = toY(0);
-
-  svgLine(svg,PL,W-PR,zY,zY,'var(--border)','1.5','4,4');
-  putText(svg,PL-4,zY+4,'0','var(--fg3)',9,'end');
-
-  // gridlines top/bottom
-  [-1,1].forEach(dir => {
-    const v = dir > 0 ? maxV : minV;
-    const y = toY(v);
-    svgLine(svg,PL,W-PR,y,y,'var(--border)','0.8');
-    putText(svg,PL-4,y+4,fmtK(v),'var(--fg3)',9,'end');
-  });
-
-  const bW = Math.min(28,(cW/n)*0.6);
-  rows.forEach((r,mi) => {
-    const val = r.net;
-    const bh = Math.max(2,Math.abs(val)/range*cH);
-    const bx = PL + mi*(cW/n) + (cW/n-bW)/2;
-    const by = val>=0 ? zY-bh : zY;
-    const col = val>=0?'var(--green)':'var(--red)';
-    const rect = svgEl('rect');
-    rect.setAttribute('x',bx); rect.setAttribute('y',by);
-    rect.setAttribute('width',bW); rect.setAttribute('height',bh);
-    rect.setAttribute('fill',col); rect.setAttribute('rx','2'); rect.setAttribute('opacity','0.88');
-    const t=svgEl('title'); t.textContent=`${r.label} : ${val>=0?'+':''}${fmt(val)} FDJ`;
-    rect.appendChild(t); svg.appendChild(rect);
-    putText(svg,bx+bW/2,val>=0?by-3:by+bh+10,(val>=0?'+':'')+fmtK(val),col,8,'middle');
+/* ═══════════════════════ CHART NET ═══════════════════════ */
+function renderChartNet(rows){
+  const svg=document.getElementById('chart-net');svg.innerHTML='';
+  const W=800,H=160,PL=62,PR=12,PT=18,PB=24,cW=W-PL-PR,cH=H-PT-PB,n=rows.length;
+  if(!n)return;
+  const vals=rows.map(r=>r.net);
+  const chg=CHARGES();
+  const minV=Math.min(...vals,-chg*.5),maxV=Math.max(...vals,chg*.5),range=maxV-minV||1;
+  const toY=v=>PT+cH-((v-minV)/range)*cH,zY=toY(0);
+  svgLine(svg,PL,W-PR,zY,zY,'var(--border)','1.5','4,4');putText(svg,PL-4,zY+4,'0','var(--fg3)',9,'end');
+  [-1,1].forEach(dir=>{const v=dir>0?maxV:minV,y=toY(v);svgLine(svg,PL,W-PR,y,y,'var(--border)','.8');putText(svg,PL-4,y+4,fmtK(v),'var(--fg3)',9,'end');});
+  const bW=Math.min(28,(cW/n)*.6);
+  rows.forEach((r,mi)=>{
+    const v=r.net,bh=Math.max(2,Math.abs(v)/range*cH),bx=PL+mi*(cW/n)+(cW/n-bW)/2,by=v>=0?zY-bh:zY,col=v>=0?'var(--green)':'var(--red)';
+    const rect=svgEl('rect');rect.setAttribute('x',bx);rect.setAttribute('y',by);rect.setAttribute('width',bW);rect.setAttribute('height',bh);rect.setAttribute('fill',col);rect.setAttribute('rx','2');rect.setAttribute('opacity','.88');
+    const t=svgEl('title');t.textContent=`${r.label} : ${v>=0?'+':''}${fmt(v)} FDJ`;rect.appendChild(t);svg.appendChild(rect);
+    putText(svg,bx+bW/2,v>=0?by-3:by+bh+10,(v>=0?'+':'')+fmtK(v),col,8,'middle');
     putText(svg,bx+bW/2,H-5,r.label,'var(--fg3)',9,'middle');
   });
 }
 
-/* ── MAIN TABLE ── */
-function renderMainTable(rows, totalDos, totalCA, totalNet) {
-  const tbody = document.getElementById('main-tbody');
-  tbody.innerHTML = '';
-  rows.forEach(r => {
-    const pct = Math.round(r.marge*100);
-    const colM = pct>=60?'var(--green)':pct>=30?'var(--orange)':'var(--red)';
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td class="td-m">${r.label}</td>
-      <td>${fmt(r.dos)}</td>
-      <td class="td-ca">${fmt(r.ca)}</td>
-      <td class="td-neg">−${fmt(CHARGES())}</td>
-      <td class="${r.net>=0?'td-pos':'td-neg'}">${r.net>=0?'+':''}${fmt(r.net)}</td>
-      <td style="color:${colM};font-weight:600">${pct}%</td>
-      <td><span class="badge ${r.net>=0?'b-ok':'b-bad'}">${r.net>=0?'✓ Rentable':'⊘ Déficit'}</span></td>
-    `;
+/* ═══════════════════════ MAIN TABLE ═══════════════════════ */
+function renderMainTable(rows,totalDos,totalCA,totalNet){
+  const tbody=document.getElementById('main-tbody');tbody.innerHTML='';
+  rows.forEach(r=>{
+    const pct=Math.round(r.marge*100),col=pct>=60?'var(--green)':pct>=30?'var(--orange)':'var(--red)';
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td class="td-m">${r.label}</td><td>${fmt(r.dos)}</td><td class="td-ca">${fmt(r.ca)}</td><td class="td-neg">−${fmt(r.chg)}</td><td class="${r.net>=0?'td-pos':'td-neg'}">${r.net>=0?'+':''}${fmt(r.net)}</td><td style="color:${col};font-weight:600">${pct}%</td><td><span class="badge ${r.net>=0?'b-ok':'b-bad'}">${r.net>=0?'✓ OK':'⊘ Déficit'}</span></td>`;
     tbody.appendChild(tr);
   });
-  const tfoot = document.getElementById('main-tfoot');
-  const avgM = totalCA>0?Math.round(totalNet/totalCA*100):0;
-  const colM = avgM>=50?'var(--green)':avgM>=30?'var(--orange)':'var(--red)';
-  tfoot.innerHTML = `<tr>
-    <td>TOTAL</td><td>${fmt(totalDos)}</td>
-    <td class="td-ca">${fmtK(totalCA)}</td>
-    <td class="td-neg">−${fmt(CHARGES()*rows.length)}</td>
-    <td class="${totalNet>=0?'td-pos':'td-neg'}">${totalNet>=0?'+':''}${fmtK(totalNet)}</td>
-    <td style="color:${colM};font-weight:700">${avgM}%</td><td></td>
-  </tr>`;
+  const avgM=totalCA>0?Math.round(totalNet/totalCA*100):0,colM=avgM>=50?'var(--green)':avgM>=30?'var(--orange)':'var(--red)';
+  const totalChg=rows.reduce((s,r)=>s+r.chg,0);
+  document.getElementById('main-tfoot').innerHTML=`<tr><td>TOTAL</td><td>${fmt(totalDos)}</td><td class="td-ca">${fmtK(totalCA)}</td><td class="td-neg">−${fmtK(totalChg)}</td><td class="${totalNet>=0?'td-pos':'td-neg'}">${totalNet>=0?'+':''}${fmtK(totalNet)}</td><td style="color:${colM};font-weight:700">${avgM}%</td><td></td></tr>`;
 }
 
-/* ── DETAIL TABLE ── */
-function showTab(id,btn) {
-  currentTab = id;
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderDetailTable(AIRLINES.filter(a=>checked[a.id]));
-}
+/* ═══════════════════════ DETAIL TABLE ═══════════════════════ */
+function showTab(id,btn){currentTab=id;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderDetailTable(AIRLINES.filter(a=>checked[a.id]));}
 
-function renderDetailTable(active) {
-  const wrap = document.getElementById('detail-tbl-wrap');
-  if (currentTab === 'all') {
-    // rows = airlines, cols = months
-    if (MODE==='historique') {
-      const n = Math.min(MONTHS_COUNT,10);
-      let html = '<table><thead><tr><th>Compagnie</th>';
-      HIST_MONTHS.slice(0,n).forEach(m=>html+=`<th>${m}</th>`);
-      html += '<th>Total</th></tr></thead><tbody>';
-      active.forEach(al => {
-        const tot = al.hist.slice(0,n).reduce((s,d)=>s+d,0);
-        html += `<tr><td style="font-weight:600;white-space:nowrap"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:5px;vertical-align:middle"></span>${al.short}</td>`;
+function renderDetailTable(active){
+  const wrap=document.getElementById('detail-tbl-wrap');
+  if(currentTab==='all'){
+    if(MODE==='historique'){
+      const n=Math.min(MONTHS_COUNT,10);
+      let html='<table><thead><tr><th>Compagnie</th>';
+      HIST_MONTHS.slice(0,n).forEach(m=>html+=`<th>${m}</th>`);html+='<th>Total</th></tr></thead><tbody>';
+      active.forEach(al=>{
+        const tot=al.hist.slice(0,n).reduce((s,d)=>s+d,0);
+        html+=`<tr><td style="font-weight:600;white-space:nowrap"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:5px;vertical-align:middle"></span>${al.short}</td>`;
         al.hist.slice(0,n).forEach(d=>html+=`<td>${d||'—'}</td>`);
-        html += `<td style="font-weight:700">${tot}</td></tr>`;
+        html+=`<td style="font-weight:700">${tot}</td></tr>`;
       });
-      const totByMonth = Array.from({length:n},(_,i)=>active.reduce((s,al)=>s+al.hist[i],0));
-      html+=`<tr style="font-weight:700"><td>TOTAL</td>${totByMonth.map(t=>`<td>${t}</td>`).join('')}<td>${totByMonth.reduce((s,v)=>s+v,0)}</td></tr>`;
-      html+='</tbody></table>';
-      wrap.innerHTML = html;
+      const totByMonth=Array.from({length:n},(_,i)=>active.reduce((s,al)=>s+al.hist[i],0));
+      html+=`<tr style="font-weight:700"><td>TOTAL</td>${totByMonth.map(t=>`<td>${t}</td>`).join('')}<td>${totByMonth.reduce((s,v)=>s+v,0)}</td></tr></tbody></table>`;
+      wrap.innerHTML=html;
     } else {
-      // projection: same volume every month
-      let html = '<table><thead><tr><th>Compagnie</th><th>Vol./mois</th><th>CA/mois A</th><th>CA/mois B</th><th>CA total</th><th>Palier</th></tr></thead><tbody>';
-      active.forEach(al => {
-        const d = projVol[al.id];
-        const pa = caA(d), pb = caB(d);
-        const palier = d<=50?'1 (20$/dos)':d<=70?'2 (18$/dos)':'3 (15$/dos)';
-        html+=`<tr><td style="font-weight:600"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:5px;vertical-align:middle"></span>${al.short}</td>
-        <td>${d}</td><td class="td-ca">${fmt(pa)}</td><td class="td-ca">${fmt(pb)}</td>
-        <td class="td-ca">${fmt(pa*MONTHS_COUNT)}</td>
-        <td style="font-size:11px;color:var(--fg2)">${palier}</td></tr>`;
+      let html='<table><thead><tr><th>Compagnie</th><th>Vol./mois</th><th>CA/mois A</th><th>CA/mois B</th><th>CA total</th><th>Palier</th></tr></thead><tbody>';
+      active.forEach(al=>{
+        const d=projVol[al.id],pa=caA(d),pb=caB(d),palier=d<=50?'P1 (20$/dos)':d<=70?'P2 (18$/dos)':'P3 (15$/dos)';
+        html+=`<tr><td style="font-weight:600"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:5px;vertical-align:middle"></span>${al.short}</td><td>${d}</td><td class="td-ca">${fmt(pa)}</td><td class="td-ca">${fmt(pb)}</td><td class="td-ca">${fmt(pa*MONTHS_COUNT)}</td><td style="font-size:11px;color:var(--fg2)">${palier}</td></tr>`;
       });
-      html+='</tbody></table>';
-      wrap.innerHTML = html;
+      wrap.innerHTML=html+'</tbody></table>';
     }
   } else {
-    // single airline
-    const al = AIRLINES.find(a=>a.id===currentTab);
-    if (!al) { wrap.innerHTML=''; return; }
-    const isActive = checked[al.id];
-    if (MODE==='historique') {
-      const n = Math.min(MONTHS_COUNT,10);
-      let html = '<table><thead><tr><th>Mois</th><th>Dossiers</th><th>CA Méth. A</th><th>CA Méth. B</th><th>Charges</th><th>Net A</th><th>Net B</th></tr></thead><tbody>';
+    const al=AIRLINES.find(a=>a.id===currentTab);if(!al){wrap.innerHTML='';return;}
+    if(MODE==='historique'){
+      const n=Math.min(MONTHS_COUNT,10);
+      let html='<table><thead><tr><th>Mois</th><th>Dos.</th><th>CA A</th><th>CA B</th><th>Charges</th><th>Net A</th><th>Net B</th></tr></thead><tbody>';
       al.hist.slice(0,n).forEach((d,mi)=>{
         const a=caA(d),b=caB(d);
-        const nA=a-CHARGES(), nB=b-CHARGES();
-        html+=`<tr><td class="td-m">${HIST_MONTHS[mi]}</td><td>${d||'—'}</td>
-        <td class="td-ca">${d?fmt(a):'—'}</td><td class="td-ca">${d?fmt(b):'—'}</td>
-        <td class="td-neg">−${fmt(CHARGES())}</td>
-        <td class="${nA>=0?'td-pos':'td-neg'}">${d?(nA>=0?'+':'')+fmt(nA):'—'}</td>
-        <td class="${nB>=0?'td-pos':'td-neg'}">${d?(nB>=0?'+':'')+fmt(nB):'—'}</td></tr>`;
+        _currentDos=d;
+        const chg=CHARGES(),nA=a-chg,nB=b-chg;
+        html+=`<tr><td class="td-m">${HIST_MONTHS[mi]}</td><td>${d||'—'}</td><td class="td-ca">${d?fmt(a):'—'}</td><td class="td-ca">${d?fmt(b):'—'}</td><td class="td-neg">${d?'−'+fmt(chg):'—'}</td><td class="${nA>=0?'td-pos':'td-neg'}">${d?(nA>=0?'+':'')+fmt(nA):'—'}</td><td class="${nB>=0?'td-pos':'td-neg'}">${d?(nB>=0?'+':'')+fmt(nB):'—'}</td></tr>`;
       });
       const totDos=al.hist.slice(0,n).reduce((s,d)=>s+d,0);
       const actM=al.hist.slice(0,n).filter(d=>d>0).length;
-      const tA=al.hist.slice(0,n).reduce((s,d)=>s+caA(d),0);
-      const tB=al.hist.slice(0,n).reduce((s,d)=>s+caB(d),0);
-      html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${totDos}</td><td class="td-ca">${fmt(tA)}</td><td class="td-ca">${fmt(tB)}</td>
-      <td class="td-neg">−${fmt(CHARGES()*actM)}</td>
-      <td class="${tA-CHARGES()*actM>=0?'td-pos':'td-neg'}">${tA-CHARGES()*actM>=0?'+':''}${fmt(tA-CHARGES()*actM)}</td>
-      <td class="${tB-CHARGES()*actM>=0?'td-pos':'td-neg'}">${tB-CHARGES()*actM>=0?'+':''}${fmt(tB-CHARGES()*actM)}</td></tr></tfoot></table>`;
-      wrap.innerHTML = html;
+      const tA=al.hist.slice(0,n).reduce((s,d)=>s+caA(d),0),tB=al.hist.slice(0,n).reduce((s,d)=>s+caB(d),0);
+      _currentDos=Math.round(totDos/actM||0);const totalChg=CHARGES()*actM;
+      html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${totDos}</td><td class="td-ca">${fmt(tA)}</td><td class="td-ca">${fmt(tB)}</td><td class="td-neg">−${fmt(totalChg)}</td><td class="${tA-totalChg>=0?'td-pos':'td-neg'}">${tA-totalChg>=0?'+':''}${fmt(tA-totalChg)}</td><td class="${tB-totalChg>=0?'td-pos':'td-neg'}">${tB-totalChg>=0?'+':''}${fmt(tB-totalChg)}</td></tr></tfoot></table>`;
+      wrap.innerHTML=html;
     } else {
-      // projection single airline
-      const d = projVol[al.id];
-      const palier = d<=50?'Palier 1 (≤50 dos → 20$/dos)':d<=70?'Palier 2 (51–70 dos → 18$/dos)':'Palier 3 (>70 dos → 15$/dos)';
-      let html=`<div style="padding:12px 14px;font-size:12px;color:var(--fg2);border-bottom:1px solid var(--border);">Volume projeté : <strong>${d} dos/mois</strong> · ${palier}</div>`;
-      html+='<table><thead><tr><th>Mois</th><th>Dossiers</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th></tr></thead><tbody>';
-      let cum=0;
+      const d=projVol[al.id],palier=d<=50?'P1 (≤50 dos → 20$/dos)':d<=70?'P2 (51–70 → 18$/dos)':'P3 (>70 → 15$/dos)';
+      let html=`<div style="padding:10px 14px;font-size:12px;color:var(--fg2);border-bottom:1px solid var(--border)">Volume : <strong>${d} dos/mois</strong> · ${palier}</div>`;
+      html+='<table><thead><tr><th>Mois</th><th>Dos.</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th></tr></thead><tbody>';
+      _currentDos=d;
       for(let mi=0;mi<MONTHS_COUNT;mi++){
-        const ca=caFn(d),net=ca-CHARGES();cum+=net;
-        const pct=ca>0?Math.round(net/ca*100):0;
-        html+=`<tr><td class="td-m">M${mi+1}</td><td>${d}</td><td class="td-ca">${fmt(ca)}</td>
-        <td class="td-neg">−${fmt(CHARGES())}</td>
-        <td class="${net>=0?'td-pos':'td-neg'}">${net>=0?'+':''}${fmt(net)}</td>
-        <td style="color:${pct>=50?'var(--green)':pct>=20?'var(--orange)':'var(--red)'};font-weight:600">${pct}%</td></tr>`;
+        const ca=caFn(d),chg=CHARGES(),net=ca-chg,pct=ca>0?Math.round(net/ca*100):0;
+        html+=`<tr><td class="td-m">M${mi+1}</td><td>${d}</td><td class="td-ca">${fmt(ca)}</td><td class="td-neg">−${fmt(chg)}</td><td class="${net>=0?'td-pos':'td-neg'}">${net>=0?'+':''}${fmt(net)}</td><td style="color:${pct>=50?'var(--green)':pct>=20?'var(--orange)':'var(--red)'};font-weight:600">${pct}%</td></tr>`;
       }
-      const totCA=caFn(d)*MONTHS_COUNT, totNet=totCA-CHARGES()*MONTHS_COUNT;
-      html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${d*MONTHS_COUNT}</td><td class="td-ca">${fmt(totCA)}</td>
-      <td class="td-neg">−${fmt(CHARGES()*MONTHS_COUNT)}</td>
-      <td class="${totNet>=0?'td-pos':'td-neg'}">${totNet>=0?'+':''}${fmt(totNet)}</td><td></td></tr></tfoot></table>`;
-      wrap.innerHTML = html;
+      _currentDos=d;const totCA=caFn(d)*MONTHS_COUNT,totChg=CHARGES()*MONTHS_COUNT,totNet=totCA-totChg;
+      html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${d*MONTHS_COUNT}</td><td class="td-ca">${fmt(totCA)}</td><td class="td-neg">−${fmt(totChg)}</td><td class="${totNet>=0?'td-pos':'td-neg'}">${totNet>=0?'+':''}${fmt(totNet)}</td><td></td></tr></tfoot></table>`;
+      wrap.innerHTML=html;
     }
   }
 }
 
-/* ── TRÉSO CUMUL CHART ── */
-function renderTresoCumulChart(active) {
-  const svg = document.getElementById('chart-treso');
-  svg.innerHTML = '';
-  const W=800,H=180,PL=68,PR=12,PT=14,PB=24;
-  const cW=W-PL-PR, cH=H-PT-PB;
-
-  // compute cash cumul for A and B, using selected active airlines & months
-  function buildCash(fn) {
-    let cash = RESERVE_DEPART;
-    const pts = [];
-    const n = MODE==='historique' ? Math.min(MONTHS_COUNT,10) : MONTHS_COUNT;
+/* ═══════════════════════ TRÉSO CHART ═══════════════════════ */
+function renderTresoCumulChart(active){
+  const svg=document.getElementById('chart-treso');svg.innerHTML='';
+  const W=800,H=180,PL=68,PR=12,PT=14,PB=24,cW=W-PL-PR,cH=H-PT-PB;
+  function buildCash(fn){
+    let cash=RESERVE_DEPART;const pts=[];
+    const n=MODE==='historique'?Math.min(MONTHS_COUNT,10):MONTHS_COUNT;
     for(let mi=0;mi<n;mi++){
-      let ca=0;
-      active.forEach(al=>{
-        const d=MODE==='historique'?al.hist[mi]:projVol[al.id];
-        ca+=fn(d);
-      });
-      // 50% encaissement ce mois + 50% mois précédent approx
-      const enc = mi===0 ? ca*0.5 : ca;
-      cash = cash + enc - CHARGES();
-      pts.push(cash);
+      let ca=0,dos=0;
+      active.forEach(al=>{const d=MODE==='historique'?al.hist[mi]:projVol[al.id];ca+=fn(d);dos+=d;});
+      _currentDos=dos;const enc=mi===0?ca*.5:ca;cash=cash+enc-CHARGES();pts.push(cash);
     }
     return pts;
   }
-  const ptsA = buildCash(caA);
-  const ptsB = buildCash(caB);
-  const allVals = [...ptsA,...ptsB,0];
-  const minV=Math.min(...allVals), maxV=Math.max(...allVals);
-  const range=maxV-minV||1;
-  const n=ptsA.length;
-  if(!n) return;
-
-  const toY=v=>PT+cH-((v-minV)/range)*cH;
-  const toX=(i)=>PL+i*(cW/(n-1||1));
-
-  // zero line
-  if(minV<0 && maxV>0){
-    const zy=toY(0);
-    svgLine(svg,PL,W-PR,zy,zy,'var(--border)','1','4,4');
-    putText(svg,PL-4,zy+4,'0','var(--fg3)',9,'end');
-  }
-
-  // grids
-  for(let i=0;i<=3;i++){
-    const v=minV+i/3*range, y=toY(v);
-    svgLine(svg,PL,W-PR,y,y,'var(--border)','0.8');
-    putText(svg,PL-4,y+4,fmtK(v),'var(--fg3)',9,'end');
-  }
-
-  // lines
-  [['A',ptsA,'var(--blue)'],['B',ptsB,'var(--purple)']].forEach(([label,pts,col])=>{
-    if(n<2){ // single point dot
-      const c=svgEl('circle');
-      c.setAttribute('cx',toX(0)); c.setAttribute('cy',toY(pts[0]));
-      c.setAttribute('r','4'); c.setAttribute('fill',col);
-      svg.appendChild(c);
-    } else {
-      const ptStr=pts.map((v,i)=>`${toX(i)},${toY(v)}`).join(' ');
-      const poly=svgEl('polyline');
-      poly.setAttribute('points',ptStr); poly.setAttribute('stroke',col);
-      poly.setAttribute('stroke-width','2.5'); poly.setAttribute('fill','none');
-      svg.appendChild(poly);
-    }
-    pts.forEach((v,i)=>{
-      const c=svgEl('circle');
-      c.setAttribute('cx',toX(i)); c.setAttribute('cy',toY(v));
-      c.setAttribute('r','3.5'); c.setAttribute('fill',col);
-      const t=svgEl('title'); t.textContent=`M${i+1} Méth.${label}: ${fmt(v)} FDJ`;
-      c.appendChild(t); svg.appendChild(c);
-    });
-    // month labels (once)
-    if(label==='A') pts.forEach((_,i)=>putText(svg,toX(i),H-5,'M'+(i+1),'var(--fg3)',8,'middle'));
+  const ptsA=buildCash(caA),ptsB=buildCash(caB);
+  const allVals=[...ptsA,...ptsB,0],minV=Math.min(...allVals),maxV=Math.max(...allVals),range=maxV-minV||1,n=ptsA.length;
+  if(!n)return;
+  const toY=v=>PT+cH-((v-minV)/range)*cH,toX=i=>PL+i*(cW/(n-1||1));
+  if(minV<0&&maxV>0){const zy=toY(0);svgLine(svg,PL,W-PR,zy,zy,'var(--border)','1','4,4');putText(svg,PL-4,zy+4,'0','var(--fg3)',9,'end');}
+  for(let i=0;i<=3;i++){const v=minV+i/3*range,y=toY(v);svgLine(svg,PL,W-PR,y,y,'var(--border)','.8');putText(svg,PL-4,y+4,fmtK(v),'var(--fg3)',9,'end');}
+  [['A',ptsA,'var(--blue)'],['B',ptsB,'var(--purple)']].forEach(([lbl,pts,col])=>{
+    if(n>=2){const ptStr=pts.map((v,i)=>`${toX(i)},${toY(v)}`).join(' ');const poly=svgEl('polyline');poly.setAttribute('points',ptStr);poly.setAttribute('stroke',col);poly.setAttribute('stroke-width','2.5');poly.setAttribute('fill','none');svg.appendChild(poly);}
+    pts.forEach((v,i)=>{const c=svgEl('circle');c.setAttribute('cx',toX(i));c.setAttribute('cy',toY(v));c.setAttribute('r','3.5');c.setAttribute('fill',col);const t=svgEl('title');t.textContent=`M${i+1} Méth.${lbl}: ${fmt(v)} FDJ`;c.appendChild(t);svg.appendChild(c);});
+    if(lbl==='A')pts.forEach((_,i)=>putText(svg,toX(i),H-5,'M'+(i+1),'var(--fg3)',8,'middle'));
   });
 }
 
-/* ── SLIDER PANEL (projection mode) ── */
-function renderSliderPanel() {
-  const el = document.getElementById('slider-list');
-  el.innerHTML = '';
-  AIRLINES.forEach(al => {
-    const on = checked[al.id];
-    const v = projVol[al.id];
-    const palier = v<=50?'P1':v<=70?'P2':'P3';
-    const pCol = v<=50?'var(--blue)':v<=70?'var(--orange)':'var(--green)';
-    el.innerHTML += `
-      <div class="co-slider-row" style="opacity:${on?1:.4};pointer-events:${on?'auto':'none'}">
-        <div class="co-sl-top">
-          <span class="co-sl-label"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:4px;vertical-align:middle"></span>${al.short}</span>
-          <span style="font-size:10px;color:${pCol};font-weight:700;padding:1px 6px;border-radius:4px;background:${pCol}22">${palier}</span>
-          <input type="number" id="vol-num-${al.id}" value="${v}" min="0" max="200" step="1"
-            oninput="syncVol('${al.id}','num')">
-          <span style="font-size:10px;color:var(--fg3);">dos/mois</span>
-        </div>
-        <input type="range" id="vol-rng-${al.id}" min="0" max="200" value="${v}" step="1"
-          oninput="syncVol('${al.id}','rng')">
-      </div>`;
+/* ═══════════════════════ SLIDER PANEL ═══════════════════════ */
+function renderSliderPanel(){
+  const el=document.getElementById('slider-list');el.innerHTML='';
+  AIRLINES.forEach(al=>{
+    const on=checked[al.id],v=projVol[al.id],palier=v<=50?'P1':v<=70?'P2':'P3',pCol=v<=50?'var(--blue)':v<=70?'var(--orange)':'var(--green)';
+    el.innerHTML+=`<div class="co-slider-row" style="opacity:${on?1:.4};pointer-events:${on?'auto':'none'}">
+      <div class="co-sl-top">
+        <span class="co-sl-label"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:4px;vertical-align:middle"></span>${al.short}</span>
+        <span style="font-size:10px;color:${pCol};font-weight:700;padding:1px 6px;border-radius:4px;background:${pCol}22">${palier}</span>
+        <input type="number" id="vol-num-${al.id}" value="${v}" min="0" max="200" step="1" style="width:58px;" oninput="syncVol('${al.id}','num')">
+        <span style="font-size:10px;color:var(--fg3)">dos</span>
+      </div>
+      <input type="range" id="vol-rng-${al.id}" min="0" max="200" value="${v}" step="1" oninput="syncVol('${al.id}','rng')">
+    </div>`;
   });
 }
-function syncVol(id, src) {
-  const rng = document.getElementById('vol-rng-'+id);
-  const num = document.getElementById('vol-num-'+id);
-  if (!rng || !num) return;
-  if (src==='rng') num.value = rng.value;
-  else rng.value = num.value;
-  projVol[id] = parseInt(num.value)||0;
-  recalc();
-  // re-render slider panel to update palier badge (don't full re-render, just update badge)
-  renderSliderPanel();
+function syncVol(id,src){
+  const r=document.getElementById('vol-rng-'+id),n=document.getElementById('vol-num-'+id);
+  if(!r||!n)return;if(src==='rng')n.value=r.value;else r.value=n.value;
+  projVol[id]=parseInt(n.value)||0;recalc();renderSliderPanel();
 }
 
-/* ── AL CHIPS ── */
-function renderAlChips() {
-  const el = document.getElementById('al-checks');
-  el.innerHTML = '';
-  AIRLINES.forEach(al => {
-    const on = checked[al.id];
-    const chip = document.createElement('div');
-    chip.className = 'al-chip ' + (on?'on':'off');
-    chip.style.background = on ? al.color : '';
-    chip.style.borderColor = on ? al.color : '';
-    chip.innerHTML = `<span class="al-chip-dot" style="background:${on?'rgba(255,255,255,.7)':al.color}"></span>${al.short}`;
-    chip.onclick = () => {
-      checked[al.id] = !checked[al.id];
-      renderAlChips();
-      if (MODE==='projection') renderSliderPanel();
-      recalc();
-    };
+/* ═══════════════════════ AL CHIPS ═══════════════════════ */
+function renderAlChips(){
+  const el=document.getElementById('al-checks');el.innerHTML='';
+  AIRLINES.forEach(al=>{
+    const on=checked[al.id];const chip=document.createElement('div');chip.className='al-chip '+(on?'on':'off');
+    chip.style.background=on?al.color:'';chip.style.borderColor=on?al.color:'';
+    chip.innerHTML=`<span class="al-chip-dot" style="background:${on?'rgba(255,255,255,.7)':al.color}"></span>${al.short}`;
+    chip.onclick=()=>{checked[al.id]=!checked[al.id];renderAlChips();if(MODE==='projection')renderSliderPanel();recalc();};
     el.appendChild(chip);
   });
 }
 
-/* ══════════════════════════════════════
-   SVG HELPERS
-══════════════════════════════════════ */
-function svgEl(tag) { return document.createElementNS('http://www.w3.org/2000/svg',tag); }
-function svgLine(svg,x1,x2,y1,y2,stroke,sw,dash) {
-  const l=svgEl('line');
-  l.setAttribute('x1',x1); l.setAttribute('x2',x2);
-  l.setAttribute('y1',y1); l.setAttribute('y2',y2);
-  l.setAttribute('stroke',stroke); l.setAttribute('stroke-width',sw||'1');
-  if(dash) l.setAttribute('stroke-dasharray',dash);
-  svg.appendChild(l);
-}
-function putText(svg,x,y,text,fill,size,anchor) {
-  const t=svgEl('text');
-  t.setAttribute('x',x); t.setAttribute('y',y);
-  t.setAttribute('fill',fill); t.setAttribute('font-size',size||10);
-  t.setAttribute('text-anchor',anchor||'start');
-  t.setAttribute('font-family','Inter,system-ui,sans-serif');
-  t.textContent=text; svg.appendChild(t);
-}
+/* ═══════════════════════ SVG HELPERS ═══════════════════════ */
+function svgEl(t){return document.createElementNS('http://www.w3.org/2000/svg',t);}
+function svgLine(svg,x1,x2,y1,y2,stroke,sw,dash){const l=svgEl('line');l.setAttribute('x1',x1);l.setAttribute('x2',x2);l.setAttribute('y1',y1);l.setAttribute('y2',y2);l.setAttribute('stroke',stroke);l.setAttribute('stroke-width',sw||'1');if(dash)l.setAttribute('stroke-dasharray',dash);svg.appendChild(l);}
+function putText(svg,x,y,text,fill,size,anchor){const t=svgEl('text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('fill',fill);t.setAttribute('font-size',size||10);t.setAttribute('text-anchor',anchor||'start');t.setAttribute('font-family','Inter,system-ui,sans-serif');t.textContent=text;svg.appendChild(t);}
 
-/* ══════════════════════════════════════
-   MODE / METHOD / MONTHS SWITCHES
-══════════════════════════════════════ */
-function setMethod(m,btn) {
-  METHOD = m;
-  document.querySelectorAll('#method-tog .tog-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  const info = document.getElementById('method-info');
-  info.innerHTML = m==='A'
-    ? '<strong>Méthode A</strong> — Tarif unique par palier de la compagnie : ≤50 dos → 20 $/dos · 51–70 → 18 $/dos · >70 → 15 $/dos (@ 177,721 FDJ/USD)'
-    : '<strong>Méthode B (progressive)</strong> — Tranches : 50 premiers à 20 $/dos · 20 suivants à 18 $/dos · reste à 15 $/dos. Toujours supérieure ou égale à la Méthode A.';
+/* ═══════════════════════ MODE / METHOD / MONTHS ═══════════════════════ */
+function setMethod(m,btn){
+  METHOD=m;document.querySelectorAll('#method-tog .tog-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('method-info').innerHTML=m==='A'
+    ?'<strong>Méthode A</strong> — Tarif unique par palier : ≤50 dos → 20 $/dos · 51–70 → 18 $/dos · >70 → 15 $/dos (@ 177,721 FDJ/USD)'
+    :'<strong>Méthode B (progressive)</strong> — Tranches cumulées : 50 × 20$ + 20 × 18$ + reste × 15$. Toujours ≥ Méthode A.';
   recalc();
 }
-
-function setMode(mode,btn) {
-  MODE = mode;
-  document.querySelectorAll('#mode-tog .tog-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  const monthCtrl = document.getElementById('month-ctrl');
-  const sliderPanel = document.getElementById('slider-panel');
-  if (mode==='projection') {
-    monthCtrl.style.display = '';
-    sliderPanel.style.display = '';
-    renderSliderPanel();
-    // allow up to 12 months in projection
-    document.querySelectorAll('.mth-btn').forEach((b,i)=>{
-      b.disabled = false;
-      b.style.opacity = '1';
-    });
+function setMode(mode,btn){
+  MODE=mode;document.querySelectorAll('#mode-tog .tog-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  const sp=document.getElementById('slider-panel');
+  if(mode==='projection'){
+    sp.style.display='';renderSliderPanel();
+    document.querySelectorAll('.mth-btn').forEach((b,i)=>{b.disabled=false;b.style.opacity='1';});
   } else {
-    sliderPanel.style.display = 'none';
-    // cap at 10 months for historique
-    document.querySelectorAll('.mth-btn').forEach((b,i)=>{
-      const m = i+1;
-      b.disabled = m > 10;
-      b.style.opacity = m>10 ? '0.35' : '1';
-    });
-    if (MONTHS_COUNT > 10) {
-      MONTHS_COUNT = 10;
-      document.querySelectorAll('.mth-btn').forEach((b,i)=>{
-        b.classList.toggle('on', i+1===10);
-      });
-    }
+    sp.style.display='none';
+    document.querySelectorAll('.mth-btn').forEach((b,i)=>{const m=i+1;b.disabled=m>10;b.style.opacity=m>10?'0.28':'1';});
+    if(MONTHS_COUNT>10){MONTHS_COUNT=10;document.querySelectorAll('.mth-btn').forEach((b,i)=>b.classList.toggle('on',i+1===10));}
   }
   recalc();
 }
-
-function setMonths(n,btn) {
-  if (MODE==='historique' && n>10) return;
-  MONTHS_COUNT = n;
-  document.querySelectorAll('.mth-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  recalc();
+function setMonths(n,btn){
+  if(MODE==='historique'&&n>10)return;
+  MONTHS_COUNT=n;document.querySelectorAll('.mth-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');recalc();
 }
 
-/* ══════════════════════════════════════
-   CHARGES EDIT
-══════════════════════════════════════ */
-let chargesEditing = false;
-
-function toggleChargesEdit() {
-  chargesEditing = !chargesEditing;
-  const btn = document.getElementById('charges-edit-btn');
-  const applyBtn = document.getElementById('charges-apply-btn');
-  document.querySelectorAll('.editable-row').forEach(row => {
-    row.classList.toggle('editing', chargesEditing);
-  });
-  if (chargesEditing) {
-    btn.textContent = '✕ Annuler';
-    btn.style.background = 'var(--red-lt)';
-    btn.style.borderColor = 'var(--red)';
-    btn.style.color = 'var(--red)';
-    applyBtn.style.display = 'block';
-    // pré-remplir avec valeurs actuelles
-    document.getElementById('inp-carburant').value = chargesEdit.carburant;
-    document.getElementById('inp-tel').value = chargesEdit.tel;
-    document.getElementById('inp-reserve').value = chargesEdit.reserve;
-  } else {
-    btn.textContent = '✏️ Modifier';
-    btn.style.background = 'var(--blue-lt)';
-    btn.style.borderColor = 'var(--blue)';
-    btn.style.color = 'var(--blue)';
-    applyBtn.style.display = 'none';
-  }
-}
-
-function applyCharges() {
-  chargesEdit.carburant = parseInt(document.getElementById('inp-carburant').value) || 0;
-  chargesEdit.tel       = parseInt(document.getElementById('inp-tel').value) || 0;
-  chargesEdit.reserve   = parseInt(document.getElementById('inp-reserve').value) || 0;
-  // update display values
-  document.getElementById('disp-carburant').textContent = fmt(chargesEdit.carburant) + ' FDJ';
-  document.getElementById('disp-tel').textContent       = fmt(chargesEdit.tel) + ' FDJ';
-  document.getElementById('disp-reserve').textContent   = fmt(chargesEdit.reserve) + ' FDJ';
-  // update total badge
-  const tot = CHARGES();
-  document.getElementById('charges-total').textContent = fmt(tot) + ' FDJ';
-  document.getElementById('k-charges').textContent = fmt(tot).replace(/\s/g,' ');
-  // fermer mode édition
-  chargesEditing = true; // force toggle to close
-  toggleChargesEdit();
-  // recalc tout
-  recalc();
-}
-
-/* ══════════════════════════════════════
-   INIT
-══════════════════════════════════════ */
+/* ═══════════════════════ INIT ═══════════════════════ */
 renderAlChips();
-// Set month 10 active by default (historique), cap others
 document.querySelectorAll('.mth-btn').forEach((b,i)=>{
-  const m=i+1;
-  b.classList.toggle('on', m===10);
-  b.disabled = m>10; b.style.opacity=m>10?'0.35':'1';
+  const m=i+1;b.classList.toggle('on',m===10);b.disabled=m>10;b.style.opacity=m>10?'0.28':'1';
 });
-MONTHS_COUNT = 10;
 recalc();
 </script>
 </body>
