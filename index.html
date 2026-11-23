@@ -683,6 +683,10 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
 .db-kpi{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:10px 12px;text-align:center}
 .db-kpi-val{font-size:1rem;font-weight:800;color:var(--text)}
 .db-kpi-lbl{font-size:.68rem;color:var(--muted);margin-top:3px}
+.db-section-lbl{font-size:.68rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);margin-bottom:10px;padding-bottom:4px;border-bottom:1px solid var(--border2)}
+.db-charges-list{display:flex;flex-direction:column;gap:8px}
+.db-ch-row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.db-ch-lbl{font-size:.78rem;font-weight:600;color:var(--text);min-width:120px}
 .db-be-banner{border-radius:12px;padding:14px 20px;font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:12px;transition:background .25s,color .25s}
 .db-be-banner.ok{background:rgba(18,183,106,.12);color:var(--green);border:1px solid rgba(18,183,106,.25)}
 .db-be-banner.warn{background:rgba(255,165,0,.1);color:#b87800;border:1px solid rgba(255,165,0,.25)}
@@ -1310,44 +1314,109 @@ footer{background:#03080F;padding:48px clamp(16px,5vw,48px) 28px;border-top:1px 
 
       <!-- Price + Time -->
       <div class="db-card">
-        <div class="db-card-title" data-t="⚙ Paramètres financiers|⚙ Financial parameters">⚙ Paramètres financiers</div>
+        <div class="db-card-title">⚙ Paramètres — tout modifier</div>
+
+        <!-- REVENUS -->
+        <div class="db-section-lbl">Revenus</div>
         <div class="db-param">
-          <label class="db-param-label" data-t="Tarification par paliers (par dossier)|Tiered pricing (per file)">Tarification par paliers (par dossier)</label>
-          <div class="db-param-note" style="margin-top:6px;line-height:1.7">
-            <span style="color:var(--blue)">▸ 0–50 dos/mois</span> : <strong>3 560 FDJ</strong> (20 $)<br>
-            <span style="color:var(--green)">▸ 51–70 dos/mois</span> : <strong>3 204 FDJ</strong> (18 $)<br>
-            <span style="color:var(--orange)">▸ &gt;70 dos/mois</span> : <strong>2 670 FDJ</strong> (15 $)
+          <div class="db-param-input-row" style="justify-content:space-between">
+            <label class="db-param-label">Prix / dossier</label>
+            <div style="display:flex;align-items:center;gap:6px">
+              <input type="number" id="db-prix-num" value="3500" min="500" max="10000" step="100" oninput="dbPrixSync('num')" style="width:80px;padding:5px 7px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:13px;text-align:right">
+              <span style="font-size:12px;color:var(--muted)">FDJ</span>
+            </div>
           </div>
-          <div class="db-param-note" style="margin-top:4px;opacity:.6;font-size:11px">Taux : 178 FDJ/USD · Paliers appliqués par compagnie</div>
-          <div id="db-palier-detail" style="margin-top:8px;font-size:11px;opacity:.7;line-height:1.6"></div>
+          <input type="range" min="500" max="10000" value="3500" step="100" id="db-prix-range" oninput="dbPrixSync('range')" style="width:100%;accent-color:var(--blue)">
+          <div id="db-palier-detail" style="margin-top:4px;font-size:11px;opacity:.7;line-height:1.6"></div>
         </div>
-        <div class="db-param" style="margin-top:20px">
-          <label class="db-param-label" data-t="Ratio bagages / dossier|Bags / file ratio">Ratio bagages / dossier</label>
-          <div class="db-param-input-row">
-            <input type="range" min="1" max="5" value="2.32" step="0.1" id="db-rat-range" oninput="dbRatSync('range')">
-            <input type="number" min="1" max="5" value="2.32" step="0.1" id="db-rat-num" oninput="dbRatSync('num')" style="width:70px">
+
+        <!-- CHARGES MENSUELLES -->
+        <div class="db-section-lbl" style="margin-top:18px">Charges mensuelles</div>
+        <div class="db-charges-list">
+          <div class="db-ch-row">
+            <label class="db-ch-lbl">Salaire chauffeur</label>
+            <div style="display:flex;align-items:center;gap:6px;min-width:120px">
+              <input type="range" min="0" max="200000" value="70000" step="1000" id="ch-salaire-range" oninput="dbChSync('salaire','range')" style="flex:1;accent-color:var(--blue)">
+              <input type="number" id="ch-salaire-num" value="70000" min="0" max="200000" step="1000" oninput="dbChSync('salaire','num')" style="width:72px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;text-align:right">
+              <span style="font-size:11px;color:var(--muted)">FDJ</span>
+            </div>
+          </div>
+          <div class="db-ch-row">
+            <label class="db-ch-lbl">Carburant</label>
+            <div style="display:flex;align-items:center;gap:6px;min-width:120px">
+              <input type="range" min="0" max="150000" value="45000" step="1000" id="ch-carb-range" oninput="dbChSync('carb','range')" style="flex:1;accent-color:var(--blue)">
+              <input type="number" id="ch-carb-num" value="45000" min="0" max="150000" step="1000" oninput="dbChSync('carb','num')" style="width:72px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;text-align:right">
+              <span style="font-size:11px;color:var(--muted)">FDJ</span>
+            </div>
+          </div>
+          <div class="db-ch-row">
+            <label class="db-ch-lbl">Entretien Bajaj</label>
+            <div style="display:flex;align-items:center;gap:6px;min-width:120px">
+              <input type="range" min="0" max="50000" value="10000" step="500" id="ch-entretien-range" oninput="dbChSync('entretien','range')" style="flex:1;accent-color:var(--blue)">
+              <input type="number" id="ch-entretien-num" value="10000" min="0" max="50000" step="500" oninput="dbChSync('entretien','num')" style="width:72px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;text-align:right">
+              <span style="font-size:11px;color:var(--muted)">FDJ</span>
+            </div>
+          </div>
+          <div class="db-ch-row">
+            <label class="db-ch-lbl">Téléphone / data</label>
+            <div style="display:flex;align-items:center;gap:6px;min-width:120px">
+              <input type="range" min="0" max="30000" value="6500" step="500" id="ch-tel-range" oninput="dbChSync('tel','range')" style="flex:1;accent-color:var(--blue)">
+              <input type="number" id="ch-tel-num" value="6500" min="0" max="30000" step="500" oninput="dbChSync('tel','num')" style="width:72px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;text-align:right">
+              <span style="font-size:11px;color:var(--muted)">FDJ</span>
+            </div>
+          </div>
+          <div class="db-ch-row">
+            <label class="db-ch-lbl">Réserve imprévus</label>
+            <div style="display:flex;align-items:center;gap:6px;min-width:120px">
+              <input type="range" min="0" max="80000" value="15000" step="1000" id="ch-reserve-range" oninput="dbChSync('reserve','range')" style="flex:1;accent-color:var(--blue)">
+              <input type="number" id="ch-reserve-num" value="15000" min="0" max="80000" step="1000" oninput="dbChSync('reserve','num')" style="width:72px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;text-align:right">
+              <span style="font-size:11px;color:var(--muted)">FDJ</span>
+            </div>
+          </div>
+          <div class="db-ch-row">
+            <label class="db-ch-lbl">Amortissement Bajaj</label>
+            <div style="display:flex;align-items:center;gap:6px;min-width:120px">
+              <input type="range" min="0" max="100000" value="44160" step="500" id="ch-amort-range" oninput="dbChSync('amort','range')" style="flex:1;accent-color:var(--blue)">
+              <input type="number" id="ch-amort-num" value="44160" min="0" max="100000" step="500" oninput="dbChSync('amort','num')" style="width:72px;padding:4px 6px;border-radius:6px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:12px;text-align:right">
+              <span style="font-size:11px;color:var(--muted)">FDJ</span>
+            </div>
           </div>
         </div>
-        <div class="db-param" style="margin-top:20px">
-          <label class="db-param-label" data-t="Horizon de projection|Projection horizon">Horizon de projection</label>
-          <div class="db-months-btns" id="db-months-btns">
-            <button class="db-mth on" onclick="dbSetMonths(3,this)">3 mois</button>
-            <button class="db-mth" onclick="dbSetMonths(6,this)">6 mois</button>
-            <button class="db-mth" onclick="dbSetMonths(12,this)">12 mois</button>
-            <button class="db-mth" onclick="dbSetMonths(18,this)">18 mois</button>
-            <button class="db-mth" onclick="dbSetMonths(24,this)">24 mois</button>
+        <!-- Total charges -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:10px 12px;background:var(--bg);border-radius:8px;border:1px solid var(--border2)">
+          <span style="font-size:13px;font-weight:600;color:var(--muted)">Total charges / mois</span>
+          <span id="db-total-charges" style="font-size:16px;font-weight:800;color:var(--blue)">190 660 FDJ</span>
+        </div>
+
+        <!-- INVESTISSEMENT INITIAL -->
+        <div class="db-section-lbl" style="margin-top:18px">Investissement initial</div>
+        <div class="db-param">
+          <div class="db-param-input-row" style="justify-content:space-between">
+            <label class="db-param-label">Capital de départ</label>
+            <div style="display:flex;align-items:center;gap:6px">
+              <input type="number" id="db-capital-num" value="383860" min="0" max="2000000" step="10000" oninput="dbCapitalSync('num')" style="width:90px;padding:5px 7px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:13px;text-align:right">
+              <span style="font-size:12px;color:var(--muted)">FDJ</span>
+            </div>
           </div>
+          <input type="range" min="0" max="2000000" value="383860" step="10000" id="db-capital-range" oninput="dbCapitalSync('range')" style="width:100%;accent-color:var(--blue)">
         </div>
-        <div class="db-param" style="margin-top:20px">
-          <label class="db-param-label" data-t="Charges fixes / mois (FDJ)|Fixed costs / month (FDJ)">Charges fixes / mois (FDJ)</label>
-          <input type="number" id="db-charges" value="192167" step="1000" oninput="dbCalc()" style="width:100%;padding:8px 10px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);color:var(--text);font-size:14px">
+
+        <!-- HORIZON -->
+        <div class="db-section-lbl" style="margin-top:18px">Horizon</div>
+        <div class="db-months-btns" id="db-months-btns">
+          <button class="db-mth on" onclick="dbSetMonths(3,this)">3 mois</button>
+          <button class="db-mth" onclick="dbSetMonths(6,this)">6 mois</button>
+          <button class="db-mth" onclick="dbSetMonths(12,this)">12 mois</button>
+          <button class="db-mth" onclick="dbSetMonths(18,this)">18 mois</button>
+          <button class="db-mth" onclick="dbSetMonths(24,this)">24 mois</button>
         </div>
+
         <!-- KPI summary -->
-        <div class="db-kpi-row" style="margin-top:24px">
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-dos">122</div><div class="db-kpi-lbl" data-t="dossiers/mois|files/mo">dossiers/mois</div></div>
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-bags">283</div><div class="db-kpi-lbl" data-t="bagages/mois|bags/mo">bagages/mois</div></div>
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-ca" style="color:var(--blue)">326K FDJ</div><div class="db-kpi-lbl" data-t="CA mensuel|Monthly rev.">CA mensuel</div></div>
-          <div class="db-kpi"><div class="db-kpi-val" id="db-k-net" style="color:var(--green)">+136K</div><div class="db-kpi-lbl" data-t="net mensuel|Monthly net">net mensuel</div></div>
+        <div class="db-kpi-row" style="margin-top:20px">
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-dos">122</div><div class="db-kpi-lbl">dossiers/mois</div></div>
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-bags">283</div><div class="db-kpi-lbl">bagages/mois</div></div>
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-ca" style="color:var(--blue)">326K FDJ</div><div class="db-kpi-lbl">CA mensuel</div></div>
+          <div class="db-kpi"><div class="db-kpi-val" id="db-k-net" style="color:var(--green)">+136K</div><div class="db-kpi-lbl">net mensuel</div></div>
         </div>
       </div>
     </div>
@@ -1880,8 +1949,39 @@ function dbSlide(i){
 function dbRatSync(src){
   const r=document.getElementById('db-rat-range');
   const n=document.getElementById('db-rat-num');
-  if(src==='range') n.value=r.value; else r.value=n.value;
+  if(r&&n){if(src==='range') n.value=r.value; else r.value=n.value;}
   dbCalc();
+}
+function dbPrixSync(src){
+  const r=document.getElementById('db-prix-range');
+  const n=document.getElementById('db-prix-num');
+  if(r&&n){if(src==='range') n.value=r.value; else r.value=n.value;}
+  dbCalc();
+}
+function dbCapitalSync(src){
+  const r=document.getElementById('db-capital-range');
+  const n=document.getElementById('db-capital-num');
+  if(r&&n){if(src==='range') n.value=r.value; else r.value=n.value;}
+  dbCalc();
+}
+const DB_CH_KEYS=['salaire','carb','entretien','tel','reserve','amort'];
+function dbChSync(key,src){
+  const r=document.getElementById('ch-'+key+'-range');
+  const n=document.getElementById('ch-'+key+'-num');
+  if(r&&n){if(src==='range') n.value=r.value; else r.value=n.value;}
+  dbUpdateTotalCharges();
+  dbCalc();
+}
+function dbGetCharges(){
+  return DB_CH_KEYS.reduce(function(s,k){
+    const n=document.getElementById('ch-'+k+'-num');
+    return s+(n?parseFloat(n.value)||0:0);
+  },0);
+}
+function dbUpdateTotalCharges(){
+  const tot=dbGetCharges();
+  const el=document.getElementById('db-total-charges');
+  if(el) el.textContent=Math.round(tot).toLocaleString('fr-FR')+' FDJ';
 }
 function dbSetMonths(m,btn){
   dbMonths=m;
@@ -1907,10 +2007,11 @@ function prixPalier(dos){
 }
 
 function dbCalc(){
-  const ratio=parseFloat(document.getElementById('db-rat-num').value)||2.32;
-  const charges=parseFloat(document.getElementById('db-charges').value)||192167;
+  const ratio=parseFloat((document.getElementById('db-rat-num')||{}).value)||2.32;
+  const prixDos=parseFloat((document.getElementById('db-prix-num')||{}).value)||3500;
+  const charges=dbGetCharges()||190660;
 
-  // CA par compagnie avec paliers
+  // CA par compagnie : prix fixe par dossier (slider)
   let totalDos=0;
   let caMensuel=0;
   let palierLines=[];
@@ -1919,10 +2020,10 @@ function dbCalc(){
     if(chk&&chk.checked){
       const v=parseInt(document.getElementById('al'+al.id+'-dos').value)||0;
       if(v>0){
-        const p=prixPalier(v);
+        const ca=v*prixDos;
         totalDos+=v;
-        caMensuel+=p.ca;
-        palierLines.push(al.name.split(' ')[0]+' : '+v+' dos → '+p.label+' = '+fmtSpace(p.ca)+' FDJ');
+        caMensuel+=ca;
+        palierLines.push(al.name.split(' ')[0]+' : '+v+' dos × '+fmtSpace(prixDos)+' FDJ = '+fmtSpace(ca)+' FDJ');
       }
     }
   });
@@ -1947,7 +2048,8 @@ function dbCalc(){
   const tbody=document.getElementById('db-tbody');
   if(!tbody) return;
   tbody.innerHTML='';
-  let cumul=0;
+  const capital=parseFloat((document.getElementById('db-capital-num')||{}).value)||383860;
+  let cumul=capital;
   let beMonth=-1;
   const mnoms_fr=['Jan','Fév','Mar','Avr','Mai','Jun','Jul','Aoû','Sep','Oct','Nov','Déc'];
   const now=new Date(); let startM=now.getMonth();
