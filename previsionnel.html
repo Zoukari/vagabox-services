@@ -412,6 +412,11 @@ tfoot td:not(:first-child){text-align:right;}
             <span class="ch-val" id="disp-reserve">15 000 FDJ</span>
             <input class="ch-input" id="inp-reserve" type="number" value="15000" min="0" step="500">
           </div>
+          <div class="charge-row">
+            <span class="ch-label">📦 Amortissement matériel</span>
+            <span class="ch-auto">auto</span>
+            <span class="ch-val" id="disp-amort">— FDJ</span>
+          </div>
         </div>
         <button class="ch-apply-btn" id="ch-apply-btn" onclick="applyCharges()">✓ Appliquer</button>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg3);margin-top:2px;">
@@ -422,6 +427,61 @@ tfoot td:not(:first-child){text-align:right;}
           <span id="charges-total" style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;"></span>
         </div>
       </div>
+
+      <!-- INVESTISSEMENT INITIAL -->
+      <div class="panel" style="margin-top:14px;">
+        <div class="ph"><span>🏗 Investissement initial</span></div>
+        <div style="padding:12px 14px;display:flex;flex-direction:column;gap:10px;">
+          <!-- Matériel -->
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:12px;font-weight:600;">Matériel (Bajaj…)</span>
+              <div style="display:flex;align-items:center;gap:5px;">
+                <input type="number" id="inv-materiel" value="1035140" min="0" max="5000000" step="10000"
+                  oninput="invUpdate()"
+                  style="width:100px;padding:4px 7px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--fg);font-size:12px;text-align:right;">
+                <span style="font-size:11px;color:var(--fg3);">FDJ</span>
+              </div>
+            </div>
+            <input type="range" min="0" max="5000000" value="1035140" step="10000" id="inv-materiel-r"
+              oninput="invRangeSync('materiel')"
+              style="width:100%;accent-color:var(--accent);">
+          </div>
+          <!-- Durée -->
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:12px;font-weight:600;">Durée amortissement</span>
+              <div style="display:flex;align-items:center;gap:5px;">
+                <input type="number" id="inv-duree" value="24" min="1" max="60" step="1"
+                  oninput="invUpdate()"
+                  style="width:55px;padding:4px 7px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--fg);font-size:12px;text-align:right;">
+                <span style="font-size:11px;color:var(--fg3);">mois</span>
+              </div>
+            </div>
+            <input type="range" min="1" max="60" value="24" step="1" id="inv-duree-r"
+              oninput="invRangeSync('duree')"
+              style="width:100%;accent-color:var(--accent);">
+            <div style="font-size:11px;color:var(--fg3);text-align:right;margin-top:3px;">→ <span id="inv-amort-preview" style="color:var(--accent);font-weight:700;">43 131 FDJ/mois</span></div>
+          </div>
+          <!-- Trésorerie -->
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+              <span style="font-size:12px;font-weight:600;">Trésorerie initiale</span>
+              <div style="display:flex;align-items:center;gap:5px;">
+                <input type="number" id="inv-tresorerie" value="383860" min="0" max="2000000" step="10000"
+                  oninput="invUpdate()"
+                  style="width:100px;padding:4px 7px;border-radius:7px;border:1px solid var(--border2);background:var(--bg2);color:var(--fg);font-size:12px;text-align:right;">
+                <span style="font-size:11px;color:var(--fg3);">FDJ</span>
+              </div>
+            </div>
+            <input type="range" min="0" max="2000000" value="383860" step="10000" id="inv-tresorerie-r"
+              oninput="invRangeSync('tresorerie')"
+              style="width:100%;accent-color:var(--accent);">
+            <div style="font-size:11px;color:var(--fg3);margin-top:2px;">Fonds de roulement — non amorti</div>
+          </div>
+        </div>
+      </div>
+
     </div><!-- /left -->
 
     <!-- RIGHT -->
@@ -505,8 +565,15 @@ const projVol = {}; AIRLINES.forEach(a => projVol[a.id] = a.avgMois);
 const ch = { salaire:70000, entretien:10000, rateCarb:350, tel:6500, reserve:15000 };
 let _currentDos = 132;
 
+// Investissement initial
+let INV_MATERIEL = 1035140;
+let INV_DUREE    = 24;      // mois
+let INV_TRESORERIE = 383860;
+
+function getAmortMensuel(){ return Math.round(INV_MATERIEL / INV_DUREE); }
+
 function carburantAuto(){ return ch.rateCarb * _currentDos; }
-function CHARGES()      { return ch.salaire + ch.entretien + carburantAuto() + ch.tel + ch.reserve; }
+function CHARGES()      { return ch.salaire + ch.entretien + carburantAuto() + ch.tel + ch.reserve + getAmortMensuel(); }
 
 /* ═══════════ PRICING ═══════════ */
 // Palier par dossier
@@ -622,15 +689,40 @@ function recalc(){
   renderTresoCumulChart(active);
 }
 
+/* ═══════════ INVESTISSEMENT ═══════════ */
+function invRangeSync(key){
+  const r=document.getElementById('inv-'+key+'-r');
+  const n=document.getElementById('inv-'+key);
+  if(r&&n) n.value=r.value;
+  invUpdate();
+}
+function invUpdate(){
+  INV_MATERIEL   = parseFloat(document.getElementById('inv-materiel').value)||1035140;
+  INV_DUREE      = parseFloat(document.getElementById('inv-duree').value)||24;
+  INV_TRESORERIE = parseFloat(document.getElementById('inv-tresorerie').value)||383860;
+  // sync ranges
+  const rm=document.getElementById('inv-materiel-r'); if(rm) rm.value=INV_MATERIEL;
+  const rd=document.getElementById('inv-duree-r');    if(rd) rd.value=INV_DUREE;
+  const rt=document.getElementById('inv-tresorerie-r'); if(rt) rt.value=INV_TRESORERIE;
+  // preview
+  const amort=getAmortMensuel();
+  const prev=document.getElementById('inv-amort-preview');
+  if(prev) prev.textContent=amort.toLocaleString('fr-FR')+' FDJ/mois';
+  updateChargesDisplay();
+  recalc();
+}
+
 /* ═══════════ CHARGES DISPLAY ═══════════ */
 function updateChargesDisplay(){
   const carbVal=carburantAuto();
+  const amortVal=getAmortMensuel();
   document.getElementById('disp-carburant').textContent=fmt(carbVal)+' FDJ';
   document.getElementById('disp-tel').textContent=fmt(ch.tel)+' FDJ';
   document.getElementById('disp-reserve').textContent=fmt(ch.reserve)+' FDJ';
+  document.getElementById('disp-amort').textContent=fmt(amortVal)+' FDJ';
   const tot=CHARGES();
   document.getElementById('charges-total').textContent=fmt(tot)+' FDJ';
-  document.getElementById('ch-total-detail').textContent='Carb. '+fmt(carbVal)+' · Tel. '+fmt(ch.tel)+' · Rés. '+fmt(ch.reserve);
+  document.getElementById('ch-total-detail').textContent='Carb. '+fmt(carbVal)+' · Amort. '+fmt(amortVal)+' · Rés. '+fmt(ch.reserve);
   document.getElementById('k-charges').textContent=fmt(tot);
 }
 
