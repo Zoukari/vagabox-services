@@ -57,23 +57,74 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hdr-link{font-size:12px;color:var(--blue);text-decoration:none;padding:4px 8px;border:1px solid var(--border);border-radius:6px;}
 .hdr-link:hover{background:var(--bg3);}
 
-/* TOGGLE */
-.tog{display:flex;background:var(--bg3);border-radius:9px;padding:3px;gap:2px;border:1px solid var(--border);}
-.tog-btn{padding:7px 14px;border:none;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--fg3);transition:all .15s;white-space:nowrap;}
-.tog-btn:hover:not(.on){background:var(--bg2);color:var(--fg);}
-.tog-btn.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(45,107,228,.35);}
-
 /* MAIN */
 .main{padding-block:16px;max-width:1240px;margin:0 auto;}
 
-/* CONTROLS BAR */
-.ctrl-bar{
+/* ═══════════════════════════════════════════
+   CONFIG PANEL (grand bandeau en haut)
+   ═══════════════════════════════════════════ */
+.cfg-panel{
   background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);
-  padding:14px 16px;margin-bottom:14px;box-shadow:var(--shadow);
-  display:flex;flex-wrap:wrap;gap:14px;align-items:flex-start;
+  box-shadow:var(--shadow);margin-bottom:14px;overflow:hidden;
 }
-.ctrl-section{display:flex;flex-direction:column;gap:7px;}
-.ctrl-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--fg3);}
+.cfg-top{
+  display:flex;flex-wrap:wrap;gap:0;
+}
+/* Boutons de scénario principaux */
+.scen-btn{
+  flex:1;min-width:160px;padding:16px 20px;border:none;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  background:var(--bg3);color:var(--fg3);font-family:var(--fd);
+  transition:all .18s;border-right:1px solid var(--border);position:relative;
+}
+.scen-btn:last-child{border-right:none;}
+.scen-btn .scen-icon{font-size:22px;line-height:1;}
+.scen-btn .scen-label{font-size:13px;font-weight:700;}
+.scen-btn .scen-desc{font-size:10px;opacity:.7;}
+.scen-btn:hover:not(.on){background:var(--bg2);color:var(--fg2);}
+.scen-btn.on{background:var(--blue);color:#fff;}
+.scen-btn.on .scen-desc{opacity:.8;}
+.scen-btn::after{
+  content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%) scaleX(0);
+  width:60%;height:3px;background:var(--blue);border-radius:2px 2px 0 0;
+  transition:transform .18s;
+}
+.scen-btn.on::after{transform:translateX(-50%) scaleX(1);background:#fff;}
+
+/* Zone de sous-paramètres */
+.cfg-sub{
+  border-top:1px solid var(--border);padding:14px 16px;
+  display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;
+  background:var(--bg2);
+}
+.cfg-grp{display:flex;flex-direction:column;gap:7px;}
+.cfg-lbl{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--fg3);}
+
+/* Tarification — 3 niveaux */
+.tarif-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.tarif-seg{display:flex;background:var(--bg3);border-radius:8px;padding:3px;gap:2px;border:1px solid var(--border);}
+.tarif-btn{
+  padding:7px 13px;border:none;border-radius:6px;font-size:12px;font-weight:700;
+  cursor:pointer;background:transparent;color:var(--fg3);transition:all .13s;white-space:nowrap;
+}
+.tarif-btn:hover:not(.on){background:var(--bg2);color:var(--fg);}
+.tarif-btn.on{background:var(--blue);color:#fff;box-shadow:0 2px 6px rgba(45,107,228,.3);}
+
+/* Champ prix fixe */
+.prix-fixe-wrap{
+  display:none;align-items:center;gap:7px;
+  background:var(--blue-lt);border:1px solid var(--blue);border-radius:8px;
+  padding:6px 12px;
+}
+.prix-fixe-wrap.show{display:flex;}
+.prix-fixe-wrap label{font-size:11px;font-weight:700;color:var(--blue);}
+.prix-fixe-wrap input{
+  width:70px;padding:5px 7px;border:1.5px solid var(--blue);border-radius:6px;
+  background:var(--bg2);color:var(--fg);font-size:14px;font-weight:700;
+  text-align:right;font-variant-numeric:tabular-nums;
+}
+.prix-fixe-wrap input:focus{outline:none;box-shadow:0 0 0 3px rgba(45,107,228,.15);}
+.prix-fixe-wrap span{font-size:11px;color:var(--blue);font-weight:600;}
 
 /* MONTH BUTTONS */
 .month-btns{display:flex;gap:5px;flex-wrap:wrap;}
@@ -99,8 +150,8 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .al-chip.off{opacity:.38;filter:grayscale(.6);box-shadow:none;}
 .al-chip-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 
-/* METHOD INFO */
-.method-info{background:var(--blue-lt);border:1px solid var(--blue);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--blue);margin-bottom:14px;}
+/* INFO BANNER */
+.info-banner{background:var(--blue-lt);border:1px solid var(--blue);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--blue);margin-bottom:14px;}
 
 /* KPIs */
 .kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px;}
@@ -139,46 +190,22 @@ input[type=number]{
 }
 input[type=number]:focus{outline:none;border-color:var(--blue);}
 
-/* ── CHARGES PANEL ── */
-.charge-row{
-  display:flex;align-items:center;gap:8px;
-  padding:8px 14px;border-bottom:1px solid var(--border);font-size:12px;
-  flex-wrap:wrap;
-}
+/* CHARGES PANEL */
+.charge-row{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid var(--border);font-size:12px;flex-wrap:wrap;}
 .charge-row:last-of-type{border-bottom:none;}
 .ch-label{color:var(--fg2);flex:1;min-width:100px;}
 .ch-val{font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap;}
 .ch-auto{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--orange-lt);color:var(--orange);font-weight:700;white-space:nowrap;}
 .ch-fixed{font-size:10px;padding:2px 7px;border-radius:999px;background:var(--bg3);color:var(--fg3);font-weight:700;}
-.ch-input{
-  width:90px;padding:5px 8px;border:1.5px solid var(--blue);border-radius:6px;
-  background:var(--blue-lt);color:var(--fg);font-size:12px;font-weight:600;
-  text-align:right;font-variant-numeric:tabular-nums;display:none;
-}
+.ch-input{width:90px;padding:5px 8px;border:1.5px solid var(--blue);border-radius:6px;background:var(--blue-lt);color:var(--fg);font-size:12px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums;display:none;}
 .ch-input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(45,107,228,.15);}
-.ch-rate-row{
-  display:none;align-items:center;gap:6px;
-  padding:6px 14px;background:var(--orange-lt);font-size:11px;color:var(--orange);flex-wrap:wrap;
-}
+.ch-rate-row{display:none;align-items:center;gap:6px;padding:6px 14px;background:var(--orange-lt);font-size:11px;color:var(--orange);flex-wrap:wrap;}
 .ch-rate-row span{flex:1;}
-.ch-rate-input{
-  width:70px;padding:4px 7px;border:1.5px solid var(--orange);border-radius:6px;
-  background:var(--bg2);color:var(--fg);font-size:12px;font-weight:700;
-  text-align:right;font-variant-numeric:tabular-nums;
-}
+.ch-rate-input{width:70px;padding:4px 7px;border:1.5px solid var(--orange);border-radius:6px;background:var(--bg2);color:var(--fg);font-size:12px;font-weight:700;text-align:right;font-variant-numeric:tabular-nums;}
 .ch-rate-input:focus{outline:none;}
-.ch-edit-btn{
-  font-size:11px;font-weight:700;padding:4px 10px;
-  border:1.5px solid var(--blue);border-radius:6px;
-  background:var(--blue-lt);color:var(--blue);cursor:pointer;
-  transition:all .12s;white-space:nowrap;
-}
+.ch-edit-btn{font-size:11px;font-weight:700;padding:4px 10px;border:1.5px solid var(--blue);border-radius:6px;background:var(--blue-lt);color:var(--blue);cursor:pointer;transition:all .12s;white-space:nowrap;}
 .ch-edit-btn:hover{background:var(--blue);color:#fff;}
-.ch-apply-btn{
-  display:none;width:calc(100% - 28px);margin:8px 14px;padding:9px;
-  border:none;border-radius:8px;background:var(--green);color:#fff;
-  font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.02em;
-}
+.ch-apply-btn{display:none;width:calc(100% - 28px);margin:8px 14px;padding:9px;border:none;border-radius:8px;background:var(--green);color:#fff;font-weight:700;font-size:13px;cursor:pointer;letter-spacing:.02em;}
 .ch-apply-btn:hover{opacity:.88;}
 
 /* CHARTS */
@@ -216,12 +243,12 @@ tfoot td:not(:first-child){text-align:right;}
 .tab-btn{padding:5px 11px;border:1px solid var(--border);border-bottom:none;border-radius:5px 5px 0 0;background:var(--bg3);font-size:11px;font-weight:600;cursor:pointer;color:var(--fg3);white-space:nowrap;}
 .tab-btn.on{background:var(--bg2);color:var(--blue);border-bottom-color:var(--bg2);}
 
-/* RESPONSIVE HELPERS */
 @media(max-width:480px){
   .kpi-row{grid-template-columns:repeat(2,1fr);}
   .kpi-val{font-size:16px;}
-  .ctrl-bar{gap:12px;}
   .hdr-title{font-size:13px;}
+  .scen-btn{padding:12px 14px;}
+  .scen-btn .scen-icon{font-size:18px;}
 }
 </style>
 </head>
@@ -234,52 +261,93 @@ tfoot td:not(:first-child){text-align:right;}
     <div class="hdr-sub">Données réelles 2024 · Jan–Oct · 5 compagnies</div>
   </div>
   <div class="hdr-right">
-    <div class="tog" id="method-tog">
-      <button class="tog-btn on" onclick="setMethod('A',this)">Méthode A</button>
-      <button class="tog-btn" onclick="setMethod('B',this)">Méthode B</button>
-    </div>
     <a class="hdr-link" href="/">← Faisabilité</a>
   </div>
 </header>
 
 <div class="main">
 
-  <!-- CONTROLS -->
-  <div class="ctrl-bar">
-    <div class="ctrl-section">
-      <div class="ctrl-label">Mode</div>
-      <div class="tog" id="mode-tog">
-        <button class="tog-btn on" onclick="setMode('historique',this)">📊 Historique 2024</button>
-        <button class="tog-btn" onclick="setMode('projection',this)">🔮 Projection</button>
-      </div>
-    </div>
-    <div class="ctrl-section" id="month-ctrl">
-      <div class="ctrl-label">Nombre de mois</div>
-      <div class="month-btns" id="month-btns">
-        <button class="mth-btn" onclick="setMonths(1,this)">1</button>
-        <button class="mth-btn" onclick="setMonths(2,this)">2</button>
-        <button class="mth-btn" onclick="setMonths(3,this)">3</button>
-        <button class="mth-btn" onclick="setMonths(4,this)">4</button>
-        <button class="mth-btn" onclick="setMonths(5,this)">5</button>
-        <button class="mth-btn" onclick="setMonths(6,this)">6</button>
-        <button class="mth-btn" onclick="setMonths(7,this)">7</button>
-        <button class="mth-btn" onclick="setMonths(8,this)">8</button>
-        <button class="mth-btn" onclick="setMonths(9,this)">9</button>
-        <button class="mth-btn on" onclick="setMonths(10,this)">10</button>
-        <button class="mth-btn" onclick="setMonths(11,this)">11</button>
-        <button class="mth-btn" onclick="setMonths(12,this)">12</button>
-      </div>
-    </div>
-    <div class="ctrl-section">
-      <div class="ctrl-label">Compagnies</div>
-      <div class="al-checks" id="al-checks"></div>
-    </div>
-  </div>
+  <!-- ═══════════════════ PANNEAU CONFIG ═══════════════════ -->
+  <div class="cfg-panel">
 
-  <!-- METHOD INFO -->
-  <div class="method-info" id="method-info">
-    <strong>Méthode A</strong> — Tarif unique par palier : ≤50 dos → 20 $/dos · 51–70 → 18 $/dos · >70 → 15 $/dos
-  </div>
+    <!-- Ligne 1 : Scénario -->
+    <div class="cfg-top">
+      <button class="scen-btn on" onclick="setScene('historique',this)">
+        <span class="scen-icon">📊</span>
+        <span class="scen-label">Historique 2024</span>
+        <span class="scen-desc">Jan – Oct · données réelles</span>
+      </button>
+      <button class="scen-btn" onclick="setScene('projection',this)">
+        <span class="scen-icon">🔮</span>
+        <span class="scen-label">Projection</span>
+        <span class="scen-desc">simulation sur 1–12 mois</span>
+      </button>
+    </div>
+
+    <!-- Ligne 2 : Sous-paramètres -->
+    <div class="cfg-sub">
+
+      <!-- Tarification -->
+      <div class="cfg-grp">
+        <div class="cfg-lbl">💲 Tarification</div>
+        <div class="tarif-row">
+          <!-- Niveau 1 : Palier ou Fixe -->
+          <div class="tarif-seg" id="seg-type">
+            <button class="tarif-btn on" onclick="setTarifType('palier',this)">Par palier</button>
+            <button class="tarif-btn" onclick="setTarifType('fixe',this)">Prix fixe</button>
+          </div>
+
+          <!-- Niveau 2a : Si Palier → Méthode A ou B -->
+          <div class="tarif-seg" id="seg-methode">
+            <button class="tarif-btn on" onclick="setMethode('A',this)">Méthode A</button>
+            <button class="tarif-btn" onclick="setMethode('B',this)">Méthode B</button>
+          </div>
+
+          <!-- Niveau 2b : Par valise ou par dossier (toujours visible) -->
+          <div class="tarif-seg" id="seg-unite">
+            <button class="tarif-btn on" onclick="setUnite('dossier',this)">/ dossier</button>
+            <button class="tarif-btn" onclick="setUnite('valise',this)">/ valise</button>
+          </div>
+
+          <!-- Niveau 3 : Champ prix fixe (seulement si Fixe) -->
+          <div class="prix-fixe-wrap" id="prix-fixe-wrap">
+            <label>Prix</label>
+            <input type="number" id="inp-prix-fixe" value="17" min="1" step="0.5" oninput="recalc()">
+            <span>$ / <span id="prix-fixe-unite">dossier</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Nombre de mois -->
+      <div class="cfg-grp" id="month-ctrl">
+        <div class="cfg-lbl">📅 Nombre de mois</div>
+        <div class="month-btns" id="month-btns">
+          <button class="mth-btn" onclick="setMonths(1,this)">1</button>
+          <button class="mth-btn" onclick="setMonths(2,this)">2</button>
+          <button class="mth-btn" onclick="setMonths(3,this)">3</button>
+          <button class="mth-btn" onclick="setMonths(4,this)">4</button>
+          <button class="mth-btn" onclick="setMonths(5,this)">5</button>
+          <button class="mth-btn" onclick="setMonths(6,this)">6</button>
+          <button class="mth-btn" onclick="setMonths(7,this)">7</button>
+          <button class="mth-btn" onclick="setMonths(8,this)">8</button>
+          <button class="mth-btn" onclick="setMonths(9,this)">9</button>
+          <button class="mth-btn on" onclick="setMonths(10,this)">10</button>
+          <button class="mth-btn" onclick="setMonths(11,this)">11</button>
+          <button class="mth-btn" onclick="setMonths(12,this)">12</button>
+        </div>
+      </div>
+
+      <!-- Compagnies -->
+      <div class="cfg-grp">
+        <div class="cfg-lbl">✈️ Compagnies</div>
+        <div class="al-checks" id="al-checks"></div>
+      </div>
+
+    </div><!-- /cfg-sub -->
+  </div><!-- /cfg-panel -->
+
+  <!-- INFO BANNER -->
+  <div class="info-banner" id="info-banner"></div>
 
   <!-- KPIs -->
   <div class="kpi-row">
@@ -288,79 +356,64 @@ tfoot td:not(:first-child){text-align:right;}
     <div class="kpi"><div class="kpi-lbl">Résultat net</div><div class="kpi-val" id="k-net">—</div><div class="kpi-sub" id="k-net-sub">—</div></div>
     <div class="kpi"><div class="kpi-lbl">Marge moyenne</div><div class="kpi-val" id="k-marge">—</div><div class="kpi-sub">net ÷ CA</div></div>
     <div class="kpi"><div class="kpi-lbl">Capital départ</div><div class="kpi-val" style="color:var(--orange)">1 323 460</div><div class="kpi-sub">FDJ · Bajaj + réserve 3 mois</div></div>
-    <div class="kpi"><div class="kpi-lbl">Charges cash/mois</div><div class="kpi-val" id="k-charges" style="color:var(--red)">—</div><div class="kpi-sub" id="k-charges-sub">FDJ · variable</div></div>
+    <div class="kpi"><div class="kpi-lbl">Charges cash/mois</div><div class="kpi-val" id="k-charges" style="color:var(--red)">—</div><div class="kpi-sub" id="k-charges-sub">FDJ</div></div>
   </div>
 
   <!-- GRID -->
   <div class="grid-2">
-
     <!-- LEFT -->
     <div style="display:flex;flex-direction:column;gap:14px;">
 
-      <!-- CA par compagnie -->
       <div class="panel">
         <div class="ph">🏢 CA par compagnie</div>
         <div id="co-breakdown" style="padding:4px 0;"></div>
       </div>
 
-      <!-- Sliders projection -->
       <div class="panel" id="slider-panel" style="display:none;">
         <div class="ph">🎚 Volumes projetés / mois</div>
         <div id="slider-list"></div>
       </div>
 
       <!-- CHARGES PANEL -->
-      <div class="panel" id="charges-panel">
+      <div class="panel">
         <div class="ph" style="justify-content:space-between;">
           <span>💰 Charges / mois</span>
           <button class="ch-edit-btn" id="charges-edit-btn" onclick="toggleChargesEdit()">✏️ Modifier</button>
         </div>
-
-        <!-- Taux carburant/dossier (auto row) -->
         <div class="ch-rate-row" id="ch-rate-row">
           <span>⛽ Taux carburant / dossier</span>
           <input class="ch-rate-input" id="inp-rate-carb" type="number" value="350" min="0" step="50">
           <span>FDJ</span>
         </div>
-
         <div id="charges-rows">
-          <!-- Salaire — fixe -->
           <div class="charge-row">
             <span class="ch-label">Salaire chauffeur</span>
             <span class="ch-fixed">fixe</span>
             <span class="ch-val" id="disp-salaire">70 000 FDJ</span>
           </div>
-          <!-- Entretien — fixe -->
           <div class="charge-row">
             <span class="ch-label">Entretien Bajaj</span>
             <span class="ch-fixed">fixe</span>
             <span class="ch-val" id="disp-entretien">10 000 FDJ</span>
           </div>
-          <!-- Carburant — AUTO selon dossiers -->
-          <div class="charge-row" id="row-carburant">
+          <div class="charge-row">
             <span class="ch-label">⛽ Carburant</span>
-            <span class="ch-auto" id="auto-carb-badge">auto</span>
+            <span class="ch-auto">auto</span>
             <span class="ch-val" id="disp-carburant">— FDJ</span>
             <input class="ch-input" id="inp-carburant" type="number" min="0" step="500">
           </div>
-          <!-- Téléphone — éditable -->
-          <div class="charge-row" id="row-tel">
+          <div class="charge-row">
             <span class="ch-label">📱 Téléphone / data</span>
             <span class="ch-val" id="disp-tel">6 500 FDJ</span>
             <input class="ch-input" id="inp-tel" type="number" value="6500" min="0" step="500">
           </div>
-          <!-- Réserve — éditable -->
-          <div class="charge-row" id="row-reserve">
+          <div class="charge-row">
             <span class="ch-label">🛡 Réserve imprévus</span>
             <span class="ch-val" id="disp-reserve">15 000 FDJ</span>
             <input class="ch-input" id="inp-reserve" type="number" value="15000" min="0" step="500">
           </div>
         </div>
-
-        <!-- Appliquer -->
-        <button class="ch-apply-btn" id="ch-apply-btn" onclick="applyCharges()">✓ Appliquer les modifications</button>
-
-        <!-- Total -->
+        <button class="ch-apply-btn" id="ch-apply-btn" onclick="applyCharges()">✓ Appliquer</button>
         <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg3);margin-top:2px;">
           <div>
             <div style="font-weight:700;font-size:13px;">Total charges</div>
@@ -369,13 +422,10 @@ tfoot td:not(:first-child){text-align:right;}
           <span id="charges-total" style="font-family:var(--fd);font-size:16px;font-weight:700;color:var(--red);font-variant-numeric:tabular-nums;"></span>
         </div>
       </div>
-
     </div><!-- /left -->
 
     <!-- RIGHT -->
     <div class="right-col">
-
-      <!-- CHART CA -->
       <div class="chart-panel">
         <div class="chart-title">CA mensuel (FDJ) · <span id="chart-title-label">Jan–Oct 2024</span></div>
         <div class="chart-legend" id="chart-legend"></div>
@@ -383,30 +433,22 @@ tfoot td:not(:first-child){text-align:right;}
           <svg id="chart-ca" viewBox="0 0 800 220" width="800" height="220" style="max-width:100%;display:block;"></svg>
         </div>
       </div>
-
-      <!-- CHART NET -->
       <div class="chart-panel">
         <div class="chart-title">Résultat net mensuel (FDJ)</div>
         <div class="chart-wrap">
           <svg id="chart-net" viewBox="0 0 800 160" width="800" height="160" style="max-width:100%;display:block;"></svg>
         </div>
       </div>
-
-      <!-- TABLE MENSUEL -->
       <div class="panel">
         <div class="ph">📋 Tableau mensuel</div>
         <div class="tbl-wrap">
           <table>
-            <thead><tr>
-              <th>Mois</th><th>Dos.</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th><th>Statut</th>
-            </tr></thead>
+            <thead><tr><th>Mois</th><th>Dos.</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th><th>Statut</th></tr></thead>
             <tbody id="main-tbody"></tbody>
             <tfoot id="main-tfoot"></tfoot>
           </table>
         </div>
       </div>
-
-      <!-- TABLE DETAIL PAR COMPAGNIE -->
       <div class="panel">
         <div class="ph">🔍 Détail par compagnie</div>
         <div class="tab-row" id="detail-tabs">
@@ -419,26 +461,20 @@ tfoot td:not(:first-child){text-align:right;}
         </div>
         <div class="tbl-wrap" id="detail-tbl-wrap"></div>
       </div>
-
-      <!-- CHART TRESORERIE -->
       <div class="chart-panel">
         <div class="chart-title">📈 Cash cumulé sur la période (FDJ)</div>
         <div style="font-size:11px;color:var(--fg3);margin-bottom:8px;">Réserve de départ : 439 500 FDJ · Encaissement à 15 jours</div>
-        <div class="chart-legend">
-          <div class="leg-item"><span class="leg-dot" style="background:var(--blue)"></span>Méthode A</div>
-          <div class="leg-item"><span class="leg-dot" style="background:var(--purple)"></span>Méthode B</div>
-        </div>
+        <div class="chart-legend" id="treso-legend"></div>
         <div class="chart-wrap">
           <svg id="chart-treso" viewBox="0 0 800 180" width="800" height="180" style="max-width:100%;display:block;"></svg>
         </div>
       </div>
-
     </div><!-- /right-col -->
   </div><!-- /grid-2 -->
 </div><!-- /main -->
 
 <script>
-/* ═══════════════════════ DATA ═══════════════════════ */
+/* ═══════════ CONSTANTES ═══════════ */
 const RATE = 177.721;
 const RESERVE_DEPART = 439500;
 const HIST_MONTHS = ['Jan.','Fév.','Mars','Avr.','Mai','Juin','Juil.','Août','Sept.','Oct.'];
@@ -451,48 +487,63 @@ const AIRLINES = [
   {id:'eg', name:'EgyptAir',           short:'EgyptAir',  color:'#059669', hist:[0,0,0,0,0,0,3,35,10,7],         avgMois:14}
 ];
 
-/* ═══════════════════════ STATE ═══════════════════════ */
-let METHOD = 'A';
-let MODE   = 'historique';
+/* ═══════════ STATE ═══════════ */
+let MODE         = 'historique'; // historique | projection
+let TARIF_TYPE   = 'palier';     // palier | fixe
+let METHODE      = 'A';          // A | B  (seulement si palier)
+let UNITE        = 'dossier';    // dossier | valise
 let MONTHS_COUNT = 10;
-let currentTab = 'all';
+let currentTab   = 'all';
 let chargesEditing = false;
 
-const checked  = {}; AIRLINES.forEach(a => checked[a.id] = true);
-const projVol  = {}; AIRLINES.forEach(a => projVol[a.id] = a.avgMois);
+// Ratio valises/dossier (nb moyen de valises par dossier)
+const VALISES_PAR_DOSSIER = 1.6;
 
-// Charges state
-const ch = {
-  salaire:   70000,  // fixe
-  entretien: 10000,  // fixe
-  rateCarb:  350,    // FDJ par dossier (auto-calculé)
-  tel:       6500,   // éditable
-  reserve:   15000   // éditable
-};
-// carburant = rateCarb × totalDosiers (calculé à chaque recalc)
-let _currentDos = 132; // valeur courante mise à jour par recalc
+const checked = {}; AIRLINES.forEach(a => checked[a.id] = true);
+const projVol = {}; AIRLINES.forEach(a => projVol[a.id] = a.avgMois);
 
-function carburantAuto() { return ch.rateCarb * _currentDos; }
-function CHARGES()       { return ch.salaire + ch.entretien + carburantAuto() + ch.tel + ch.reserve; }
+const ch = { salaire:70000, entretien:10000, rateCarb:350, tel:6500, reserve:15000 };
+let _currentDos = 132;
 
-/* ═══════════════════════ PRICING ═══════════════════════ */
-function caA(d){if(d<=0)return 0;if(d<=50)return d*20*RATE;if(d<=70)return d*18*RATE;return d*15*RATE;}
-function caB(d){if(d<=0)return 0;if(d<=50)return d*20*RATE;if(d<=70)return 50*20*RATE+(d-50)*18*RATE;return 50*20*RATE+20*18*RATE+(d-70)*15*RATE;}
-function caFn(d){return METHOD==='A'?caA(d):caB(d);}
+function carburantAuto(){ return ch.rateCarb * _currentDos; }
+function CHARGES()      { return ch.salaire + ch.entretien + carburantAuto() + ch.tel + ch.reserve; }
 
-/* ═══════════════════════ FORMAT ═══════════════════════ */
-function fmt(n){return Math.round(n).toLocaleString('fr-FR');}
-function fmtK(n){const a=Math.abs(n),s=n<0?'−':'';if(a>=1e6)return s+(a/1e6).toFixed(2).replace('.',',')+' M';if(a>=1e3)return s+Math.round(a/1000)+' K';return s+fmt(a);}
+/* ═══════════ PRICING ═══════════ */
+// Palier par dossier
+function caA_dos(d){ if(d<=0)return 0; if(d<=50)return d*20*RATE; if(d<=70)return d*18*RATE; return d*15*RATE; }
+function caB_dos(d){ if(d<=0)return 0; if(d<=50)return d*20*RATE; if(d<=70)return 50*20*RATE+(d-50)*18*RATE; return 50*20*RATE+20*18*RATE+(d-70)*15*RATE; }
+// Palier par valise (même tranches mais comptées en valises)
+function caA_val(d){ const v=Math.round(d*VALISES_PAR_DOSSIER); if(v<=0)return 0; if(v<=50)return v*20*RATE; if(v<=70)return v*18*RATE; return v*15*RATE; }
+function caB_val(d){ const v=Math.round(d*VALISES_PAR_DOSSIER); if(v<=0)return 0; if(v<=50)return v*20*RATE; if(v<=70)return 50*20*RATE+(v-50)*18*RATE; return 50*20*RATE+20*18*RATE+(v-70)*15*RATE; }
+// Prix fixe
+function caFixe(d){
+  const prix = parseFloat(document.getElementById('inp-prix-fixe').value)||17;
+  const qte  = UNITE==='valise' ? Math.round(d*VALISES_PAR_DOSSIER) : d;
+  return qte * prix * RATE;
+}
 
-/* ═══════════════════════ BUILD ROWS ═══════════════════════ */
+function caFn(d){
+  if(TARIF_TYPE==='fixe') return caFixe(d);
+  if(UNITE==='valise') return METHODE==='A'?caA_val(d):caB_val(d);
+  return METHODE==='A'?caA_dos(d):caB_dos(d);
+}
+// Pour la courbe tréso on calcule toujours A et B
+function caTresoA(d){ return UNITE==='valise'?caA_val(d):caA_dos(d); }
+function caTresoB(d){ return TARIF_TYPE==='fixe'?caFn(d): (UNITE==='valise'?caB_val(d):caB_dos(d)); }
+
+/* ═══════════ FORMAT ═══════════ */
+function fmt(n){ return Math.round(n).toLocaleString('fr-FR'); }
+function fmtK(n){ const a=Math.abs(n),s=n<0?'−':''; if(a>=1e6)return s+(a/1e6).toFixed(2).replace('.',',')+' M'; if(a>=1e3)return s+Math.round(a/1000)+' K'; return s+fmt(a); }
+
+/* ═══════════ BUILD ROWS ═══════════ */
 function buildMonthRows(){
-  const active=AIRLINES.filter(a=>checked[a.id]);
-  const rows=[];
+  const active = AIRLINES.filter(a=>checked[a.id]);
+  const rows = [];
   if(MODE==='historique'){
-    const n=Math.min(MONTHS_COUNT,10);
+    const n = Math.min(MONTHS_COUNT,10);
     for(let mi=0;mi<n;mi++){
       let dos=0,ca=0;
-      active.forEach(al=>{dos+=al.hist[mi];ca+=caFn(al.hist[mi]);});
+      active.forEach(al=>{ dos+=al.hist[mi]; ca+=caFn(al.hist[mi]); });
       _currentDos=dos;
       const chg=CHARGES();
       rows.push({label:HIST_MONTHS[mi],dos,ca,chg,net:ca-chg,marge:ca>0?(ca-chg)/ca:0,
@@ -502,7 +553,7 @@ function buildMonthRows(){
     const LABELS=['M1','M2','M3','M4','M5','M6','M7','M8','M9','M10','M11','M12'];
     for(let mi=0;mi<MONTHS_COUNT;mi++){
       let dos=0,ca=0;
-      active.forEach(al=>{dos+=projVol[al.id];ca+=caFn(projVol[al.id]);});
+      active.forEach(al=>{ dos+=projVol[al.id]; ca+=caFn(projVol[al.id]); });
       _currentDos=dos;
       const chg=CHARGES();
       rows.push({label:LABELS[mi],dos,ca,chg,net:ca-chg,marge:ca>0?(ca-chg)/ca:0,
@@ -512,25 +563,40 @@ function buildMonthRows(){
   return rows;
 }
 
-/* ═══════════════════════ RECALC ═══════════════════════ */
+/* ═══════════ INFO BANNER ═══════════ */
+function updateBanner(){
+  const el=document.getElementById('info-banner');
+  const u=UNITE==='valise'?'valise':'dossier';
+  if(TARIF_TYPE==='palier'){
+    const m=METHODE==='A'?'Méthode A — tarif unique par palier':'Méthode B — tarif progressif (tranches cumulées)';
+    const paliers=`≤50 ${u}s → 20 $/u · 51–70 → 18 $/u · >70 → 15 $/u`;
+    el.innerHTML=`<strong>${m}</strong> · ${paliers.replace(/u/g,u)} <span style="opacity:.6">@ 177,721 FDJ/$</span>`;
+  } else {
+    const prix=parseFloat(document.getElementById('inp-prix-fixe').value)||17;
+    const valEq=UNITE==='valise'?` (= ${fmt(prix*VALISES_PAR_DOSSIER*RATE)} FDJ/${u})`:'';
+    el.innerHTML=`<strong>Prix fixe</strong> · ${prix} $ / ${u} = ${fmt(prix*RATE)} FDJ${valEq} <span style="opacity:.6">@ 177,721 FDJ/$</span>`;
+  }
+  document.getElementById('prix-fixe-unite').textContent=u;
+}
+
+/* ═══════════ RECALC ═══════════ */
 function recalc(){
+  updateBanner();
   const rows=buildMonthRows();
   const active=AIRLINES.filter(a=>checked[a.id]);
-
-  // moyenne des dos sur les mois pour le carburant
   const avgDos=rows.length?rows.reduce((s,r)=>s+r.dos,0)/rows.length:0;
   _currentDos=Math.round(avgDos);
-
   const totalDos=rows.reduce((s,r)=>s+r.dos,0);
   const totalCA =rows.reduce((s,r)=>s+r.ca,0);
   const totalNet=rows.reduce((s,r)=>s+r.net,0);
   const avgMarge=totalCA>0?totalNet/totalCA:0;
 
-  // KPIs
   document.getElementById('k-dos').textContent=fmt(totalDos);
   document.getElementById('k-dos-sub').textContent=rows.length+' mois · '+active.length+' cies';
   document.getElementById('k-ca').textContent=fmtK(totalCA)+' FDJ';
-  document.getElementById('k-ca-sub').textContent=rows.length+' mois · méth. '+METHOD;
+  const u=UNITE==='valise'?'val.':'dos.';
+  document.getElementById('k-ca-sub').textContent=rows.length+' mois · '+
+    (TARIF_TYPE==='fixe'?'prix fixe':`palier méth. ${METHODE}`)+' / '+u;
   const ne=document.getElementById('k-net');
   ne.textContent=(totalNet>=0?'+':'')+fmtK(totalNet)+' FDJ';
   ne.style.color=totalNet>=0?'var(--green)':'var(--red)';
@@ -538,20 +604,15 @@ function recalc(){
   const me=document.getElementById('k-marge');
   me.textContent=Math.round(avgMarge*100)+'%';
   me.style.color=avgMarge>.5?'var(--green)':avgMarge>.2?'var(--orange)':'var(--red)';
-
-  // charge KPI
   const chgMois=CHARGES();
   document.getElementById('k-charges').textContent=fmt(chgMois);
   document.getElementById('k-charges-sub').textContent='FDJ · carb. auto ('+_currentDos+' dos × '+fmt(ch.rateCarb)+')';
-
-  // chart title
   if(MODE==='historique'){
     const n=Math.min(MONTHS_COUNT,10);
     document.getElementById('chart-title-label').textContent=HIST_MONTHS[0]+'–'+HIST_MONTHS[n-1]+' 2024';
   } else {
     document.getElementById('chart-title-label').textContent='Projection '+MONTHS_COUNT+' mois';
   }
-
   updateChargesDisplay();
   renderCoBreakdown(active,rows);
   renderChartCA(active,rows);
@@ -561,7 +622,7 @@ function recalc(){
   renderTresoCumulChart(active);
 }
 
-/* ═══════════════════════ CHARGES DISPLAY ═══════════════════════ */
+/* ═══════════ CHARGES DISPLAY ═══════════ */
 function updateChargesDisplay(){
   const carbVal=carburantAuto();
   document.getElementById('disp-carburant').textContent=fmt(carbVal)+' FDJ';
@@ -569,33 +630,27 @@ function updateChargesDisplay(){
   document.getElementById('disp-reserve').textContent=fmt(ch.reserve)+' FDJ';
   const tot=CHARGES();
   document.getElementById('charges-total').textContent=fmt(tot)+' FDJ';
-  document.getElementById('ch-total-detail').textContent=
-    'Carb. '+fmt(carbVal)+' · Tel. '+fmt(ch.tel)+' · Rés. '+fmt(ch.reserve);
+  document.getElementById('ch-total-detail').textContent='Carb. '+fmt(carbVal)+' · Tel. '+fmt(ch.tel)+' · Rés. '+fmt(ch.reserve);
   document.getElementById('k-charges').textContent=fmt(tot);
 }
 
-/* ═══════════════════════ CHARGES EDIT ═══════════════════════ */
+/* ═══════════ CHARGES EDIT ═══════════ */
 function toggleChargesEdit(){
   chargesEditing=!chargesEditing;
   const btn=document.getElementById('charges-edit-btn');
   const applyBtn=document.getElementById('ch-apply-btn');
   const rateRow=document.getElementById('ch-rate-row');
-
-  // show/hide inputs
   document.querySelectorAll('.ch-input').forEach(i=>i.style.display=chargesEditing?'block':'none');
   document.querySelectorAll('#charges-rows .ch-val').forEach(v=>v.style.display=chargesEditing?'none':'block');
   document.querySelectorAll('#charges-rows .ch-auto').forEach(v=>v.style.display=chargesEditing?'none':'inline-flex');
   applyBtn.style.display=chargesEditing?'block':'none';
   rateRow.style.display=chargesEditing?'flex':'none';
-
   if(chargesEditing){
-    // pré-remplir
     document.getElementById('inp-carburant').value=Math.round(carburantAuto());
     document.getElementById('inp-tel').value=ch.tel;
     document.getElementById('inp-reserve').value=ch.reserve;
     document.getElementById('inp-rate-carb').value=ch.rateCarb;
     btn.textContent='✕ Annuler';btn.style.borderColor='var(--red)';btn.style.color='var(--red)';btn.style.background='var(--red-lt)';
-    // quand on modifie le taux → rafraîchir le champ carburant
     document.getElementById('inp-rate-carb').oninput=function(){
       ch.rateCarb=parseInt(this.value)||0;
       document.getElementById('inp-carburant').value=Math.round(carburantAuto());
@@ -604,17 +659,14 @@ function toggleChargesEdit(){
     btn.textContent='✏️ Modifier';btn.style.borderColor='var(--blue)';btn.style.color='var(--blue)';btn.style.background='var(--blue-lt)';
   }
 }
-
 function applyCharges(){
   ch.rateCarb=parseInt(document.getElementById('inp-rate-carb').value)||0;
   ch.tel     =parseInt(document.getElementById('inp-tel').value)||0;
   ch.reserve =parseInt(document.getElementById('inp-reserve').value)||0;
-  chargesEditing=true;
-  toggleChargesEdit();
-  recalc();
+  chargesEditing=true; toggleChargesEdit(); recalc();
 }
 
-/* ═══════════════════════ CO BREAKDOWN ═══════════════════════ */
+/* ═══════════ CO BREAKDOWN ═══════════ */
 function renderCoBreakdown(active,rows){
   const el=document.getElementById('co-breakdown');
   if(!active.length){el.innerHTML='<div style="padding:14px;color:var(--fg3);font-size:12px;">Aucune compagnie sélectionnée</div>';return;}
@@ -637,7 +689,7 @@ function renderCoBreakdown(active,rows){
   });
 }
 
-/* ═══════════════════════ CHART CA ═══════════════════════ */
+/* ═══════════ CHART CA ═══════════ */
 function renderChartCA(active,rows){
   const svg=document.getElementById('chart-ca');svg.innerHTML='';
   const W=800,H=220,PL=58,PR=12,PT=14,PB=28,cW=W-PL-PR,cH=H-PT-PB,n=rows.length;
@@ -660,7 +712,7 @@ function renderChartCA(active,rows){
   active.forEach(al=>{const d=document.createElement('div');d.className='leg-item';d.innerHTML=`<span class="leg-dot" style="background:${al.color}"></span>${al.short}`;legend.appendChild(d);});
 }
 
-/* ═══════════════════════ CHART NET ═══════════════════════ */
+/* ═══════════ CHART NET ═══════════ */
 function renderChartNet(rows){
   const svg=document.getElementById('chart-net');svg.innerHTML='';
   const W=800,H=160,PL=62,PR=12,PT=18,PB=24,cW=W-PL-PR,cH=H-PT-PB,n=rows.length;
@@ -681,7 +733,7 @@ function renderChartNet(rows){
   });
 }
 
-/* ═══════════════════════ MAIN TABLE ═══════════════════════ */
+/* ═══════════ MAIN TABLE ═══════════ */
 function renderMainTable(rows,totalDos,totalCA,totalNet){
   const tbody=document.getElementById('main-tbody');tbody.innerHTML='';
   rows.forEach(r=>{
@@ -695,11 +747,16 @@ function renderMainTable(rows,totalDos,totalCA,totalNet){
   document.getElementById('main-tfoot').innerHTML=`<tr><td>TOTAL</td><td>${fmt(totalDos)}</td><td class="td-ca">${fmtK(totalCA)}</td><td class="td-neg">−${fmtK(totalChg)}</td><td class="${totalNet>=0?'td-pos':'td-neg'}">${totalNet>=0?'+':''}${fmtK(totalNet)}</td><td style="color:${colM};font-weight:700">${avgM}%</td><td></td></tr>`;
 }
 
-/* ═══════════════════════ DETAIL TABLE ═══════════════════════ */
-function showTab(id,btn){currentTab=id;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderDetailTable(AIRLINES.filter(a=>checked[a.id]));}
-
+/* ═══════════ DETAIL TABLE ═══════════ */
+function showTab(id,btn){
+  currentTab=id;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderDetailTable(AIRLINES.filter(a=>checked[a.id]));
+}
 function renderDetailTable(active){
   const wrap=document.getElementById('detail-tbl-wrap');
+  const u=UNITE==='valise'?'val.':'dos.';
   if(currentTab==='all'){
     if(MODE==='historique'){
       const n=Math.min(MONTHS_COUNT,10);
@@ -715,10 +772,19 @@ function renderDetailTable(active){
       html+=`<tr style="font-weight:700"><td>TOTAL</td>${totByMonth.map(t=>`<td>${t}</td>`).join('')}<td>${totByMonth.reduce((s,v)=>s+v,0)}</td></tr></tbody></table>`;
       wrap.innerHTML=html;
     } else {
-      let html='<table><thead><tr><th>Compagnie</th><th>Vol./mois</th><th>CA/mois A</th><th>CA/mois B</th><th>CA total</th><th>Palier</th></tr></thead><tbody>';
+      let html=`<table><thead><tr><th>Compagnie</th><th>Vol./mois</th><th>CA/mois</th><th>CA total</th><th>Info tarif</th></tr></thead><tbody>`;
       active.forEach(al=>{
-        const d=projVol[al.id],pa=caA(d),pb=caB(d),palier=d<=50?'P1 (20$/dos)':d<=70?'P2 (18$/dos)':'P3 (15$/dos)';
-        html+=`<tr><td style="font-weight:600"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:5px;vertical-align:middle"></span>${al.short}</td><td>${d}</td><td class="td-ca">${fmt(pa)}</td><td class="td-ca">${fmt(pb)}</td><td class="td-ca">${fmt(pa*MONTHS_COUNT)}</td><td style="font-size:11px;color:var(--fg2)">${palier}</td></tr>`;
+        const d=projVol[al.id],ca=caFn(d);
+        let info='';
+        if(TARIF_TYPE==='palier'){
+          const v=UNITE==='valise'?Math.round(d*VALISES_PAR_DOSSIER):d;
+          info=v<=50?`P1 (20$/u)`:v<=70?`P2 (18$/u)`:`P3 (15$/u)`;
+          info=info.replace('/u',`/${u}`);
+        } else {
+          const prix=parseFloat(document.getElementById('inp-prix-fixe').value)||17;
+          info=`${prix}$ / ${u}`;
+        }
+        html+=`<tr><td style="font-weight:600"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:5px;vertical-align:middle"></span>${al.short}</td><td>${d}</td><td class="td-ca">${fmt(ca)}</td><td class="td-ca">${fmt(ca*MONTHS_COUNT)}</td><td style="font-size:11px;color:var(--fg2)">${info}</td></tr>`;
       });
       wrap.innerHTML=html+'</tbody></table>';
     }
@@ -726,22 +792,22 @@ function renderDetailTable(active){
     const al=AIRLINES.find(a=>a.id===currentTab);if(!al){wrap.innerHTML='';return;}
     if(MODE==='historique'){
       const n=Math.min(MONTHS_COUNT,10);
-      let html='<table><thead><tr><th>Mois</th><th>Dos.</th><th>CA A</th><th>CA B</th><th>Charges</th><th>Net A</th><th>Net B</th></tr></thead><tbody>';
+      let html='<table><thead><tr><th>Mois</th><th>Dos.</th><th>CA</th><th>Charges</th><th>Net</th><th>Marge</th></tr></thead><tbody>';
       al.hist.slice(0,n).forEach((d,mi)=>{
-        const a=caA(d),b=caB(d);
+        const ca=caFn(d);
         _currentDos=d;
-        const chg=CHARGES(),nA=a-chg,nB=b-chg;
-        html+=`<tr><td class="td-m">${HIST_MONTHS[mi]}</td><td>${d||'—'}</td><td class="td-ca">${d?fmt(a):'—'}</td><td class="td-ca">${d?fmt(b):'—'}</td><td class="td-neg">${d?'−'+fmt(chg):'—'}</td><td class="${nA>=0?'td-pos':'td-neg'}">${d?(nA>=0?'+':'')+fmt(nA):'—'}</td><td class="${nB>=0?'td-pos':'td-neg'}">${d?(nB>=0?'+':'')+fmt(nB):'—'}</td></tr>`;
+        const chg=CHARGES(),net=ca-chg,pct=ca>0?Math.round(net/ca*100):0;
+        html+=`<tr><td class="td-m">${HIST_MONTHS[mi]}</td><td>${d||'—'}</td><td class="td-ca">${d?fmt(ca):'—'}</td><td class="td-neg">${d?'−'+fmt(chg):'—'}</td><td class="${net>=0?'td-pos':'td-neg'}">${d?(net>=0?'+':'')+fmt(net):'—'}</td><td style="color:${pct>=50?'var(--green)':pct>=20?'var(--orange)':'var(--red)'};font-weight:600">${d?pct+'%':'—'}</td></tr>`;
       });
       const totDos=al.hist.slice(0,n).reduce((s,d)=>s+d,0);
       const actM=al.hist.slice(0,n).filter(d=>d>0).length;
-      const tA=al.hist.slice(0,n).reduce((s,d)=>s+caA(d),0),tB=al.hist.slice(0,n).reduce((s,d)=>s+caB(d),0);
+      const tCA=al.hist.slice(0,n).reduce((s,d)=>s+caFn(d),0);
       _currentDos=Math.round(totDos/actM||0);const totalChg=CHARGES()*actM;
-      html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${totDos}</td><td class="td-ca">${fmt(tA)}</td><td class="td-ca">${fmt(tB)}</td><td class="td-neg">−${fmt(totalChg)}</td><td class="${tA-totalChg>=0?'td-pos':'td-neg'}">${tA-totalChg>=0?'+':''}${fmt(tA-totalChg)}</td><td class="${tB-totalChg>=0?'td-pos':'td-neg'}">${tB-totalChg>=0?'+':''}${fmt(tB-totalChg)}</td></tr></tfoot></table>`;
+      html+=`</tbody><tfoot><tr><td>TOTAL</td><td>${totDos}</td><td class="td-ca">${fmt(tCA)}</td><td class="td-neg">−${fmt(totalChg)}</td><td class="${tCA-totalChg>=0?'td-pos':'td-neg'}">${tCA-totalChg>=0?'+':''}${fmt(tCA-totalChg)}</td><td></td></tr></tfoot></table>`;
       wrap.innerHTML=html;
     } else {
-      const d=projVol[al.id],palier=d<=50?'P1 (≤50 dos → 20$/dos)':d<=70?'P2 (51–70 → 18$/dos)':'P3 (>70 → 15$/dos)';
-      let html=`<div style="padding:10px 14px;font-size:12px;color:var(--fg2);border-bottom:1px solid var(--border)">Volume : <strong>${d} dos/mois</strong> · ${palier}</div>`;
+      const d=projVol[al.id];
+      let html=`<div style="padding:10px 14px;font-size:12px;color:var(--fg2);border-bottom:1px solid var(--border)">Volume : <strong>${d} dos/mois</strong></div>`;
       html+='<table><thead><tr><th>Mois</th><th>Dos.</th><th>CA (FDJ)</th><th>Charges</th><th>Net (FDJ)</th><th>Marge</th></tr></thead><tbody>';
       _currentDos=d;
       for(let mi=0;mi<MONTHS_COUNT;mi++){
@@ -755,7 +821,7 @@ function renderDetailTable(active){
   }
 }
 
-/* ═══════════════════════ TRÉSO CHART ═══════════════════════ */
+/* ═══════════ TRÉSO CHART ═══════════ */
 function renderTresoCumulChart(active){
   const svg=document.getElementById('chart-treso');svg.innerHTML='';
   const W=800,H=180,PL=68,PR=12,PT=14,PB=24,cW=W-PL-PR,cH=H-PT-PB;
@@ -769,28 +835,42 @@ function renderTresoCumulChart(active){
     }
     return pts;
   }
-  const ptsA=buildCash(caA),ptsB=buildCash(caB);
-  const allVals=[...ptsA,...ptsB,0],minV=Math.min(...allVals),maxV=Math.max(...allVals),range=maxV-minV||1,n=ptsA.length;
+  const ptsA=buildCash(caTresoA),ptsB=buildCash(caTresoB);
+  const useSingle=TARIF_TYPE==='fixe'; // si prix fixe, A=B
+  const allVals=[...ptsA,...(useSingle?[]:[...ptsB]),0],minV=Math.min(...allVals),maxV=Math.max(...allVals),range=maxV-minV||1,n=ptsA.length;
   if(!n)return;
   const toY=v=>PT+cH-((v-minV)/range)*cH,toX=i=>PL+i*(cW/(n-1||1));
   if(minV<0&&maxV>0){const zy=toY(0);svgLine(svg,PL,W-PR,zy,zy,'var(--border)','1','4,4');putText(svg,PL-4,zy+4,'0','var(--fg3)',9,'end');}
   for(let i=0;i<=3;i++){const v=minV+i/3*range,y=toY(v);svgLine(svg,PL,W-PR,y,y,'var(--border)','.8');putText(svg,PL-4,y+4,fmtK(v),'var(--fg3)',9,'end');}
-  [['A',ptsA,'var(--blue)'],['B',ptsB,'var(--purple)']].forEach(([lbl,pts,col])=>{
+  const curves=useSingle?[['',ptsA,'var(--blue)']]:[ ['A',ptsA,'var(--blue)'],['B',ptsB,'var(--purple)'] ];
+  curves.forEach(([lbl,pts,col])=>{
     if(n>=2){const ptStr=pts.map((v,i)=>`${toX(i)},${toY(v)}`).join(' ');const poly=svgEl('polyline');poly.setAttribute('points',ptStr);poly.setAttribute('stroke',col);poly.setAttribute('stroke-width','2.5');poly.setAttribute('fill','none');svg.appendChild(poly);}
-    pts.forEach((v,i)=>{const c=svgEl('circle');c.setAttribute('cx',toX(i));c.setAttribute('cy',toY(v));c.setAttribute('r','3.5');c.setAttribute('fill',col);const t=svgEl('title');t.textContent=`M${i+1} Méth.${lbl}: ${fmt(v)} FDJ`;c.appendChild(t);svg.appendChild(c);});
-    if(lbl==='A')pts.forEach((_,i)=>putText(svg,toX(i),H-5,'M'+(i+1),'var(--fg3)',8,'middle'));
+    pts.forEach((v,i)=>{const c=svgEl('circle');c.setAttribute('cx',toX(i));c.setAttribute('cy',toY(v));c.setAttribute('r','3.5');c.setAttribute('fill',col);const t=svgEl('title');t.textContent=`M${i+1}${lbl?' Méth.'+lbl:''}: ${fmt(v)} FDJ`;c.appendChild(t);svg.appendChild(c);});
+    if(lbl===''||lbl==='A')pts.forEach((_,i)=>putText(svg,toX(i),H-5,'M'+(i+1),'var(--fg3)',8,'middle'));
   });
+  const leg=document.getElementById('treso-legend');leg.innerHTML='';
+  if(useSingle){
+    leg.innerHTML='<div class="leg-item"><span class="leg-dot" style="background:var(--blue)"></span>Prix fixe</div>';
+  } else {
+    leg.innerHTML='<div class="leg-item"><span class="leg-dot" style="background:var(--blue)"></span>Méthode A</div><div class="leg-item"><span class="leg-dot" style="background:var(--purple)"></span>Méthode B</div>';
+  }
 }
 
-/* ═══════════════════════ SLIDER PANEL ═══════════════════════ */
+/* ═══════════ SLIDER PANEL ═══════════ */
 function renderSliderPanel(){
   const el=document.getElementById('slider-list');el.innerHTML='';
   AIRLINES.forEach(al=>{
-    const on=checked[al.id],v=projVol[al.id],palier=v<=50?'P1':v<=70?'P2':'P3',pCol=v<=50?'var(--blue)':v<=70?'var(--orange)':'var(--green)';
+    const on=checked[al.id],v=projVol[al.id];
+    let badge='',bCol='var(--blue)';
+    if(TARIF_TYPE==='palier'){
+      const qte=UNITE==='valise'?Math.round(v*VALISES_PAR_DOSSIER):v;
+      badge=qte<=50?'P1':qte<=70?'P2':'P3';
+      bCol=qte<=50?'var(--blue)':qte<=70?'var(--orange)':'var(--green)';
+    }
     el.innerHTML+=`<div class="co-slider-row" style="opacity:${on?1:.4};pointer-events:${on?'auto':'none'}">
       <div class="co-sl-top">
         <span class="co-sl-label"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${al.color};margin-right:4px;vertical-align:middle"></span>${al.short}</span>
-        <span style="font-size:10px;color:${pCol};font-weight:700;padding:1px 6px;border-radius:4px;background:${pCol}22">${palier}</span>
+        ${badge?`<span style="font-size:10px;color:${bCol};font-weight:700;padding:1px 6px;border-radius:4px;background:${bCol}22">${badge}</span>`:''}
         <input type="number" id="vol-num-${al.id}" value="${v}" min="0" max="200" step="1" style="width:58px;" oninput="syncVol('${al.id}','num')">
         <span style="font-size:10px;color:var(--fg3)">dos</span>
       </div>
@@ -804,7 +884,7 @@ function syncVol(id,src){
   projVol[id]=parseInt(n.value)||0;recalc();renderSliderPanel();
 }
 
-/* ═══════════════════════ AL CHIPS ═══════════════════════ */
+/* ═══════════ AL CHIPS ═══════════ */
 function renderAlChips(){
   const el=document.getElementById('al-checks');el.innerHTML='';
   AIRLINES.forEach(al=>{
@@ -816,21 +896,16 @@ function renderAlChips(){
   });
 }
 
-/* ═══════════════════════ SVG HELPERS ═══════════════════════ */
+/* ═══════════ SVG HELPERS ═══════════ */
 function svgEl(t){return document.createElementNS('http://www.w3.org/2000/svg',t);}
 function svgLine(svg,x1,x2,y1,y2,stroke,sw,dash){const l=svgEl('line');l.setAttribute('x1',x1);l.setAttribute('x2',x2);l.setAttribute('y1',y1);l.setAttribute('y2',y2);l.setAttribute('stroke',stroke);l.setAttribute('stroke-width',sw||'1');if(dash)l.setAttribute('stroke-dasharray',dash);svg.appendChild(l);}
 function putText(svg,x,y,text,fill,size,anchor){const t=svgEl('text');t.setAttribute('x',x);t.setAttribute('y',y);t.setAttribute('fill',fill);t.setAttribute('font-size',size||10);t.setAttribute('text-anchor',anchor||'start');t.setAttribute('font-family','Inter,system-ui,sans-serif');t.textContent=text;svg.appendChild(t);}
 
-/* ═══════════════════════ MODE / METHOD / MONTHS ═══════════════════════ */
-function setMethod(m,btn){
-  METHOD=m;document.querySelectorAll('#method-tog .tog-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
-  document.getElementById('method-info').innerHTML=m==='A'
-    ?'<strong>Méthode A</strong> — Tarif unique par palier : ≤50 dos → 20 $/dos · 51–70 → 18 $/dos · >70 → 15 $/dos (@ 177,721 FDJ/USD)'
-    :'<strong>Méthode B (progressive)</strong> — Tranches cumulées : 50 × 20$ + 20 × 18$ + reste × 15$. Toujours ≥ Méthode A.';
-  recalc();
-}
-function setMode(mode,btn){
-  MODE=mode;document.querySelectorAll('#mode-tog .tog-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+/* ═══════════ SETTERS ═══════════ */
+function setScene(mode,btn){
+  MODE=mode;
+  document.querySelectorAll('.scen-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
   const sp=document.getElementById('slider-panel');
   if(mode==='projection'){
     sp.style.display='';renderSliderPanel();
@@ -842,16 +917,38 @@ function setMode(mode,btn){
   }
   recalc();
 }
+function setTarifType(type,btn){
+  TARIF_TYPE=type;
+  document.querySelectorAll('#seg-type .tarif-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  // Méthode A/B visible seulement si palier
+  document.getElementById('seg-methode').style.display=type==='palier'?'flex':'none';
+  // Champ prix fixe visible seulement si fixe
+  document.getElementById('prix-fixe-wrap').classList.toggle('show',type==='fixe');
+  recalc();
+}
+function setMethode(m,btn){
+  METHODE=m;
+  document.querySelectorAll('#seg-methode .tarif-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  recalc();
+}
+function setUnite(u,btn){
+  UNITE=u;
+  document.querySelectorAll('#seg-unite .tarif-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');
+  if(MODE==='projection') renderSliderPanel();
+  recalc();
+}
 function setMonths(n,btn){
   if(MODE==='historique'&&n>10)return;
   MONTHS_COUNT=n;document.querySelectorAll('.mth-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');recalc();
 }
 
-/* ═══════════════════════ INIT ═══════════════════════ */
+/* ═══════════ INIT ═══════════ */
 renderAlChips();
 document.querySelectorAll('.mth-btn').forEach((b,i)=>{
   const m=i+1;b.classList.toggle('on',m===10);b.disabled=m>10;b.style.opacity=m>10?'0.28':'1';
 });
+// Méthode B cachée au départ (palier actif, donc visible par défaut)
+// Prix fixe caché au départ
 recalc();
 </script>
 </body>
