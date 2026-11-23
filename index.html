@@ -2062,7 +2062,8 @@ function dbCalc(){
     if(isProfitable&&beMonth===m) tr.className='be-row';
     const netSign=net>=0?'+':'−';
     const cumulSign=cumul>=0?'+':'−';
-    const badgeHTML=cumul>=0
+    // Badge : basé sur le NET mensuel (pas le cumulé qui inclut le capital)
+    const badgeHTML=net>=0
       ?'<span class="db-badge db-badge-ok">✓ Rentable</span>'
       :'<span class="db-badge db-badge-bad">⊘ Déficit</span>';
     tr.innerHTML=
@@ -2077,18 +2078,22 @@ function dbCalc(){
     tbody.appendChild(tr);
   }
 
-  // Banner
+  // Banner : basée sur le NET mensuel (rentabilité opérationnelle réelle)
   const banner=document.getElementById('db-be-banner');
   const msg=document.getElementById('db-be-msg');
   if(!banner||!msg) return;
+  // Calcul mois d'épuisement du capital si déficitaire
+  const moisEpuisement = netMensuel < 0 ? Math.floor(capital / Math.abs(netMensuel)) : null;
   if(totalDos===0){
     banner.className='db-be-banner warn'; msg.textContent='Sélectionnez au moins une compagnie pour voir les projections.';
-  } else if(beMonth===1){
-    banner.className='db-be-banner ok'; msg.textContent='✅ Projet rentable dès le mois 1 avec cette configuration.';
-  } else if(beMonth>1){
-    banner.className='db-be-banner warn'; msg.textContent='⚠ Équilibre atteint au mois '+beMonth+' — cumulé positif à partir de ce mois.';
+  } else if(netMensuel>=0){
+    banner.className='db-be-banner ok'; msg.textContent='✅ Opération rentable — CA couvre les charges chaque mois.';
   } else {
-    banner.className='db-be-banner bad'; msg.textContent='⛔ Déficitaire sur l\'horizon sélectionné — augmentez le prix ou les volumes.';
+    // Déficitaire : capital s'épuise
+    const texteEpuis = moisEpuisement !== null
+      ? ' Capital épuisé en ~'+moisEpuisement+' mois.'
+      : '';
+    banner.className='db-be-banner bad'; msg.textContent='⛔ Déficitaire : '+fmtSpace(Math.abs(netMensuel))+' FDJ de perte/mois.'+texteEpuis+' Augmentez le prix ou les volumes.';
   }
 }
 // Init
